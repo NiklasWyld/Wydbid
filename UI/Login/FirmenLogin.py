@@ -26,6 +26,16 @@ class FirmenLogin(QWidget):
         self.setupMenuBar()
         self.repaint()
 
+    def closeEvent(self, event: QCloseEvent):
+        reply = QMessageBox.question(self, 'Bist du sicher?', 'Bist du sicher, Wydbid beenden möchtest?',
+                                     QMessageBox.Yes, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            sys.exit(0)
+        else:
+            event.ignore()
+            pass
+
     def addItemsToFirma(self):
         FirmenLoginLogic.addItems(self.firma)
 
@@ -91,7 +101,7 @@ class FirmenLogin(QWidget):
         del_company.triggered.connect(self.startDelFirma)
         change_company_password.triggered.connect(self.startChangeFirmenPasswort)
         reset.triggered.connect(Wydbid.reset)
-        close.triggered.connect(exit)
+        close.triggered.connect(sys.exit)
 
         file.addAction(create_company)
         file.addAction(del_company)

@@ -17,7 +17,7 @@ def login(firmenlogin: QWidget, firma: QComboBox, password: str):
     firma: Firma.Firma = firma.currentData()
 
     if password == firma.passwort:
-        Wydbid.firmen_location = f'{Wydbid.location}{firma.id}/'
+        Wydbid.firmen_location = f'{Wydbid.location}Firmen/{firma.id}/'
         Wydbid.firma = firma
 
         firmenlogin.hide()

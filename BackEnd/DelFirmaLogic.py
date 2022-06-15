@@ -1,5 +1,6 @@
 import os
 import pickle
+import sys
 from PyQt5.QtWidgets import QComboBox, QMessageBox, QWidget
 from Data import Firma
 import shutil
@@ -45,7 +46,7 @@ def delFirmaFinal(file: str, widget: QWidget):
         return
 
     elif m == QMessageBox.Yes:
-        exit(0)
+        sys.exit(0)
 
 def getFirma(firma_box: QComboBox, passwort: str, widget: QWidget):
     firma: Firma.Firma = firma_box.currentData()[0]

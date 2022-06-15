@@ -17,9 +17,6 @@ app = QApplication(sys.argv)
 firmen_login = None
 mitarbeiter_login = None
 
-# ToDo: Frage bei schließen
-# ToDo: New Icon
-
 def reset():
     m = QMessageBox.question(app.parent(),
                              'Sicher?',
@@ -44,7 +41,7 @@ def reset():
         q.setDefaultButton(QMessageBox.StandardButton.Ok)
         q.exec_()
 
-        exit(0)
+        sys.exit(0)
 
 def buildLocation():
     if os.path.exists(location): pass
@@ -62,6 +59,9 @@ def buildLocation():
 
 if __name__ == '__main__':
     buildLocation()
+
+    # Set icon for all widgets
+    app.setWindowIcon(QIcon('Icon.jpeg'))
 
     firmen_login = FirmenLogin.FirmenLogin()
     firmen_login.showMaximized()

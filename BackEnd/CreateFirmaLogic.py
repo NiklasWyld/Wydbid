@@ -1,4 +1,5 @@
 import pickle
+import sys
 from PyQt5.QtWidgets import QMessageBox, QWidget
 from UI.Login import FirmenLogin
 from UI.Prefabs import CreateFirma
@@ -31,7 +32,7 @@ def writeFirma(id: int, name: str, passwort: str, widget: QWidget):
         return
 
     elif m == QMessageBox.Yes:
-        exit(0)
+        sys.exit(0)
 
 def getFirma(id: str, name: str, passwort: str, widget: QWidget):
     if id == '':
@@ -51,7 +52,6 @@ def getFirma(id: str, name: str, passwort: str, widget: QWidget):
         return
 
     id = int(id)
-    # ToDo: Passwort verschluesseln
     passwort = passwort
 
     writeFirma(id, name, passwort, widget)

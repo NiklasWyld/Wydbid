@@ -1,8 +1,10 @@
+import sys
 import time
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from BackEnd import MitarbeiterLoginLogic
+from UI.Prefabs import CreateMitarbeiter
 
 class MitarbeiterLogin(QWidget):
     def __init__(self, *args, **kwargs):
@@ -14,9 +16,21 @@ class MitarbeiterLogin(QWidget):
         self.setWindowTitle('Wydbid - Mitarbeiter-Login')
         self.setGeometry(0, 0, 1920, 1080)
 
+        self.cm = CreateMitarbeiter.CreateMitarbeiter()
+
         self.setupUI()
         self.setupMenuBar()
         self.repaint()
+
+    def closeEvent(self, event: QCloseEvent):
+        reply = QMessageBox.question(self, 'Bist du sicher?', 'Bist du sicher, Wydbid beenden möchtest?',
+                                     QMessageBox.Yes, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            sys.exit(0)
+        else:
+            event.ignore()
+            pass
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop| Qt.AlignHCenter)
@@ -56,25 +70,39 @@ class MitarbeiterLogin(QWidget):
     
     def logoutCompany(self):
         MitarbeiterLoginLogic.logoutCompany(mitarbeiter_login_widget=self)
-    
+
+    def startCreateMitarbeiter(self):
+        self.cm.clear()
+        self.cm.show()
+
+    def startDelMitarbeiter(self):
+        pass
+
+    def startChangeMitarbeiterPasswort(self):
+        pass
+
     def setupMenuBar(self):
         self.menubar = QMenuBar(parent=self)
 
         file = QMenu(parent=self.menubar, title='Wydbid')
 
-        create_company = QAction('Mitarbeiter erstellen', self)
-        del_company = QAction('Mitarbeiter löschen', self)
+        create_mitarbeiter = QAction('Mitarbeiter erstellen', self)
+        del_mitarbeiter = QAction('Mitarbeiter löschen', self)
+        change_mitarbeiter_passwort = QAction('Mitarbeiterpasswort ändern', self)
         logout_company = QAction('Firma abmelden', self)
         close = QAction('Beenden', self)
 
-        # ToDo: Add Mitarbeiter erstellen
-        # ToDo: Add Mitarbeiter loeschen
-        # ToDo: Add Mitarbeiter Passwort aendern
+        create_mitarbeiter.triggered.connect(self.startCreateMitarbeiter)
+        # ToDo: Del Mitarbeiter
+        del_mitarbeiter.triggered.connect(self.startDelMitarbeiter)
+        # ToDo: change_mitarbeiter_passwort
+        change_mitarbeiter_passwort.triggered.connect(self.startChangeMitarbeiterPasswort)
         logout_company.triggered.connect(self.logoutCompany)
-        close.triggered.connect(exit)
+        close.triggered.connect(sys.exit)
 
-        file.addAction(create_company)
-        file.addAction(del_company)
+        file.addAction(create_mitarbeiter)
+        file.addAction(del_mitarbeiter)
+        file.addAction(change_mitarbeiter_passwort)
         file.addSeparator()
         file.addAction(logout_company)
         file.addSeparator()
