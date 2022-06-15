@@ -3,13 +3,22 @@ import sys
 import os
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
-from UI.Login import FirmenLogin
 from CustomQt import MessageBox
+from UI.Login import FirmenLogin
 
 location = './Daten/'
-# Muss bei Login gesetzt werden
+# Must be set at login
 firmen_location = ''
+firma = None
+
 app = QApplication(sys.argv)
+
+# Variables that are set during runtime
+firmen_login = None
+mitarbeiter_login = None
+
+# ToDo: Frage bei schließen
+# ToDo: New Icon
 
 def reset():
     m = QMessageBox.question(app.parent(),
@@ -35,7 +44,7 @@ def reset():
         q.setDefaultButton(QMessageBox.StandardButton.Ok)
         q.exec_()
 
-        exit()
+        exit(0)
 
 def buildLocation():
     if os.path.exists(location): pass
@@ -43,16 +52,18 @@ def buildLocation():
 
     if os.path.exists(f'{location}Firmen'): pass
     else: os.makedirs(f'{location}Firmen')
+
+    if os.path.exists(f'{location}README.txt'): pass
+    else: open(f'{location}WICHTIG.txt', 'w').write('Achtung!\n'
+                                                   'Loeschen oder verschieben Sie diesen Ordner auf keinen Fall! Sonst werden Daten, wie Firmen, Mitarbeiter, Kunden, ... nicht mehr funktionieren!\n'
+                                                   'Loeschen Sie Datein oder Ordner aus diesen Ordner nur, wenn Sie genau wissen, was Sie wollen und was Sie tun!')
+
     # ...
 
-def main():
+if __name__ == '__main__':
     buildLocation()
 
     firmen_login = FirmenLogin.FirmenLogin()
-    firmen_login.show()
+    firmen_login.showMaximized()
 
     sys.exit(app.exec_())
-
-
-if __name__ == '__main__':
-    main()

@@ -1,15 +1,17 @@
 import pickle
 from PyQt5.QtWidgets import QMessageBox, QWidget
-import Wydbid
 from UI.Login import FirmenLogin
 from UI.Prefabs import CreateFirma
 from Data import Firma
 import os
+import Wydbid
 
 def writeFirma(id: int, name: str, passwort: str, widget: QWidget):
     location = Wydbid.location
+
     '''try: firma_file = open(f'{location}Firmen/{str(id)}.wbf', 'wb')
     except: open(f'{location}Firmen/{str(id)}.wbf', 'x')'''
+
     os.makedirs(f'{location}Firmen/{str(id)}/')
     firma_file = open(f'{location}Firmen/{str(id)}/{str(id)}.wbf', 'wb')
     firma = Firma.Firma(id, name, passwort)
@@ -29,7 +31,7 @@ def writeFirma(id: int, name: str, passwort: str, widget: QWidget):
         return
 
     elif m == QMessageBox.Yes:
-        exit()
+        exit(0)
 
 def getFirma(id: str, name: str, passwort: str, widget: QWidget):
     if id == '':
@@ -49,7 +51,7 @@ def getFirma(id: str, name: str, passwort: str, widget: QWidget):
         return
 
     id = int(id)
-    # Passwort verschluesseln
+    # ToDo: Passwort verschluesseln
     passwort = passwort
 
     writeFirma(id, name, passwort, widget)

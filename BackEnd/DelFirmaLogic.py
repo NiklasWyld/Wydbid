@@ -1,9 +1,9 @@
 import os
 import pickle
 from PyQt5.QtWidgets import QComboBox, QMessageBox, QWidget
-import Wydbid
 from Data import Firma
 import shutil
+import Wydbid
 
 def addItems(firma_liste: QComboBox):
     l = f'{Wydbid.location}Firmen/'
@@ -45,7 +45,7 @@ def delFirmaFinal(file: str, widget: QWidget):
         return
 
     elif m == QMessageBox.Yes:
-        exit()
+        exit(0)
 
 def getFirma(firma_box: QComboBox, passwort: str, widget: QWidget):
     firma: Firma.Firma = firma_box.currentData()[0]
