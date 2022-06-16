@@ -4,7 +4,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from BackEnd import MitarbeiterLoginLogic
-from UI.Prefabs import CreateMitarbeiter
+from UI.Prefabs import CreateMitarbeiter, DelMitarbeiter
+
 
 class MitarbeiterLogin(QWidget):
     def __init__(self, *args, **kwargs):
@@ -17,6 +18,7 @@ class MitarbeiterLogin(QWidget):
         self.setGeometry(0, 0, 1920, 1080)
 
         self.cm = CreateMitarbeiter.CreateMitarbeiter()
+        self.dm = DelMitarbeiter.DelMitarbeiter()
 
         self.setupUI()
         self.setupMenuBar()
@@ -76,7 +78,8 @@ class MitarbeiterLogin(QWidget):
         self.cm.show()
 
     def startDelMitarbeiter(self):
-        pass
+        self.dm.show()
+        self.dm.clear()
 
     def startChangeMitarbeiterPasswort(self):
         pass
@@ -93,7 +96,6 @@ class MitarbeiterLogin(QWidget):
         close = QAction('Beenden', self)
 
         create_mitarbeiter.triggered.connect(self.startCreateMitarbeiter)
-        # ToDo: Del Mitarbeiter
         del_mitarbeiter.triggered.connect(self.startDelMitarbeiter)
         # ToDo: change_mitarbeiter_passwort
         change_mitarbeiter_passwort.triggered.connect(self.startChangeMitarbeiterPasswort)

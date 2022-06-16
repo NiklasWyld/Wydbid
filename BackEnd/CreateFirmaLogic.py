@@ -10,6 +10,10 @@ import Wydbid
 def writeFirma(id: int, name: str, passwort: str, widget: QWidget):
     location = Wydbid.location
 
+    if os.path.exists(f'{location}Firmen/{str(id)}/'):
+        QMessageBox.warning(Wydbid.app.parent(), 'Achtung', 'Eine Firma mit dieser ID existiert bereits!')
+        return
+
     '''try: firma_file = open(f'{location}Firmen/{str(id)}.wbf', 'wb')
     except: open(f'{location}Firmen/{str(id)}.wbf', 'x')'''
 
@@ -23,7 +27,7 @@ def writeFirma(id: int, name: str, passwort: str, widget: QWidget):
 
     m = QMessageBox.question(Wydbid.app.parent(),
                              'Wydbid neustarten',
-                             'Achtung, um dich in die neue Firma einzuloggen, muessen Sie zuerst das Programm neustarten! Wollen sie Wydbid neustarten?',
+                             'Achtung, um dich in die neue Firma einzuloggen, muessen Sie zuerst das Programm neustarten! Wollen Sie Wydbid neustarten?',
                              QMessageBox.Yes,
                              QMessageBox.No)
 

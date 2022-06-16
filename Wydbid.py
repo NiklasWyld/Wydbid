@@ -6,6 +6,9 @@ from PyQt5.QtWidgets import *
 from CustomQt import MessageBox
 from UI.Login import FirmenLogin
 
+# Future: Schau ob Daten Datei schon existiert (Erstellen)
+# Future: Schau ob Daten Datei ueberhaupt existiert (Login, ...)
+
 location = './Daten/'
 # Must be set at login
 firmen_location = ''

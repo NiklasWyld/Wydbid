@@ -12,7 +12,8 @@ def addItems(firma_liste: QComboBox):
 
     for folder in os.listdir(l):
         for file in os.listdir(l + folder):
-            files.append(f'{l}{folder}/{file}')
+            if file.endswith('.wbf'):
+                files.append(f'{l}{folder}/{file}')
 
     for n_file in files:
         try: n = open(n_file, 'rb')
@@ -37,7 +38,7 @@ def delFirmaFinal(file: str, widget: QWidget):
 
     m = QMessageBox.question(Wydbid.app.parent(),
                              'Wydbid neustarten',
-                             'Achtung, um die Änderungen auszuführen, müssen Sie Wydbid neustarten! Wollen sie jetzt neustarten?',
+                             'Achtung, um die Änderungen auszuführen, müssen Sie Wydbid neustarten! Wollen Sie jetzt neustarten?',
                              QMessageBox.Yes,
                              QMessageBox.No)
 
