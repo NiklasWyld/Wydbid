@@ -6,13 +6,13 @@ from PyQt5.QtWidgets import *
 from CustomQt import MessageBox
 from UI.Login import FirmenLogin
 
-# Future: Schau ob Daten Datei schon existiert (Erstellen)
-# Future: Schau ob Daten Datei ueberhaupt existiert (Login, ...)
+# ToDo: Continue with Enter for all text fields
 
 location = './Daten/'
 # Must be set at login
 firmen_location = ''
 firma = None
+mitarbeiter = None
 
 app = QApplication(sys.argv)
 
@@ -45,6 +45,9 @@ def reset():
         q.exec_()
 
         sys.exit(0)
+
+def close():
+    sys.exit(0)
 
 def buildLocation():
     if os.path.exists(location): pass

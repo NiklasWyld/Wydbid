@@ -101,7 +101,7 @@ class FirmenLogin(QWidget):
         del_company.triggered.connect(self.startDelFirma)
         change_company_password.triggered.connect(self.startChangeFirmenPasswort)
         reset.triggered.connect(Wydbid.reset)
-        close.triggered.connect(sys.exit)
+        close.triggered.connect(Wydbid.close)
 
         file.addAction(create_company)
         file.addAction(del_company)

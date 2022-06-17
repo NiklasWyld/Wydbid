@@ -1,7 +1,10 @@
-from PyQt5.QtWidgets import QWidget
+import os
+import pickle
+from PyQt5.QtWidgets import QWidget, QMessageBox
 from UI.Login import MitarbeiterLogin
 import Wydbid
 from UI.Login import FirmenLogin
+from Data import Mitarbeiter
 
 def logoutCompany(mitarbeiter_login_widget: MitarbeiterLogin):
     Wydbid.firma = None
@@ -15,3 +18,30 @@ def logoutCompany(mitarbeiter_login_widget: MitarbeiterLogin):
         if type(i) == FirmenLogin.FirmenLogin:
             i.passwort.setText('')
             i.showMaximized()
+
+def login(username: str, password: str, widget: QWidget):
+    if username == '':
+        QMessageBox.warning(Wydbid.app.parent(), 'Warnung', 'Alle Felder muessen ausgefuellt werden!')
+        return
+
+    if password == '':
+        QMessageBox.warning(Wydbid.app.parent(), 'Warnung', 'Alle Felder muessen ausgefuellt werden!')
+        return
+
+    if not os.path.exists(f'{Wydbid.firmen_location}Mitarbeiter/{username}.wbm'):
+        QMessageBox.warning(Wydbid.app.parent(), 'Achtung', 'Ein Mitarbeiter mit diesen Nutzernamen existiert nicht!')
+        return
+
+    mitarbeiter_file = open(f'{Wydbid.firmen_location}Mitarbeiter/{username}.wbm', 'rb')
+    mitarbeiter: Mitarbeiter.Mitarbeiter = pickle.load(mitarbeiter_file)
+
+    if not mitarbeiter.passwort == password:
+        QMessageBox.warning(Wydbid.app.parent(), 'Achtung', 'Achtung, das eingegebene Passwort ist falsch!')
+        return
+
+    Wydbid.mitarbeiter = mitarbeiter
+
+    widget.hide()
+
+    QMessageBox.about(Wydbid.app.parent(), 'Mitteilung', 'Dieser Teil ist noch Arbeit.')
+    # ToDo: Wydbid

@@ -3,9 +3,9 @@ import time
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+import Wydbid
 from BackEnd import MitarbeiterLoginLogic
-from UI.Prefabs import CreateMitarbeiter, DelMitarbeiter
-
+from UI.Prefabs import CreateMitarbeiter, DelMitarbeiter, ChangeMitarbeiterPasswort
 
 class MitarbeiterLogin(QWidget):
     def __init__(self, *args, **kwargs):
@@ -19,6 +19,7 @@ class MitarbeiterLogin(QWidget):
 
         self.cm = CreateMitarbeiter.CreateMitarbeiter()
         self.dm = DelMitarbeiter.DelMitarbeiter()
+        self.cmp = ChangeMitarbeiterPasswort.ChangeMitarbeiterPasswort()
 
         self.setupUI()
         self.setupMenuBar()
@@ -34,6 +35,11 @@ class MitarbeiterLogin(QWidget):
             event.ignore()
             pass
 
+    def startMitarbeiterLogin(self):
+        MitarbeiterLoginLogic.login(self.username.text(),
+                                    self.passwort.text(),
+                                    self)
+
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop| Qt.AlignHCenter)
 
@@ -48,7 +54,7 @@ class MitarbeiterLogin(QWidget):
         self.passwort.setEchoMode(QLineEdit.Password)
 
         submit = QPushButton(parent=self, text='Bestätigen')
-        # ToDo: Add Mitarbeiter Login
+        submit.clicked.connect(self.startMitarbeiterLogin)
 
         verticalSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.layout.addItem(verticalSpacer, 6, 0, Qt.AlignTop)
@@ -82,7 +88,8 @@ class MitarbeiterLogin(QWidget):
         self.dm.clear()
 
     def startChangeMitarbeiterPasswort(self):
-        pass
+        self.cmp.clear()
+        self.cmp.show()
 
     def setupMenuBar(self):
         self.menubar = QMenuBar(parent=self)
@@ -97,10 +104,9 @@ class MitarbeiterLogin(QWidget):
 
         create_mitarbeiter.triggered.connect(self.startCreateMitarbeiter)
         del_mitarbeiter.triggered.connect(self.startDelMitarbeiter)
-        # ToDo: change_mitarbeiter_passwort
         change_mitarbeiter_passwort.triggered.connect(self.startChangeMitarbeiterPasswort)
         logout_company.triggered.connect(self.logoutCompany)
-        close.triggered.connect(sys.exit)
+        close.triggered.connect(Wydbid.close)
 
         file.addAction(create_mitarbeiter)
         file.addAction(del_mitarbeiter)
