@@ -48,10 +48,12 @@ class MitarbeiterLogin(QWidget):
 
         username_note = QLabel(parent=self, text='Nutzername: ')
         self.username = QLineEdit(parent=self)
+        self.username.returnPressed.connect(self.startMitarbeiterLogin)
 
         passwort_note = QLabel(parent=self, text='Passwort: ')
         self.passwort = QLineEdit(parent=self)
         self.passwort.setEchoMode(QLineEdit.Password)
+        self.passwort.returnPressed.connect(self.startMitarbeiterLogin)
 
         submit = QPushButton(parent=self, text='Bestätigen')
         submit.clicked.connect(self.startMitarbeiterLogin)

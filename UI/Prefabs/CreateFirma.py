@@ -38,13 +38,16 @@ class CreateFirma(QWidget):
 
         id_note = QLabel('Firmen-ID: ')
         self.id_field = QLineEdit()
+        self.id_field.returnPressed.connect(self.createFirma)
 
         name_note = QLabel('Name: ')
         self.name = QLineEdit()
+        self.name.returnPressed.connect(self.createFirma)
 
         passwort_note = QLabel('Passwort: ')
         self.passwort = QLineEdit()
         self.passwort.setEchoMode(QLineEdit.Password)
+        self.passwort.returnPressed.connect(self.createFirma)
 
         self.submit = QPushButton('Erstellen')
         self.submit.clicked.connect(self.createFirma)

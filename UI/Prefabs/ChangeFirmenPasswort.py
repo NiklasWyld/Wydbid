@@ -40,10 +40,12 @@ class ChangeFirmenPasswort(QWidget):
         passwort_note = QLabel(parent=self, text='Altes Passwort: ')
         self.passwort = QLineEdit(parent=self)
         self.passwort.setEchoMode(QLineEdit.Password)
+        self.passwort.returnPressed.connect(self.changePasswort)
 
         new_passwort_note = QLabel(parent=self, text='Neues Passwort: ')
         self.new_passwort = QLineEdit(parent=self)
         self.new_passwort.setEchoMode(QLineEdit.Password)
+        self.new_passwort.returnPressed.connect(self.changePasswort)
 
         submit = QPushButton(parent=self, text='Ändern')
         submit.clicked.connect(self.changePasswort)

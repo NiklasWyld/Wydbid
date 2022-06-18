@@ -34,10 +34,12 @@ class DelMitarbeiter(QWidget):
 
         username_note = QLabel(parent=self, text='Nutzername: ')
         self.username = QLineEdit(parent=self)
+        self.username.returnPressed.connect(self.delMitarbeiter)
 
         passwort_note = QLabel(parent=self, text='Passwort: ')
         self.passwort = QLineEdit(parent=self)
         self.passwort.setEchoMode(QLineEdit.Password)
+        self.passwort.returnPressed.connect(self.delMitarbeiter)
 
         submit = QPushButton(parent=self, text='Löschen')
         submit.clicked.connect(self.delMitarbeiter)

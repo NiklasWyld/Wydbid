@@ -36,13 +36,16 @@ class CreateMitarbeiter(QWidget):
 
         name_note = QLabel('Name: ')
         self.name = QLineEdit()
+        self.name.returnPressed.connect(self.createMitarbeiter)
 
         username_note = QLabel('Nutzername: ')
         self.username = QLineEdit()
+        self.username.returnPressed.connect(self.createMitarbeiter)
 
         passwort_note = QLabel('Passwort: ')
         self.passwort = QLineEdit()
         self.passwort.setEchoMode(QLineEdit.Password)
+        self.passwort.returnPressed.connect(self.createMitarbeiter)
 
         self.submit = QPushButton('Erstellen')
         self.submit.clicked.connect(self.createMitarbeiter)

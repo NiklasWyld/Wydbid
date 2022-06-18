@@ -40,6 +40,7 @@ class DelFirma(QWidget):
         passwort_note = QLabel(parent=self, text='Passwort: ')
         self.passwort = QLineEdit(parent=self)
         self.passwort.setEchoMode(QLineEdit.Password)
+        self.passwort.returnPressed.connect(self.delFirma)
 
         submit = QPushButton(parent=self, text='Löschen')
         submit.clicked.connect(self.delFirma)

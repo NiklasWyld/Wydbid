@@ -55,6 +55,7 @@ class FirmenLogin(QWidget):
         passwort_note = QLabel(parent=self, text='Passwort: ')
         self.passwort = QLineEdit(parent=self)
         self.passwort.setEchoMode(QLineEdit.Password)
+        self.passwort.returnPressed.connect(self.login)
 
         submit = QPushButton(parent=self, text='Bestätigen')
         submit.clicked.connect(self.login)

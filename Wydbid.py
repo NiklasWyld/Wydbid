@@ -6,8 +6,6 @@ from PyQt5.QtWidgets import *
 from CustomQt import MessageBox
 from UI.Login import FirmenLogin
 
-# ToDo: Continue with Enter for all text fields
-
 location = './Daten/'
 # Must be set at login
 firmen_location = ''
