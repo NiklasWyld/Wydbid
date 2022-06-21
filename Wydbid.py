@@ -1,6 +1,7 @@
 import shutil
 import sys
 import os
+from PyInstaller.building.build_main import Analysis
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 from CustomQt import MessageBox
@@ -17,6 +18,7 @@ app = QApplication(sys.argv)
 # Variables that are set during runtime
 firmen_login = None
 mitarbeiter_login = None
+wydbidui = None
 
 def reset():
     m = QMessageBox.question(app.parent(),

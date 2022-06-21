@@ -4,8 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import sys
 import Wydbid
-from Data import *
-from UI.Prefabs import CreateFirma, DelFirma, ChangeFirmenPasswort
+from UI.Login.Prefabs import CreateFirma, DelFirma, ChangeFirmenPasswort
 from BackEnd import FirmenLoginLogic
 
 class FirmenLogin(QWidget):

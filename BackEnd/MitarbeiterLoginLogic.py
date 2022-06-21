@@ -1,9 +1,9 @@
 import os
 import pickle
 from PyQt5.QtWidgets import QWidget, QMessageBox
-from UI.Login import MitarbeiterLogin
 import Wydbid
-from UI.Login import FirmenLogin
+from UI.Login import FirmenLogin, MitarbeiterLogin
+from UI.WydbidUI import WydbidUIMain
 from Data import Mitarbeiter
 
 def logoutCompany(mitarbeiter_login_widget: MitarbeiterLogin):
@@ -34,14 +34,16 @@ def login(username: str, password: str, widget: QWidget):
 
     mitarbeiter_file = open(f'{Wydbid.firmen_location}Mitarbeiter/{username}.wbm', 'rb')
     mitarbeiter: Mitarbeiter.Mitarbeiter = pickle.load(mitarbeiter_file)
-
     if not mitarbeiter.passwort == password:
         QMessageBox.warning(Wydbid.app.parent(), 'Achtung', 'Achtung, das eingegebene Passwort ist falsch!')
         return
+    elif mitarbeiter.passwort == password:
+        Wydbid.mitarbeiter = mitarbeiter
 
-    Wydbid.mitarbeiter = mitarbeiter
+        widget.hide()
 
-    widget.hide()
+        wydbidui = WydbidUIMain.WydbidUIMain()
+        wydbidui.setWindowTitle(f'Wydbid - Center | {Wydbid.firma.name} | {mitarbeiter.name}')
+        wydbidui.showMaximized()
 
-    QMessageBox.about(Wydbid.app.parent(), 'Mitteilung', 'Dieser Teil ist noch Arbeit.')
-    # ToDo: Wydbid
+        Wydbid.wydbidui = wydbidui

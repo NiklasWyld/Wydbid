@@ -1,8 +1,7 @@
 import pickle
 import sys
 from PyQt5.QtWidgets import QMessageBox, QWidget
-from UI.Login import FirmenLogin
-from UI.Prefabs import CreateFirma
+from UI.Login.Prefabs import CreateFirma
 from Data import Firma
 import os
 import Wydbid

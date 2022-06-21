@@ -5,7 +5,8 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import Wydbid
 from BackEnd import MitarbeiterLoginLogic
-from UI.Prefabs import CreateMitarbeiter, DelMitarbeiter, ChangeMitarbeiterPasswort
+from UI.Login.Prefabs import CreateMitarbeiter, DelMitarbeiter, ChangeMitarbeiterPasswort
+
 
 class MitarbeiterLogin(QWidget):
     def __init__(self, *args, **kwargs):
