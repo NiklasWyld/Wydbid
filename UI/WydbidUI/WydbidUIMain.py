@@ -1,10 +1,10 @@
 from datetime import datetime
-
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import sys
 import Wydbid
+from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 
 class WydbidUIMain(QWidget):
@@ -60,6 +60,11 @@ class WydbidUIMain(QWidget):
         contact = QAction('Kontakt', self)
         report_bug = QAction('Fehler melden', self)
 
+        #logout_mitarbeiter.triggered.connect()
+        logout_company.triggered.connect(self.startCompanyLogout)
+        reset_programm.triggered.connect(Wydbid.reset)
+        close.triggered.connect(Wydbid.close)
+
         file.addAction(logout_mitarbeiter)
         file.addAction(logout_company)
         file.addSeparator()
@@ -72,6 +77,9 @@ class WydbidUIMain(QWidget):
 
         self.menubar.addMenu(file)
         self.menubar.addMenu(help)
+
+    def startCompanyLogout(self):
+        WydbidUIMainLogic.logoutCompany(widget=self)
 
     def resizeEvent(self, QResizeEvent):
         # Is needed because otherwise the MenuBar is only big enough to show the content
