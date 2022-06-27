@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -12,7 +14,7 @@ class WydbidUIMain(QWidget):
         self.setWindowTitle('Wydbid - Center')
         self.setGeometry(0, 0, 1920, 1080)
 
-        self.setLayout(QHBoxLayout())
+        self.setLayout(QGridLayout())
         self.layout().setContentsMargins(30, 30, 30, 30)
 
         self.setupUI()
@@ -29,19 +31,26 @@ class WydbidUIMain(QWidget):
             pass
 
     def setupUI(self):
+        date_time = QGroupBox(parent=self, title='Datum und Uhrzeit')
+        date_time.setFixedHeight(150)
+        self.setupDateTime(date_time)
+
         action_list = QGroupBox(parent=self, title='Aktionen')
         action_list.setFixedWidth(200)
         self.setupActionBox(action_list)
 
         customer_list_box = QGroupBox(parent=self, title='Kundenliste')
 
-        self.layout().addWidget(action_list)
-        self.layout().addWidget(customer_list_box)
+        self.layout().addWidget(date_time, 0, 0, 1, 2)
+        self.layout().addWidget(action_list, 1, 0)
+        self.layout().addWidget(customer_list_box, 1, 1)
 
     def setupMenuBar(self):
         self.menubar = QMenuBar(parent=self)
         file = QMenu(parent=self.menubar, title='Wydbid')
         help = QMenu(parent=self.menubar, title='Hilfe')
+
+        # ToDo: Logic hinzufuegen
 
         logout_mitarbeiter = QAction('Mitarbeiter abmelden', self)
         logout_company = QAction('Aus Firma abmelden', self)
@@ -79,3 +88,26 @@ class WydbidUIMain(QWidget):
 
         action_list.layout().addWidget(customer_note, 0, 0, 1, 0, Qt.AlignLeft)
         action_list.layout().addWidget(add_customer, 1, 0, 1, 0, Qt.AlignCenter)
+
+    def setupDateTime(self, date_time: QGroupBox):
+        self.time_label = QLabel(parent=date_time)
+        self.date_label = QLabel(parent=date_time)
+        self.date_label.setText(datetime.now().date().strftime("%d.%m.%y"))
+
+        self.time_label.setFont(QFont('Montserrat', 40))
+        self.date_label.setFont(QFont('Montserrat', 25))
+
+        date_time_layout = QGridLayout()
+
+        date_time_layout.addWidget(self.time_label, 0, 0, 1, 0, Qt.AlignCenter)
+        date_time_layout.addWidget(self.date_label, 1, 0, 1, 0, Qt.AlignCenter)
+
+        date_time.setLayout(date_time_layout)
+
+        # Loop to update the time
+        timer = QTimer(self)
+        timer.timeout.connect(self.updateClock)
+        timer.start(1000)
+
+    def updateClock(self):
+        self.time_label.setText(datetime.now().strftime("%H:%M:%S"))
