@@ -4,6 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import sys
 import Wydbid
+from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from UI.Login.Prefabs import CreateFirma, DelFirma, ChangeFirmenPasswort
 from BackEnd import FirmenLoginLogic
 
@@ -90,6 +91,7 @@ class FirmenLogin(QWidget):
         self.menubar = QMenuBar(parent=self)
 
         file = QMenu(parent=self.menubar, title='Wydbid')
+        help = QMenu(parent=self.menubar, title='Hilfe')
 
         create_company = QAction('Firma erstellen', self)
         del_company = QAction('Firma löschen', self)
@@ -97,11 +99,17 @@ class FirmenLogin(QWidget):
         reset = QAction('Programm zurücksetzen', self)
         close = QAction('Beenden', self)
 
+        contact = QAction('Kontakt', self)
+        report_bug = QAction('Fehler melden', self)
+
         create_company.triggered.connect(self.startCreateFirma)
         del_company.triggered.connect(self.startDelFirma)
         change_company_password.triggered.connect(self.startChangeFirmenPasswort)
         reset.triggered.connect(Wydbid.reset)
         close.triggered.connect(Wydbid.close)
+
+        contact.triggered.connect(WydbidUIMainLogic.contact)
+        report_bug.triggered.connect(WydbidUIMainLogic.contact)
 
         file.addAction(create_company)
         file.addAction(del_company)
@@ -111,6 +119,11 @@ class FirmenLogin(QWidget):
         file.addSeparator()
         file.addAction(close)
         self.menubar.addMenu(file)
+
+        help.addAction(contact)
+        help.addAction(report_bug)
+
+        self.menubar.addMenu(help)
 
     def resizeEvent(self, QResizeEvent):
         # Is needed because otherwise the MenuBar is only big enough to show the content

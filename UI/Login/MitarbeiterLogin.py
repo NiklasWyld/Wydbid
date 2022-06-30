@@ -5,6 +5,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import Wydbid
 from BackEnd import MitarbeiterLoginLogic
+from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from UI.Login.Prefabs import CreateMitarbeiter, DelMitarbeiter, ChangeMitarbeiterPasswort
 
 
@@ -98,6 +99,7 @@ class MitarbeiterLogin(QWidget):
         self.menubar = QMenuBar(parent=self)
 
         file = QMenu(parent=self.menubar, title='Wydbid')
+        help = QMenu(parent=self.menubar, title='Hilfe')
 
         create_mitarbeiter = QAction('Mitarbeiter erstellen', self)
         del_mitarbeiter = QAction('Mitarbeiter löschen', self)
@@ -105,11 +107,17 @@ class MitarbeiterLogin(QWidget):
         logout_company = QAction('Firma abmelden', self)
         close = QAction('Beenden', self)
 
+        contact = QAction('Kontakt', self)
+        report_bug = QAction('Fehler melden', self)
+
         create_mitarbeiter.triggered.connect(self.startCreateMitarbeiter)
         del_mitarbeiter.triggered.connect(self.startDelMitarbeiter)
         change_mitarbeiter_passwort.triggered.connect(self.startChangeMitarbeiterPasswort)
         logout_company.triggered.connect(self.logoutCompany)
         close.triggered.connect(Wydbid.close)
+
+        contact.triggered.connect(WydbidUIMainLogic.contact)
+        report_bug.triggered.connect(WydbidUIMainLogic.contact)
 
         file.addAction(create_mitarbeiter)
         file.addAction(del_mitarbeiter)
@@ -119,6 +127,11 @@ class MitarbeiterLogin(QWidget):
         file.addSeparator()
         file.addAction(close)
         self.menubar.addMenu(file)
+
+        help.addAction(contact)
+        help.addAction(report_bug)
+
+        self.menubar.addMenu(help)
 
     def resizeEvent(self, QResizeEvent):
         # Is needed because otherwise the MenuBar is only big enough to show the content

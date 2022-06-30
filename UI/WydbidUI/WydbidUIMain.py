@@ -50,8 +50,6 @@ class WydbidUIMain(QWidget):
         file = QMenu(parent=self.menubar, title='Wydbid')
         help = QMenu(parent=self.menubar, title='Hilfe')
 
-        # ToDo: Logic hinzufuegen
-
         logout_mitarbeiter = QAction('Mitarbeiter abmelden', self)
         logout_company = QAction('Aus Firma abmelden', self)
         reset_programm = QAction('Programm zurücksetzen', self)
@@ -60,10 +58,13 @@ class WydbidUIMain(QWidget):
         contact = QAction('Kontakt', self)
         report_bug = QAction('Fehler melden', self)
 
-        #logout_mitarbeiter.triggered.connect()
+        logout_mitarbeiter.triggered.connect(lambda: WydbidUIMainLogic.logoutMitarbeiter(self))
         logout_company.triggered.connect(self.startCompanyLogout)
         reset_programm.triggered.connect(Wydbid.reset)
         close.triggered.connect(Wydbid.close)
+
+        contact.triggered.connect(WydbidUIMainLogic.contact)
+        report_bug.triggered.connect(WydbidUIMainLogic.contact)
 
         file.addAction(logout_mitarbeiter)
         file.addAction(logout_company)

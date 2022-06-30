@@ -2,10 +2,12 @@ import shutil
 import sys
 import os
 from PyInstaller.building.build_main import Analysis
+from PyQt5.QtCore import QFile, QTextStream
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 from CustomQt import MessageBox
 from UI.Login import FirmenLogin
+import qdarkstyle
 
 location = './Daten/'
 # Must be set at login
@@ -68,6 +70,10 @@ if __name__ == '__main__':
 
     # Set icon for all widgets
     app.setWindowIcon(QIcon('Icon.jpeg'))
+
+    stylesheet = open('stylesheet', 'r').read()
+
+    app.setStyleSheet(stylesheet)
 
     firmen_login = FirmenLogin.FirmenLogin()
     firmen_login.showMaximized()

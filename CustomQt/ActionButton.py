@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import *
 
 class ActionButton(QPushButton):
@@ -10,6 +11,7 @@ class ActionButton(QPushButton):
                             border: 1px solid gray;
                             padding: 3px;
                             border-radius: 10px;
+                            color: black;
                         }
 
                         QPushButton:hover {
