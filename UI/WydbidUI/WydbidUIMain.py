@@ -7,6 +7,8 @@ import Wydbid
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 
+# ToDo: Settings -> Daten Location, Icon, Mode (Light, Dark)
+
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()

@@ -1,13 +1,11 @@
 import shutil
 import sys
 import os
-from PyInstaller.building.build_main import Analysis
-from PyQt5.QtCore import QFile, QTextStream
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 from CustomQt import MessageBox
 from UI.Login import FirmenLogin
-import qdarkstyle
+from UI.WydbidUI.Prefabs import Settings
 
 location = './Daten/'
 # Must be set at login
@@ -74,6 +72,9 @@ if __name__ == '__main__':
     stylesheet = open('stylesheet', 'r').read()
 
     app.setStyleSheet(stylesheet)
+
+    set = Settings.Settings()
+    set.show()
 
     firmen_login = FirmenLogin.FirmenLogin()
     firmen_login.showMaximized()
