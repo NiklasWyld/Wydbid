@@ -76,9 +76,6 @@ if __name__ == '__main__':
 
     SettingsLogic.loadSettings()
 
-    set = Settings.Settings()
-    set.show()
-
     firmen_login = FirmenLogin.FirmenLogin()
     firmen_login.showMaximized()
 

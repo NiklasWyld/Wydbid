@@ -6,8 +6,8 @@ import sys
 import Wydbid
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
+from UI.WydbidUI.Prefabs import Settings
 
-# ToDo: Settings -> Daten Location, Icon, Mode (Light, Dark)
 
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
@@ -55,6 +55,7 @@ class WydbidUIMain(QWidget):
         logout_mitarbeiter = QAction('Mitarbeiter abmelden', self)
         logout_company = QAction('Aus Firma abmelden', self)
         reset_programm = QAction('Programm zurücksetzen', self)
+        settings = QAction('Einstellungen', self)
         close = QAction('Beenden', self)
 
         contact = QAction('Kontakt', self)
@@ -63,6 +64,7 @@ class WydbidUIMain(QWidget):
         logout_mitarbeiter.triggered.connect(lambda: WydbidUIMainLogic.logoutMitarbeiter(self))
         logout_company.triggered.connect(self.startCompanyLogout)
         reset_programm.triggered.connect(Wydbid.reset)
+        settings.triggered.connect(self.startSettings)
         close.triggered.connect(Wydbid.close)
 
         contact.triggered.connect(WydbidUIMainLogic.contact)
@@ -73,6 +75,8 @@ class WydbidUIMain(QWidget):
         file.addSeparator()
         file.addAction(reset_programm)
         file.addSeparator()
+        file.addAction(settings)
+        file.addSeparator()
         file.addAction(close)
 
         help.addAction(contact)
@@ -80,6 +84,10 @@ class WydbidUIMain(QWidget):
 
         self.menubar.addMenu(file)
         self.menubar.addMenu(help)
+
+    def startSettings(self):
+        settings = Settings.Settings()
+        settings.show()
 
     def startCompanyLogout(self):
         WydbidUIMainLogic.logoutCompany(widget=self)
@@ -94,11 +102,53 @@ class WydbidUIMain(QWidget):
         action_list.setLayout(QGridLayout())
         action_list.layout().setAlignment(Qt.AlignTop| Qt.AlignHCenter)
 
-        customer_note = QLabel(parent=action_list, text='Kunden')
-        add_customer = ActionButton.ActionButton(parent=action_list, text='Kunde hinzufügen ➜')
+        # Kunden
+        customer_note = QLabel(parent=action_list, text='Kunden 👨')
+        add_customer = ActionButton.ActionButton(parent=action_list, text='Kunde hinzufügen ➜', color='lightgreen', color_hover='green')
+        edit_customer = ActionButton.ActionButton(parent=action_list, text='Kunde bearbeiten ➜', color='lightskyblue', color_hover='blue')
+        del_customer = ActionButton.ActionButton(parent=action_list, text='Kunde löschen ➜', color='lightcoral', color_hover='red')
 
+        # Termine
+        termin_note = QLabel(parent=action_list, text='Termine 📅')
+        add_termin = ActionButton.ActionButton(parent=action_list, text='Termin hinzufügen ➜', color='lightgreen', color_hover='green')
+        edit_termin = ActionButton.ActionButton(parent=action_list, text='Termin bearbeiten ➜', color='lightskyblue', color_hover='blue')
+        del_termin = ActionButton.ActionButton(parent=action_list, text='Termin löschen ➜', color='lightcoral', color_hover='red')
+
+        # Auftraege
+        auftrag_note = QLabel(parent=action_list, text='Aufträge 📦')
+        add_auftrag = ActionButton.ActionButton(parent=action_list, text='Auftrag hinzufügen ➜', color='lightgreen', color_hover='green')
+        edit_auftrag = ActionButton.ActionButton(parent=action_list, text='Auftrag bearbeiten ➜', color='lightskyblue', color_hover='blue')
+        del_auftrag = ActionButton.ActionButton(parent=action_list, text='Auftrag löschen ➜', color='lightcoral', color_hover='red')
+
+        # Ereignisse
+        ereignis_note = QLabel(parent=action_list, text='Ereignis 📝')
+        add_ereignis = ActionButton.ActionButton(parent=action_list, text='Ereignis hinzufügen ➜', color='lightgreen', color_hover='green')
+        edit_ereignis = ActionButton.ActionButton(parent=action_list, text='Ereignis bearbeiten ➜', color='lightskyblue', color_hover='blue')
+        del_ereignis = ActionButton.ActionButton(parent=action_list, text='Ereignis löschen ➜', color='lightcoral', color_hover='red')
+
+        # Kunden Layout Management
         action_list.layout().addWidget(customer_note, 0, 0, 1, 0, Qt.AlignLeft)
         action_list.layout().addWidget(add_customer, 1, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(edit_customer, 2, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(del_customer, 3, 0, 1, 0, Qt.AlignCenter)
+
+        # Termin Layout Management
+        action_list.layout().addWidget(termin_note, 4, 0, 1, 0, Qt.AlignLeft)
+        action_list.layout().addWidget(add_termin, 5, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(edit_termin, 6, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(del_termin, 7, 0, 1, 0, Qt.AlignCenter)
+
+        # Auftrag Layout Management
+        action_list.layout().addWidget(auftrag_note, 8, 0, 1, 0, Qt.AlignLeft)
+        action_list.layout().addWidget(add_auftrag, 9, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(edit_auftrag, 10, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(del_auftrag, 11, 0, 1, 0, Qt.AlignCenter)
+
+        # Ereignis Layout Management
+        action_list.layout().addWidget(ereignis_note, 8, 0, 1, 0, Qt.AlignLeft)
+        action_list.layout().addWidget(add_ereignis, 9, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(edit_ereignis, 10, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(del_ereignis, 11, 0, 1, 0, Qt.AlignCenter)
 
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)

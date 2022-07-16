@@ -26,6 +26,7 @@ class Settings(QWidget):
         iconnote = QLabel(parent=self, text='Programmsymbol: ')
         self.icon = QLineEdit(parent=self)
         selecticon = QPushButton(parent=self, text='...')
+        selecticon.setFixedWidth(30)
 
         modenote = QLabel(parent=self, text='Umgebung: ')
         self.mode = QComboBox(parent=self)
