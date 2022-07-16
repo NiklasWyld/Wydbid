@@ -1,5 +1,4 @@
-import Wydbid
-
 class Settings:
-    def __init__(self, filepath: str = Wydbid.location):
-        self.filepath = filepath
+    def __init__(self, iconpath: str, mode: str):
+        self.iconpath = iconpath
+        self.mode = mode

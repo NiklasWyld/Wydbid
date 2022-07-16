@@ -1,8 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
-###
+from BackEnd.WydbidBackEnd import SettingsLogic
 
 class Settings(QWidget):
     def __init__(self, *args, **kwargs):
@@ -15,16 +14,14 @@ class Settings(QWidget):
         self.setGeometry(0, 0, 600, 450)
 
         self.setupUI()
+        SettingsLogic.loadSettings()
+        SettingsLogic.loadCurrentSettingsToPrefab(settings=self)
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
         title = QLabel(parent=self, text='Einstellungen')
         title.setFont(QFont('Montserrat', 30))
-
-        pathnote = QLabel(parent=self, text='Datenpfad: ')
-        self.path = QLineEdit(parent=self)
-        selectpath = QPushButton(parent=self, text='...')
 
         iconnote = QLabel(parent=self, text='Programmsymbol: ')
         self.icon = QLineEdit(parent=self)
@@ -38,12 +35,9 @@ class Settings(QWidget):
         self.mode.setCurrentIndex(1)
 
         apply = QPushButton(parent=self, text='Anwenden und speichern')
+        apply.clicked.connect(lambda: SettingsLogic.saveAndApplySetttings(settings=self))
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
-
-        self.layout.addWidget(pathnote, 2, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.path, 2, 1, Qt.AlignRight)
-        self.layout.addWidget(selectpath, 2, 1, Qt.AlignRight)
 
         self.layout.addWidget(iconnote, 3, 0, Qt.AlignLeft)
         self.layout.addWidget(self.icon, 3, 1, Qt.AlignRight)
