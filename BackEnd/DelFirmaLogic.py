@@ -47,7 +47,7 @@ def delFirmaFinal(file: str, widget: QWidget):
         return
 
     elif m == QMessageBox.Yes:
-        sys.exit(0)
+        Wydbid.app.exit(0)
 
 def getFirma(firma_box: QComboBox, passwort: str, widget: QWidget):
     firma: Firma.Firma = firma_box.currentData()[0]

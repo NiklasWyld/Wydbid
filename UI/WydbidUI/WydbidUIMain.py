@@ -8,7 +8,6 @@ from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
 
-
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -27,7 +26,7 @@ class WydbidUIMain(QWidget):
                                      QMessageBox.Yes, QMessageBox.No)
 
         if reply == QMessageBox.Yes:
-            sys.exit(0)
+            Wydbid.app.exit(0)
         else:
             event.ignore()
             pass
@@ -43,9 +42,18 @@ class WydbidUIMain(QWidget):
 
         customer_list_box = QGroupBox(parent=self, title='Kundenliste')
 
-        self.layout().addWidget(date_time, 0, 0, 1, 2)
+        termin_list_box = QGroupBox(parent=self, title='Termine')
+
+        auftrag_list_box = QGroupBox(parent=self, title='Aufträge')
+
+        ereignis_list_box = QGroupBox(parent=self, title='Ereignisse')
+
+        self.layout().addWidget(date_time, 0, 0, 1, 0)
         self.layout().addWidget(action_list, 1, 0)
         self.layout().addWidget(customer_list_box, 1, 1)
+        self.layout().addWidget(termin_list_box, 1, 2)
+        self.layout().addWidget(auftrag_list_box, 1, 3)
+        self.layout().addWidget(ereignis_list_box, 1, 4)
 
     def setupMenuBar(self):
         self.menubar = QMenuBar(parent=self)
@@ -65,7 +73,7 @@ class WydbidUIMain(QWidget):
         logout_company.triggered.connect(self.startCompanyLogout)
         reset_programm.triggered.connect(Wydbid.reset)
         settings.triggered.connect(self.startSettings)
-        close.triggered.connect(Wydbid.close)
+        close.triggered.connect(self.closeApp)
 
         contact.triggered.connect(WydbidUIMainLogic.contact)
         report_bug.triggered.connect(WydbidUIMainLogic.contact)
@@ -133,25 +141,26 @@ class WydbidUIMain(QWidget):
         action_list.layout().addWidget(del_customer, 3, 0, 1, 0, Qt.AlignCenter)
 
         # Termin Layout Management
-        action_list.layout().addWidget(termin_note, 4, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(add_termin, 5, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(edit_termin, 6, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(del_termin, 7, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(termin_note, 5, 0, 1, 0, Qt.AlignLeft)
+        action_list.layout().addWidget(add_termin, 6, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(edit_termin, 7, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(del_termin, 8, 0, 1, 0, Qt.AlignCenter)
 
         # Auftrag Layout Management
-        action_list.layout().addWidget(auftrag_note, 8, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(add_auftrag, 9, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(edit_auftrag, 10, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(del_auftrag, 11, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(auftrag_note, 10, 0, 1, 0, Qt.AlignLeft)
+        action_list.layout().addWidget(add_auftrag, 11, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(edit_auftrag, 12, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(del_auftrag, 13, 0, 1, 0, Qt.AlignCenter)
 
         # Ereignis Layout Management
-        action_list.layout().addWidget(ereignis_note, 8, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(add_ereignis, 9, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(edit_ereignis, 10, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(del_ereignis, 11, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(ereignis_note, 15, 0, 1, 0, Qt.AlignLeft)
+        action_list.layout().addWidget(add_ereignis, 16, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(edit_ereignis, 17, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(del_ereignis, 18, 0, 1, 0, Qt.AlignCenter)
 
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)
+        self.time_label.setText('00:00:00')
         self.date_label = QLabel(parent=date_time)
         self.date_label.setText(datetime.now().date().strftime("%d.%m.%y"))
 
@@ -172,3 +181,6 @@ class WydbidUIMain(QWidget):
 
     def updateClock(self):
         self.time_label.setText(datetime.now().strftime("%H:%M:%S"))
+
+    def closeApp(self):
+        Wydbid.app.exit(0)

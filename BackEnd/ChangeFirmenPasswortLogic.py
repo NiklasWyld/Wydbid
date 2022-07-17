@@ -61,7 +61,7 @@ def changePasswortFinal(firma_box: QComboBox, old_passwort: str, new_passwort: s
             return
 
         elif m == QMessageBox.Yes:
-            sys.exit(0)
+            Wydbid.app.exit(0)
     else:
         QMessageBox.warning(Wydbid.app.parent(), 'Achtung', 'Das eingegebene Passwort ist falsch!')
         return

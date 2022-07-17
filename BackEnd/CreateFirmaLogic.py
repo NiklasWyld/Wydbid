@@ -35,7 +35,7 @@ def writeFirma(id: int, name: str, passwort: str, widget: QWidget):
         return
 
     elif m == QMessageBox.Yes:
-        sys.exit(0)
+        Wydbid.app.exit(0)
 
 def getFirma(id: str, name: str, passwort: str, widget: QWidget):
     if id == '':

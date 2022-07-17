@@ -42,4 +42,4 @@ def createMitarbeiterFinal(name: str, username: str, passwort: str, widget: QWid
         return
 
     elif m == QMessageBox.Yes:
-        sys.exit(0)
+        Wydbid.app.exit(0)

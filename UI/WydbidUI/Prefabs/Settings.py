@@ -26,6 +26,7 @@ class Settings(QWidget):
         iconnote = QLabel(parent=self, text='Programmsymbol: ')
         self.icon = QLineEdit(parent=self)
         selecticon = QPushButton(parent=self, text='...')
+        selecticon.clicked.connect(self.selectFile)
         selecticon.setFixedWidth(30)
 
         modenote = QLabel(parent=self, text='Umgebung: ')
@@ -48,3 +49,10 @@ class Settings(QWidget):
         self.layout.addWidget(self.mode, 4, 1, Qt.AlignRight)
 
         self.layout.addWidget(apply, 5, 0, 1, 0, Qt.AlignCenter)
+
+    def selectFile(self):
+        file, check = QFileDialog.getOpenFileName(None, caption='Wähle das neue Programm-Icon.', directory='',
+                                                  filter='PNG Files (*.png);;JPG Files (*.jpg)')
+
+        if check:
+            self.icon.setText(file)

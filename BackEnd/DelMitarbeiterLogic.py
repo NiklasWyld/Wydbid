@@ -45,4 +45,4 @@ def delMitarbeiterFinal(username: str, passwort: str, widget: QWidget):
         return
 
     elif m == QMessageBox.Yes:
-        sys.exit(0)
+        Wydbid.app.exit(0)

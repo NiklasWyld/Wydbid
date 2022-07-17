@@ -48,4 +48,4 @@ def changePasswortFinal(username: str, passwort: str, new_passwort: str, widget:
         return
 
     elif m == QMessageBox.Yes:
-        sys.exit(0)
+        Wydbid.app.exit(0)

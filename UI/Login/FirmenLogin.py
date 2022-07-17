@@ -31,7 +31,7 @@ class FirmenLogin(QWidget):
                                      QMessageBox.Yes, QMessageBox.No)
 
         if reply == QMessageBox.Yes:
-            sys.exit(0)
+            Wydbid.app.exit(0)
         else:
             event.ignore()
             pass
@@ -106,7 +106,7 @@ class FirmenLogin(QWidget):
         del_company.triggered.connect(self.startDelFirma)
         change_company_password.triggered.connect(self.startChangeFirmenPasswort)
         reset.triggered.connect(Wydbid.reset)
-        close.triggered.connect(Wydbid.close)
+        close.triggered.connect(self.closeApp)
 
         contact.triggered.connect(WydbidUIMainLogic.contact)
         report_bug.triggered.connect(WydbidUIMainLogic.contact)
@@ -130,3 +130,6 @@ class FirmenLogin(QWidget):
         super().resizeEvent(QResizeEvent)
 
         self.menubar.resize(self.width(), 20)
+
+    def closeApp(self):
+        Wydbid.app.exit(0)

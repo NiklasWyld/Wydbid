@@ -45,10 +45,10 @@ def reset():
         q.setDefaultButton(QMessageBox.StandardButton.Ok)
         q.exec_()
 
-        sys.exit(0)
+        app.exit(0)
 
 def close():
-    sys.exit(0)
+    app.exit(0)
 
 def buildLocation():
     if os.path.exists(location): pass
