@@ -3,7 +3,7 @@ Wydbid - The open source customer service application
 
 Attention! This project isnt finished yet!
 
-To start Wydbid, you need to do the following:
+To start Wydbid you have to enter the following command in your command line: 
 
 ```
 python3 Wydbid.py
