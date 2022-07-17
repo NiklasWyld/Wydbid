@@ -52,7 +52,7 @@ class Settings(QWidget):
 
     def selectFile(self):
         file, check = QFileDialog.getOpenFileName(None, caption='Wähle das neue Programm-Icon.', directory='',
-                                                  filter='PNG Files (*.png);;JPG Files (*.jpg)')
+                                                  filter='PNG Files (*.png);;JPG Files (*.jpg);;JPEG Files (*.jpeg)')
 
         if check:
             self.icon.setText(file)
