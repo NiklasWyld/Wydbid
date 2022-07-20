@@ -1,7 +1,7 @@
 class Kunde:
-    def __init__(self, id: int, name: str, adresse: str, nummer: str, geschlecht: str, geburtsdatum: str, informationen: str):
-        self.id = id
-        self.name = name
+    def __init__(self, vorname: str, nachname: str, adresse: str, nummer: str, geschlecht: str, geburtsdatum: str, informationen: str):
+        self.vorname = vorname
+        self.nachname = nachname
         self.adresse = adresse
         self.nummer = nummer
         self.geschlecht = geschlecht
