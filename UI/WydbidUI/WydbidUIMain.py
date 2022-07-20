@@ -2,11 +2,11 @@ from datetime import datetime
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-import sys
 import Wydbid
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
+from UI.WydbidUI.Prefabs.Kunde import CreateKunde
 
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
@@ -17,6 +17,9 @@ class WydbidUIMain(QWidget):
 
         self.setLayout(QGridLayout())
         self.layout().setContentsMargins(30, 30, 30, 30)
+
+        # Widgets
+        self.ck = CreateKunde.CreateKunde()
 
         self.setupUI()
         self.setupMenuBar()
@@ -158,6 +161,11 @@ class WydbidUIMain(QWidget):
         action_list.layout().addWidget(edit_ereignis, 17, 0, 1, 0, Qt.AlignCenter)
         action_list.layout().addWidget(del_ereignis, 18, 0, 1, 0, Qt.AlignCenter)
 
+        # ToDo: Event Management
+
+        # Kunden Event Management
+        add_customer.clicked.connect(self.startCreateKunde)
+
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)
         self.time_label.setText('00:00:00')
@@ -184,3 +192,8 @@ class WydbidUIMain(QWidget):
 
     def closeApp(self):
         Wydbid.app.exit(0)
+
+    # Event Management Methods
+
+    def startCreateKunde(self):
+        self.ck.show()

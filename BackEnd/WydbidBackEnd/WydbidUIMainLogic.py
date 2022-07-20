@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QWidget, QMessageBox
 import Wydbid
 from CustomQt import MessageBox
 from UI.Login import FirmenLogin, MitarbeiterLogin
+from UI.WydbidUI.Prefabs.Kunde import CreateKunde
 
 def logoutCompany(widget: QWidget):
     Wydbid.firma = None
