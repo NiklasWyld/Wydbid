@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import sys
-from datei import Kunde
+from CreateKunden import Kunde
 
 app = QApplication(sys.argv)
 
@@ -15,10 +15,10 @@ list.setGeometry(10, 10, 400, 800)
 list.verticalHeader().setVisible(False)
 
 kunden = []
-dateien = os.listdir('./kundenj/')
+dateien = os.listdir('./Kunden/')
 
 for datei in dateien:
-    kunde: Kunde = pickle.load(open(f'./kundenj/{datei}', 'rb'))
+    kunde: Kunde = pickle.load(open(f'./Kunden/{datei}', 'rb'))
     kunden.append(kunde)
 
 kunden.sort(key=lambda x: x.id, reverse=False)
@@ -58,7 +58,7 @@ def test(__item):
 
 def getKunde(_item: QModelIndex):
     kunden_id = list.item(_item.row(), 1).text()
-    kunde2: Kunde = pickle.load(open(f'./kundenj/{kunden_id}kunde.kunde', 'rb'))
+    kunde2: Kunde = pickle.load(open(f'./Kunden/{kunden_id}kunde.kunde', 'rb'))
     p = QMessageBox(parent=window)
     p.setWindowTitle('Hello World')
     p.setText(f'{kunde2.name}, {kunde2.id}, {kunde2.old}')

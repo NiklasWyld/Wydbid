@@ -43,20 +43,24 @@ class WydbidUIMain(QWidget):
         action_list.setFixedWidth(200)
         self.setupActionBox(action_list)
 
-        customer_list_box = QGroupBox(parent=self, title='Kundenliste')
+        customer_widget = QWidget()
+        self.setupKundenListe(kunden_liste=customer_widget)
 
-        termin_list_box = QGroupBox(parent=self, title='Termine')
+        termin_widget = QWidget()
 
-        auftrag_list_box = QGroupBox(parent=self, title='Aufträge')
+        auftrag_widget = QWidget()
 
-        ereignis_list_box = QGroupBox(parent=self, title='Ereignisse')
+        ereignis_widget = QWidget()
+
+        self.tabwidget = QTabWidget(parent=self)
+        self.tabwidget.addTab(customer_widget, 'Kundenliste')
+        self.tabwidget.addTab(termin_widget, 'Termine')
+        self.tabwidget.addTab(auftrag_widget, 'Aufträge')
+        self.tabwidget.addTab(ereignis_widget, 'Ereignisse')
 
         self.layout().addWidget(date_time, 0, 0, 1, 0)
         self.layout().addWidget(action_list, 1, 0)
-        self.layout().addWidget(customer_list_box, 1, 1)
-        self.layout().addWidget(termin_list_box, 1, 2)
-        self.layout().addWidget(auftrag_list_box, 1, 3)
-        self.layout().addWidget(ereignis_list_box, 1, 4)
+        self.layout().addWidget(self.tabwidget, 1, 1)
 
     def setupMenuBar(self):
         self.menubar = QMenuBar(parent=self)
@@ -165,6 +169,18 @@ class WydbidUIMain(QWidget):
 
         # Kunden Event Management
         add_customer.clicked.connect(self.startCreateKunde)
+
+    # Setup tab widgets
+
+    def setupKundenListe(self, kunden_liste: QWidget):
+        ###
+
+        #lyt = QGridLayout()
+        #kunden_liste.setLayout(lyt)
+        self.kundenliste = QTableWidget(parent=kunden_liste)
+        self.kundenliste.setStyleSheet('background-color: green;')
+
+        #kunden_liste.layout().addWidget(self.kundenliste, 1, 0, 1, 0, Qt.AlignCenter)
 
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)

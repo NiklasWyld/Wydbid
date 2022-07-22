@@ -46,6 +46,7 @@ class CreateKunde(QWidget):
         self.informationen = QTextEdit(parent=self)
 
         submit = QPushButton(parent=self, text='Erstellen')
+        submit.clicked.connect(lambda: KundeLogic.createKunde(create_kunde=self))
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 
@@ -71,3 +72,12 @@ class CreateKunde(QWidget):
         self.layout.addWidget(self.informationen, 8, 1, Qt.AlignRight)
 
         self.layout.addWidget(submit, 9, 0, 1, 0, Qt.AlignCenter)
+
+    def clear(self):
+        self.vorname.setText('')
+        self.nachname.setText('')
+        self.adresse.setText('')
+        self.nummer.setText('')
+        self.geschlecht.setCurrentIndex(0)
+        self.geburtsdatum.setText('')
+        self.informationen.setText('')
