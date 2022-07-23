@@ -7,6 +7,7 @@ from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Kunde import CreateKunde
+import os
 
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
@@ -177,18 +178,37 @@ class WydbidUIMain(QWidget):
     def setupKundenListe(self, kunden_liste: QWidget):
         ###
 
+        # Layout declarations
         lyt = QVBoxLayout()
         hlyt = QHBoxLayout()
 
         self.kundenliste = QTableWidget(parent=kunden_liste)
+        self.kundenliste.verticalHeader().setVisible(False)
 
+        self.kundenliste.setColumnCount(4)
+        self.kundenliste.setHorizontalHeaderLabels(['Name', 'Nummer', 'Geburtsdatum', ''])
+
+        WydbidUIMainLogic.appendKunden(kundenliste=self.kundenliste)
+
+        self.kundenliste.setSortingEnabled(True)
+        self.kundenliste.setFocusPolicy(Qt.NoFocus)
+        self.kundenliste.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
+        self.kundenliste.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
+        # Add customer list to main layout
         lyt.addWidget(self.kundenliste, Qt.AlignCenter)
 
-        pushi = QPushButton('Aktualisieren')
-        pushi.setFixedWidth(120)
+        reload = QPushButton('Aktualisieren')
+        reload.setFixedWidth(120)
+        reload.clicked.connect(lambda: WydbidUIMainLogic.appendKunden(kundenliste=self.kundenliste))
 
-        hlyt.addWidget(pushi)
+        # Add reload button to bottom layout
+        hlyt.addWidget(reload)
+
+        # Add bottom layout to main layout
         lyt.addLayout(hlyt)
+
+        # Set layout of customer list tab widget
         kunden_liste.setLayout(lyt)
 
     def setupDateTime(self, date_time: QGroupBox):

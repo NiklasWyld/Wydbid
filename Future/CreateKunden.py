@@ -1,4 +1,5 @@
 import random
+import os
 
 class Kunde:
     def __init__(self, name, id, old):
@@ -13,5 +14,6 @@ if __name__ == '__main__':
 
     for i in range(24):
         kunde = Kunde(random.choice(names), i, random.randint(1, 70))
-        file = open(f'./kundenj/{i}kunde.kunde', 'wb')
+        os.makedirs(f'./kundenj/{i}')
+        file = open(f'./kundenj/{i}/{i}kunde.kunde', 'wb')
         pickle.dump(kunde, file, pickle.HIGHEST_PROTOCOL)

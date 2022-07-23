@@ -15,10 +15,10 @@ list.setGeometry(10, 10, 400, 800)
 list.verticalHeader().setVisible(False)
 
 kunden = []
-dateien = os.listdir('./Kunden/')
+dateien = os.listdir('./kundenj/')
 
 for datei in dateien:
-    kunde: Kunde = pickle.load(open(f'./Kunden/{datei}', 'rb'))
+    kunde: Kunde = pickle.load(open(f'./kundenj/{datei}/{datei}kunde.kunde', 'rb'))
     kunden.append(kunde)
 
 kunden.sort(key=lambda x: x.id, reverse=False)
@@ -58,7 +58,7 @@ def test(__item):
 
 def getKunde(_item: QModelIndex):
     kunden_id = list.item(_item.row(), 1).text()
-    kunde2: Kunde = pickle.load(open(f'./Kunden/{kunden_id}kunde.kunde', 'rb'))
+    kunde2: Kunde = pickle.load(open(f'./kundenj/{kunden_id}/{kunden_id}kunde.kunde', 'rb'))
     p = QMessageBox(parent=window)
     p.setWindowTitle('Hello World')
     p.setText(f'{kunde2.name}, {kunde2.id}, {kunde2.old}')
