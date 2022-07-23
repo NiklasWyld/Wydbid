@@ -18,6 +18,9 @@ class WydbidUIMain(QWidget):
         self.setLayout(QGridLayout())
         self.layout().setContentsMargins(30, 30, 30, 30)
 
+        # Tabwidget
+        self.tabwidget = QTabWidget(parent=self)
+
         # Widgets
         self.ck = CreateKunde.CreateKunde()
 
@@ -52,7 +55,6 @@ class WydbidUIMain(QWidget):
 
         ereignis_widget = QWidget()
 
-        self.tabwidget = QTabWidget(parent=self)
         self.tabwidget.addTab(customer_widget, 'Kundenliste')
         self.tabwidget.addTab(termin_widget, 'Termine')
         self.tabwidget.addTab(auftrag_widget, 'Aufträge')
@@ -175,12 +177,19 @@ class WydbidUIMain(QWidget):
     def setupKundenListe(self, kunden_liste: QWidget):
         ###
 
-        #lyt = QGridLayout()
-        #kunden_liste.setLayout(lyt)
-        self.kundenliste = QTableWidget(parent=kunden_liste)
-        self.kundenliste.setStyleSheet('background-color: green;')
+        lyt = QVBoxLayout()
+        hlyt = QHBoxLayout()
 
-        #kunden_liste.layout().addWidget(self.kundenliste, 1, 0, 1, 0, Qt.AlignCenter)
+        self.kundenliste = QTableWidget(parent=kunden_liste)
+
+        lyt.addWidget(self.kundenliste, Qt.AlignCenter)
+
+        pushi = QPushButton('Aktualisieren')
+        pushi.setFixedWidth(120)
+
+        hlyt.addWidget(pushi)
+        lyt.addLayout(hlyt)
+        kunden_liste.setLayout(lyt)
 
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)
