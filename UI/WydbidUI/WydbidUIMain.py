@@ -176,11 +176,13 @@ class WydbidUIMain(QWidget):
     # Setup tab widgets
 
     def setupKundenListe(self, kunden_liste: QWidget):
-        ###
-
         # Layout declarations
         lyt = QVBoxLayout()
         hlyt = QHBoxLayout()
+
+        self.searchbar = QLineEdit(parent=kunden_liste)
+        self.searchbar.setFixedHeight(40)
+        self.searchbar.setPlaceholderText('Nach Namen filtern')
 
         self.kundenliste = QTableWidget(parent=kunden_liste)
         self.kundenliste.verticalHeader().setVisible(False)
@@ -195,7 +197,12 @@ class WydbidUIMain(QWidget):
         self.kundenliste.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
         self.kundenliste.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
-        # Add customer list to main layout
+        self.searchbar.textChanged.connect(
+            lambda: WydbidUIMainLogic.searchForName(search=self.searchbar, list=self.kundenliste)
+        )
+
+        # Add customer list and search bar to main layout
+        lyt.addWidget(self.searchbar, Qt.AlignCenter)
         lyt.addWidget(self.kundenliste, Qt.AlignCenter)
 
         reload = QPushButton('Aktualisieren')

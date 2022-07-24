@@ -2,7 +2,7 @@ import os
 import pickle
 from PyQt5.QtCore import Qt, QModelIndex
 from Data import Kunde
-from PyQt5.QtWidgets import QWidget, QMessageBox, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QMessageBox, QTableWidget, QTableWidgetItem, QLineEdit
 import Wydbid
 from CustomQt import MessageBox
 from UI.Login import FirmenLogin, MitarbeiterLogin
@@ -33,6 +33,10 @@ def logoutMitarbeiter(widget: QWidget):
 
 def appendKunden(kundenliste: QTableWidget):
     kundenliste.clear()
+    kundenliste.setHorizontalHeaderLabels(['Name', 'Nummer', 'Geburtsdatum', ''])
+    kundenliste.setColumnWidth(0, 200)
+    kundenliste.setColumnWidth(1, 200)
+    kundenliste.setColumnWidth(2, 200)
 
     kunden = []
     dateien = os.listdir(f'{Wydbid.firmen_location}Kunden/')
@@ -65,6 +69,14 @@ def appendKunden(kundenliste: QTableWidget):
         kundenliste.setItem(i, 2, old)
         kundenliste.setItem(i, 3, ansicht)
         i = i + 1
+
+def searchForName(search: QLineEdit, list: QTableWidget):
+    name = search.text().lower()
+    for row in range(list.rowCount()):
+        item = list.item(row, 0)
+
+        # if the search is not in the item's text do not hide the row
+        list.setRowHidden(row, name not in item.text().lower())
 
 def contact():
     p = MessageBox.MessageBox(parent=Wydbid.app.parent(), title='Kontakt', text='Bei einem einfachen Fehler kontaktieren Sie bitte den Administrator\n'

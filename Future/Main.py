@@ -64,8 +64,20 @@ def getKunde(_item: QModelIndex):
     p.setText(f'{kunde2.name}, {kunde2.id}, {kunde2.old}')
     p.exec()
 
+
+def findName():
+    name = search.text().lower()
+    for row in range(list.rowCount()):
+        item = list.item(row, 0)
+
+        # if the search is not in the item's text do not hide the row
+        list.setRowHidden(row, name not in item.text().lower())
+
 list.setSortingEnabled(True)
 list.clicked.connect(test)
+search = QLineEdit(parent=window)
+search.setGeometry(450, 50, 200, 50)
+search.textChanged.connect(findName)
 
 list.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
