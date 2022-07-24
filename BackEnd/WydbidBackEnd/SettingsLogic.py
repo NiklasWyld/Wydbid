@@ -1,8 +1,9 @@
 import pickle
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QLineEdit, QMessageBox
+from PyQt5.QtWidgets import QMessageBox
 import Wydbid
 from Data import Settings
+
 
 def loadCurrentSettingsToPrefab(settings):
     try:
@@ -14,6 +15,7 @@ def loadCurrentSettingsToPrefab(settings):
         settings.icon.setText('./Assets/Icon.jpeg')
         settings.mode.setCurrentIndex(1)
 
+
 def applySettingsPreSure(_settings: Settings.Settings, settings):
     settings.icon.setText(_settings.iconpath)
 
@@ -21,6 +23,7 @@ def applySettingsPreSure(_settings: Settings.Settings, settings):
         settings.mode.setCurrentIndex(0)
     elif _settings.mode == 'dark':
         settings.mode.setCurrentIndex(1)
+
 
 def saveAndApplySetttings(settings):
     icon_path = settings.icon.text()
@@ -48,6 +51,7 @@ def saveAndApplySetttings(settings):
 
     settings.hide()
 
+
 def loadSettings():
     try:
         file = open(f'{Wydbid.location}settings.wbs', 'rb')
@@ -56,6 +60,7 @@ def loadSettings():
         return
 
     applySettings(settings=_settings)
+
 
 def applySettings(settings: Settings.Settings):
     icon_path = settings.iconpath
