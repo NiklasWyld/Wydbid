@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QWidget, QMessageBox, QTableWidget, QTableWidgetItem
 import Wydbid
 from CustomQt import MessageBox
 from UI.Login import FirmenLogin, MitarbeiterLogin
-from UI.WydbidUI.Prefabs.Kunde import CreateKunde
+
 
 def logoutCompany(widget: QWidget):
     Wydbid.firma = None
@@ -20,6 +20,7 @@ def logoutCompany(widget: QWidget):
             i.passwort.setText('')
             i.showMaximized()
 
+
 def logoutMitarbeiter(widget: QWidget):
     Wydbid.mitarbeiter = None
 
@@ -31,9 +32,11 @@ def logoutMitarbeiter(widget: QWidget):
             i.passwort.setText('')
             i.showMaximized()
 
+
 def appendKunden(kundenliste: QTableWidget):
     kundenliste.clear()
-    kundenliste.setHorizontalHeaderLabels(['Name', 'Nummer', 'Geburtsdatum', ''])
+    kundenliste.setHorizontalHeaderLabels(
+        ['Name', 'Nummer', 'Geburtsdatum', ''])
     kundenliste.setColumnWidth(0, 200)
     kundenliste.setColumnWidth(1, 200)
     kundenliste.setColumnWidth(2, 200)
@@ -42,17 +45,17 @@ def appendKunden(kundenliste: QTableWidget):
     dateien = os.listdir(f'{Wydbid.firmen_location}Kunden/')
 
     for datei in dateien:
-        kunde: Kunde.Kunde = pickle.load(open(f'{Wydbid.firmen_location}Kunden/{datei}/{datei}.wbk', 'rb'))
+        kunde: Kunde.Kunde = pickle.load(
+            open(f'{Wydbid.firmen_location}Kunden/{datei}/{datei}.wbk', 'rb'))
         kunden.append(kunde)
 
-    kunden.sort(key=lambda x: x.nachname, reverse=False)
+    kunden.sort(key=lambda x: x.nachname)
 
     kundenliste.setRowCount(len(kunden))
 
-    i = 0
-
-    for kunde in kunden:
-        kundenliste.setItem(i, 0, QTableWidgetItem(f'{kunde.vorname} {kunde.nachname}'))
+    for i, kunde in enumerate(kunden):
+        kundenliste.setItem(i, 0, QTableWidgetItem(
+            f'{kunde.vorname} {kunde.nachname}'))
 
         number = QTableWidgetItem()
         number.setData(Qt.DisplayRole, kunde.nummer)
@@ -68,7 +71,7 @@ def appendKunden(kundenliste: QTableWidget):
         kundenliste.setItem(i, 1, number)
         kundenliste.setItem(i, 2, old)
         kundenliste.setItem(i, 3, ansicht)
-        i = i + 1
+
 
 def searchForName(search: QLineEdit, list: QTableWidget):
     name = search.text().lower()
@@ -78,9 +81,13 @@ def searchForName(search: QLineEdit, list: QTableWidget):
         # if the search is not in the item's text do not hide the row
         list.setRowHidden(row, name not in item.text().lower())
 
+
 def contact():
-    p = MessageBox.MessageBox(parent=Wydbid.app.parent(), title='Kontakt', text='Bei einem einfachen Fehler kontaktieren Sie bitte den Administrator\n'
-                                                                            'Bei einem Softtware-Fehler in Wydbid kontaktieren Sie bitte den Softwareersteller per E-Mail: niklasch1999@gmail.com')
+    p = MessageBox.MessageBox(parent=Wydbid.app.parent(),
+                              title='Kontakt',
+                              text='Bei einem einfachen Fehler kontaktieren Sie bitte den Administrator\n'
+                              'Bei einem Softtware-Fehler in Wydbid kontaktieren Sie bitte den Softwareersteller per E-Mail: niklasch1999@gmail.com'
+                              )
     p.setIcon(QMessageBox.Warning)
     p.setDefaultButton(QMessageBox.StandardButton.Ok)
     p.exec_()

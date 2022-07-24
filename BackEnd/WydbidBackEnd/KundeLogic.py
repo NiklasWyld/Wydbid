@@ -4,6 +4,7 @@ import Wydbid
 import os
 from Data import Kunde
 
+
 def setupKundenFolder():
     kunden_path = f'{Wydbid.firmen_location}Kunden'
 
@@ -14,13 +15,11 @@ def setupKundenFolder():
 
 # ToDo: Add if not / .strip() to prove strings
 
-def createKunde(create_kunde):
-    if not create_kunde.vorname.text().strip():
-        QMessageBox.warning(Wydbid.app.parent(), 'Warnung', 'Alle Felder muessen ausgefuellt werden!')
-        return
 
-    if not create_kunde.nachname.text().strip():
-        QMessageBox.warning(Wydbid.app.parent(), 'Warnung', 'Alle Felder muessen ausgefuellt werden!')
+def createKunde(create_kunde):
+    if not create_kunde.vorname.text().strip() or not create_kunde.nachname.text().strip():
+        QMessageBox.warning(Wydbid.app.parent(), 'Warnung',
+                            'Alle Felder muessen ausgefuellt werden!')
         return
 
     kunde_new = Kunde.Kunde(vorname=create_kunde.vorname.text(), nachname=create_kunde.nachname.text(),
@@ -35,7 +34,8 @@ def createKunde(create_kunde):
     location = f'{Wydbid.firmen_location}Kunden/{kunde_loc_name}/'
 
     if os.path.exists(location):
-        QMessageBox.warning(Wydbid.app.parent(), 'Achtung', 'Ein Kunde mit diesen Namen existiert bereits!')
+        QMessageBox.warning(Wydbid.app.parent(), 'Achtung',
+                            'Ein Kunde mit diesen Namen existiert bereits!')
         return
 
     os.makedirs(location)
@@ -43,7 +43,8 @@ def createKunde(create_kunde):
 
     pickle.dump(kunde_new, k_file, pickle.HIGHEST_PROTOCOL)
 
-    QMessageBox.about(Wydbid.app.parent(), 'Abgeschlossen', f'{kunde_new.vorname} {kunde_new.nachname} wurde erstellt.')
+    QMessageBox.about(Wydbid.app.parent(), 'Abgeschlossen',
+                      f'{kunde_new.vorname} {kunde_new.nachname} wurde erstellt.')
 
     create_kunde.clear()
     create_kunde.hide()

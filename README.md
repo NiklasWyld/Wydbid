@@ -1,12 +1,13 @@
-# Wydbid 
+# Wydbid
 
 ### Description 📃
 
 Wydbid is a customer management software (CRM system) designed for small companies. 🤵
 
 ### Status 👷
- 
+
 Still in work 🚧
+
 No beta version yet 🔮
 
 ### Images 🖼️
@@ -14,38 +15,41 @@ No beta version yet 🔮
 #### Dark Theme
 
 <p align="center">
-  <img style="width: 320px" src="/Images/Firma_Dunkel.png">
-  <img style="width: 320px" src="/Images/Mitarbeiter_Dunkel.png">
-  <img style="width: 320px" src="/Images/Main_Dunkel.png">
+  <img style="width: 320px" src="./Assets/Images/Firma_Dunkel.png">
+  <img style="width: 320px" src="./Assets/Images/Mitarbeiter_Dunkel.png">
+  <img style="width: 320px" src="./Assets/Images/Main_Dunkel.png">
 </p>
 
 #### Light Theme
 
 <p align="center">
-  <img style="width: 320px" src="/Images/Firma_Hell.png">
-  <img style="width: 320px" src="/Images/Mitarbeiter_Hell.png">
-  <img style="width: 320px" src="/Images/Main_Hell.png">
+  <img style="width: 320px" src="./Assets/Images/Firma_Hell.png">
+  <img style="width: 320px" src="./Assets/Images/Mitarbeiter_Hell.png">
+  <img style="width: 320px" src="./Assets/Images/Main_Hell.png">
 </p>
 
 ### Startup guide
 
-#### Required things
+#### Requirements
 
-- `Python 3.5 or higher` _(Download: https://www.python.org/downloads/)_
-- `PyQt5` _(Download:_ `pip install PyQt5`_)_
-- `Wydbid` _(Download: [this repository])_ or `Git` _(Download: https://git-scm.com/downloads)_
+- [`Python 3.6 or higher`](https://www.python.org/downloads/)
+- [`PyQt5`](https://pypi.org/project/PyQt5/)
+- [`Screeninfo`](https://pypi.org/project/screeninfo/)
+- [`Wydbid`](https://github.com/NiklasWyld/Wydbid) or [`Git`](https://git-scm.com/downloads)
 
 #### Startup
 
-- **If you use Git:** `git clone https://github.com/NiklasWyld/Wydbid.git` **Else:** You have to download this repository
+- **If you use Git:** `git clone https://github.com/NiklasWyld/Wydbid.git` **Else:** You have to download the repository
 - Open a terminal
 - Then navigate there to the downloaded Wydbid folder (`cd Wydbid` or `cd Wydbid-main`)
-- Then just open Wydbid using Python with PyQt5 (`python3 Wydbid.py`)
-- Now Wydbid should open and you can start creating companies and employees and set it up the way you want. 
-- If there is an error, see if you have Python 3.5 or higher and PyQt5 installed.
-- If you have checked or made that. And the error should remain, please contact [me] via Discord.
+- Install the required packages with `pip install -r requirements.txt`
+- Then just open Wydbid using your terminal (`python3 Wydbid.py`)
+- Now Wydbid should open and you can start creating companies and employees and set it up the way you want.
+- If there is an error, see if you have Python 3.6 or higher and ran `pip install -r requirements.txt`.
+- If you have checked or made that. And the error should remain, please contact `niklaspeter123#7578` via Discord.
 
 ### Features 🔖
+
 ##### Many functions will only come in the future
 
 - Manage customers
@@ -59,11 +63,8 @@ No beta version yet 🔮
 
 ### Report bugs 🐞
 
-If you find bugs, please contact [me] on Discord.
+If you find bugs, please contact `niklaspeter123#7578` on Discord.
 
 ### License 📜
 
 GPL-3.0 license
-
-[me]: https://discord.com/users/586193546017505281
-[this repository]: https://github.com/NiklasWyld/Wydbid
