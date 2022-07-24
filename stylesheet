@@ -164,7 +164,7 @@ QCheckBox QWidget:disabled {
   background-color: #19232D;
   color: #9DA9B5;
 }
-
+/*
 QCheckBox::indicator {
   margin-left: 2px;
   height: 14px;
@@ -208,6 +208,7 @@ QCheckBox::indicator:indeterminate:disabled {
 QCheckBox::indicator:indeterminate:focus, QCheckBox::indicator:indeterminate:hover, QCheckBox::indicator:indeterminate:pressed {
   image: url(":/qss_icons/dark/rc/checkbox_indeterminate_focus.png");
 }
+*/
 
 /* QGroupBox --------------------------------------------------------------
 
