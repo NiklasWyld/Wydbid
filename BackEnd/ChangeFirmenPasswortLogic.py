@@ -1,9 +1,9 @@
 import os
 import pickle
+import sys
 from PyQt5.QtWidgets import QComboBox, QMessageBox, QWidget
 from Data import Firma
 import Wydbid
-
 
 def addItems(firma_liste: QComboBox):
     l = f'{Wydbid.location}Firmen/'
@@ -15,27 +15,30 @@ def addItems(firma_liste: QComboBox):
                 files.append(f'{l}{folder}/{file}')
 
     for n_file in files:
-        try:
-            n = open(n_file, 'rb')
+        try: n = open(n_file, 'rb')
         except:
-            QMessageBox.about(Wydbid.app.parent(), 'Warnung',
-                              'Etwas ist schiefgelaufen!')
+            QMessageBox.about(Wydbid.app.parent(), 'Warnung', 'Etwas ist schiefgelaufen!')
             return
 
         try:
             firma: Firma.Firma = pickle.load(n)
         except:
-            QMessageBox.about(Wydbid.app.parent(), 'Warnung',
-                              'Etwas ist schiefgelaufen!')
+            QMessageBox.about(Wydbid.app.parent(), 'Warnung', 'Etwas ist schiefgelaufen!')
             return
 
         firma_liste.addItem(firma.name, [firma, n_file])
 
-
 def changePasswortFinal(firma_box: QComboBox, old_passwort: str, new_passwort: str, widget: QWidget):
-    if firma_box.currentData() == None or new_passwort == '' or old_passwort == '':
-        QMessageBox.warning(Wydbid.app.parent(), 'Warnung',
-                            'Alle Felder muessen ausgefuellt werden!')
+    if firma_box.currentData() == None:
+        QMessageBox.warning(Wydbid.app.parent(), 'Warnung', 'Alle Felder muessen ausgefuellt werden!')
+        return
+
+    if old_passwort == '':
+        QMessageBox.warning(Wydbid.app.parent(), 'Warnung', 'Alle Felder muessen ausgefuellt werden!')
+        return
+
+    if new_passwort == '':
+        QMessageBox.warning(Wydbid.app.parent(), 'Warnung', 'Alle Felder muessen ausgefuellt werden!')
         return
 
     firma: Firma.Firma = firma_box.currentData()[0]
@@ -45,8 +48,7 @@ def changePasswortFinal(firma_box: QComboBox, old_passwort: str, new_passwort: s
         pickle.dump(firma, writer, pickle.HIGHEST_PROTOCOL)
         writer.close()
 
-        QMessageBox.about(Wydbid.app.parent(), 'Vorgang abgeschlossen',
-                          f'Das Passwort von {firma.name} wurde erfolgreich geändert.')
+        QMessageBox.about(Wydbid.app.parent(), 'Vorgang abgeschlossen', f'Das Passwort von {firma.name} wurde erfolgreich geändert.')
 
         m = QMessageBox.question(Wydbid.app.parent(),
                                  'Wydbid neustarten',
@@ -61,6 +63,5 @@ def changePasswortFinal(firma_box: QComboBox, old_passwort: str, new_passwort: s
         elif m == QMessageBox.Yes:
             Wydbid.app.exit(0)
     else:
-        QMessageBox.warning(Wydbid.app.parent(), 'Achtung',
-                            'Das eingegebene Passwort ist falsch!')
+        QMessageBox.warning(Wydbid.app.parent(), 'Achtung', 'Das eingegebene Passwort ist falsch!')
         return

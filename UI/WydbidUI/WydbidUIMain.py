@@ -9,7 +9,6 @@ from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Kunde import CreateKunde
 import screeninfo
 
-
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -32,10 +31,8 @@ class WydbidUIMain(QWidget):
         self.setupMenuBar()
 
     def closeEvent(self, event: QCloseEvent):
-        reply = QMessageBox.question(self, 'Bist du sicher?',
-                                     'Bist du sicher, Wydbid beenden möchtest?',
-                                     QMessageBox.Yes, QMessageBox.No
-                                     )
+        reply = QMessageBox.question(self, 'Bist du sicher?', 'Bist du sicher, Wydbid beenden möchtest?',
+                                     QMessageBox.Yes, QMessageBox.No)
 
         if reply == QMessageBox.Yes:
             Wydbid.app.exit(0)
@@ -61,10 +58,13 @@ class WydbidUIMain(QWidget):
 
         ereignis_widget = QWidget()
 
+        email_widget = QWidget()
+
         self.tabwidget.addTab(customer_widget, 'Kundenliste')
         self.tabwidget.addTab(termin_widget, 'Termine')
         self.tabwidget.addTab(auftrag_widget, 'Aufträge')
         self.tabwidget.addTab(ereignis_widget, 'Ereignisse')
+        self.tabwidget.addTab(email_widget, 'E-Mails')
 
         self.layout().addWidget(date_time, 0, 0, 1, 0)
         self.layout().addWidget(action_list, 1, 0)
@@ -84,8 +84,7 @@ class WydbidUIMain(QWidget):
         contact = QAction('Kontakt', self)
         report_bug = QAction('Fehler melden', self)
 
-        logout_mitarbeiter.triggered.connect(
-            lambda: WydbidUIMainLogic.logoutMitarbeiter(self))
+        logout_mitarbeiter.triggered.connect(lambda: WydbidUIMainLogic.logoutMitarbeiter(self))
         logout_company.triggered.connect(self.startCompanyLogout)
         reset_programm.triggered.connect(Wydbid.reset)
         settings.triggered.connect(self.startSettings)
@@ -124,43 +123,38 @@ class WydbidUIMain(QWidget):
 
     def setupActionBox(self, action_list: QComboBox):
         action_list.setLayout(QGridLayout())
-        action_list.layout().setAlignment(Qt.AlignTop | Qt.AlignHCenter)
+        action_list.layout().setAlignment(Qt.AlignTop| Qt.AlignHCenter)
 
         # Kunden
         customer_note = QLabel(parent=action_list, text='Kunden 👨')
-        add_customer = ActionButton.ActionButton(
-            parent=action_list, text='Kunde hinzufügen ➜', color='lightgreen', color_hover='green')
-        edit_customer = ActionButton.ActionButton(
-            parent=action_list, text='Kunde bearbeiten ➜', color='lightskyblue', color_hover='blue')
-        del_customer = ActionButton.ActionButton(
-            parent=action_list, text='Kunde löschen ➜', color='lightcoral', color_hover='red')
+        add_customer = ActionButton.ActionButton(parent=action_list, text='Kunde hinzufügen ➜', color='lightgreen', color_hover='green')
+        edit_customer = ActionButton.ActionButton(parent=action_list, text='Kunde bearbeiten ➜', color='lightskyblue', color_hover='blue')
+        del_customer = ActionButton.ActionButton(parent=action_list, text='Kunde löschen ➜', color='lightcoral', color_hover='red')
 
         # Termine
         termin_note = QLabel(parent=action_list, text='Termine 📅')
-        add_termin = ActionButton.ActionButton(
-            parent=action_list, text='Termin hinzufügen ➜', color='lightgreen', color_hover='green')
-        edit_termin = ActionButton.ActionButton(
-            parent=action_list, text='Termin bearbeiten ➜', color='lightskyblue', color_hover='blue')
-        del_termin = ActionButton.ActionButton(
-            parent=action_list, text='Termin löschen ➜', color='lightcoral', color_hover='red')
+        add_termin = ActionButton.ActionButton(parent=action_list, text='Termin hinzufügen ➜', color='lightgreen', color_hover='green')
+        edit_termin = ActionButton.ActionButton(parent=action_list, text='Termin bearbeiten ➜', color='lightskyblue', color_hover='blue')
+        del_termin = ActionButton.ActionButton(parent=action_list, text='Termin löschen ➜', color='lightcoral', color_hover='red')
 
         # Auftraege
         auftrag_note = QLabel(parent=action_list, text='Aufträge 📦')
-        add_auftrag = ActionButton.ActionButton(
-            parent=action_list, text='Auftrag hinzufügen ➜', color='lightgreen', color_hover='green')
-        edit_auftrag = ActionButton.ActionButton(
-            parent=action_list, text='Auftrag bearbeiten ➜', color='lightskyblue', color_hover='blue')
-        del_auftrag = ActionButton.ActionButton(
-            parent=action_list, text='Auftrag löschen ➜', color='lightcoral', color_hover='red')
+        add_auftrag = ActionButton.ActionButton(parent=action_list, text='Auftrag hinzufügen ➜', color='lightgreen', color_hover='green')
+        edit_auftrag = ActionButton.ActionButton(parent=action_list, text='Auftrag bearbeiten ➜', color='lightskyblue', color_hover='blue')
+        del_auftrag = ActionButton.ActionButton(parent=action_list, text='Auftrag löschen ➜', color='lightcoral', color_hover='red')
 
         # Ereignisse
         ereignis_note = QLabel(parent=action_list, text='Ereignis 📝')
-        add_ereignis = ActionButton.ActionButton(
-            parent=action_list, text='Ereignis hinzufügen ➜', color='lightgreen', color_hover='green')
-        edit_ereignis = ActionButton.ActionButton(
-            parent=action_list, text='Ereignis bearbeiten ➜', color='lightskyblue', color_hover='blue')
-        del_ereignis = ActionButton.ActionButton(
-            parent=action_list, text='Ereignis löschen ➜', color='lightcoral', color_hover='red')
+        add_ereignis = ActionButton.ActionButton(parent=action_list, text='Ereignis hinzufügen ➜', color='lightgreen', color_hover='green')
+        edit_ereignis = ActionButton.ActionButton(parent=action_list, text='Ereignis bearbeiten ➜', color='lightskyblue', color_hover='blue')
+        del_ereignis = ActionButton.ActionButton(parent=action_list, text='Ereignis löschen ➜', color='lightcoral', color_hover='red')
+
+        # E-Mails
+        email_note = QLabel(parent=action_list, text='E-Mail ✉')
+        send_email = ActionButton.ActionButton(parent=action_list, text='E-Mail senden ➜', color='cornflowerblue', color_hover='lightskyblue')
+        make_email = ActionButton.ActionButton(parent=action_list, text='E-Mail erstellen ➜', color='lightgreen', color_hover='green')
+        edit_email = ActionButton.ActionButton(parent=action_list, text='E-Mail bearbeiten ➜', color='lightskyblue', color_hover='blue')
+        del_email = ActionButton.ActionButton(parent=action_list, text='E-Mail löschen ➜', color='lightcoral', color_hover='red')
 
         # Kunden Layout Management
         action_list.layout().addWidget(customer_note, 0, 0, 1, 0, Qt.AlignLeft)
@@ -186,6 +180,13 @@ class WydbidUIMain(QWidget):
         action_list.layout().addWidget(edit_ereignis, 17, 0, 1, 0, Qt.AlignCenter)
         action_list.layout().addWidget(del_ereignis, 18, 0, 1, 0, Qt.AlignCenter)
 
+        # E-Mail Layout Management
+        action_list.layout().addWidget(email_note, 19, 0, 1, 0, Qt.AlignLeft)
+        action_list.layout().addWidget(send_email, 20, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(make_email, 21, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(edit_email, 22, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(del_email, 23, 0, 1, 0, Qt.AlignCenter)
+
         # ToDo: Event Management
 
         # Kunden Event Management
@@ -205,21 +206,18 @@ class WydbidUIMain(QWidget):
         self.kundenliste = QTableWidget(parent=kunden_liste)
         self.kundenliste.verticalHeader().setVisible(False)
 
-        self.kundenliste.setColumnCount(4)
-        self.kundenliste.setHorizontalHeaderLabels(
-            ['Name', 'Nummer', 'Geburtsdatum', ''])
+        self.kundenliste.setColumnCount(8)
+        self.kundenliste.setHorizontalHeaderLabels(['Kundennummer', 'Name', 'E-Mail Adresse', 'Adresse', 'Nummer', 'Geschlecht', 'Geburtsdatum', ''])
 
         WydbidUIMainLogic.appendKunden(kundenliste=self.kundenliste)
 
         self.kundenliste.setSortingEnabled(True)
         self.kundenliste.setFocusPolicy(Qt.NoFocus)
-        self.kundenliste.setSelectionMode(
-            QAbstractItemView.SelectionMode.NoSelection)
+        self.kundenliste.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
         self.kundenliste.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
         self.searchbar.textChanged.connect(
-            lambda: WydbidUIMainLogic.searchForName(
-                search=self.searchbar, list=self.kundenliste)
+            lambda: WydbidUIMainLogic.searchForName(search=self.searchbar, list=self.kundenliste)
         )
 
         # Add customer list and search bar to main layout
@@ -228,8 +226,7 @@ class WydbidUIMain(QWidget):
 
         reload = QPushButton('Aktualisieren')
         reload.setFixedWidth(120)
-        reload.clicked.connect(lambda: WydbidUIMainLogic.appendKunden(
-            kundenliste=self.kundenliste))
+        reload.clicked.connect(lambda: WydbidUIMainLogic.appendKunden(kundenliste=self.kundenliste))
 
         # Add reload button to bottom layout
         hlyt.addWidget(reload)

@@ -5,11 +5,13 @@ import os
 from UI.Login import MitarbeiterLogin
 import Wydbid
 
-
 def login(firmenlogin: QWidget, firma: QComboBox, password: str):
-    if firma.currentData() == None or password == '':
-        QMessageBox.warning(Wydbid.app.parent(), 'Warnung',
-                            'Alle Felder muessen ausgefuellt werden!')
+    if firma.currentData() == None:
+        QMessageBox.warning(Wydbid.app.parent(), 'Warnung', 'Alle Felder muessen ausgefuellt werden!')
+        return
+
+    if password == '':
+        QMessageBox.warning(Wydbid.app.parent(), 'Warnung', 'Alle Felder muessen ausgefuellt werden!')
         return
 
     firma: Firma.Firma = firma.currentData()
@@ -26,10 +28,8 @@ def login(firmenlogin: QWidget, firma: QComboBox, password: str):
 
         Wydbid.mitarbeiter_login = mitarbeiter_login
     else:
-        QMessageBox.warning(Wydbid.app.parent(), 'Achtung',
-                            'Das eingegebene Passwort ist falsch!')
+        QMessageBox.warning(Wydbid.app.parent(), 'Achtung', 'Das eingegebene Passwort ist falsch!')
         return
-
 
 def addItems(firma_liste: QComboBox):
     l = f'{Wydbid.location}Firmen/'
@@ -41,18 +41,15 @@ def addItems(firma_liste: QComboBox):
                 files.append(f'{l}{folder}/{file}')
 
     for n_file in files:
-        try:
-            n = open(n_file, 'rb')
+        try: n = open(n_file, 'rb')
         except:
-            QMessageBox.about(Wydbid.app.parent(), 'Warnung',
-                              'Etwas ist schiefgelaufen!')
+            QMessageBox.about(Wydbid.app.parent(), 'Warnung', 'Etwas ist schiefgelaufen!')
             return
 
         try:
             firma: Firma.Firma = pickle.load(n)
         except:
-            QMessageBox.about(Wydbid.app.parent(), 'Warnung',
-                              'Etwas ist schiefgelaufen!')
+            QMessageBox.about(Wydbid.app.parent(), 'Warnung', 'Etwas ist schiefgelaufen!')
             return
 
         firma_liste.addItem(firma.name, firma)

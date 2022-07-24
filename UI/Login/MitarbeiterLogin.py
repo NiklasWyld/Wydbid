@@ -1,3 +1,4 @@
+import sys
 import time
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -6,7 +7,7 @@ import Wydbid
 from BackEnd import MitarbeiterLoginLogic
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from UI.Login.Prefabs import CreateMitarbeiter, DelMitarbeiter, ChangeMitarbeiterPasswort
-
+import screeninfo
 
 class MitarbeiterLogin(QWidget):
     def __init__(self, *args, **kwargs):
@@ -16,7 +17,9 @@ class MitarbeiterLogin(QWidget):
 
         self.setLayout(self.layout)
         self.setWindowTitle('Wydbid - Mitarbeiter-Login')
-        self.setGeometry(0, 0, 1920, 1080)
+        width = screeninfo.get_monitors()[0].width
+        height = screeninfo.get_monitors()[0].height
+        self.setGeometry(0, 0, width, height)
 
         self.cm = CreateMitarbeiter.CreateMitarbeiter()
         self.dm = DelMitarbeiter.DelMitarbeiter()
@@ -42,7 +45,7 @@ class MitarbeiterLogin(QWidget):
                                     self)
 
     def setupUI(self):
-        self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
+        self.layout.setAlignment(Qt.AlignTop| Qt.AlignHCenter)
 
         self.title = QLabel(time.strftime('%d.%m.%y'))
         self.title.setFont(QFont('Montserrat', 30))
@@ -59,8 +62,7 @@ class MitarbeiterLogin(QWidget):
         submit = QPushButton(parent=self, text='Bestätigen')
         submit.clicked.connect(self.startMitarbeiterLogin)
 
-        verticalSpacer = QSpacerItem(
-            40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        verticalSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.layout.addItem(verticalSpacer, 6, 0, Qt.AlignTop)
 
         # Set distance between top and content
@@ -75,11 +77,11 @@ class MitarbeiterLogin(QWidget):
         self.layout.addWidget(self.passwort, 3, 1, Qt.AlignRight)
 
         self.layout.addWidget(submit, 4, 0, 1, 0, Qt.AlignCenter)
-
+    
     def clear(self):
         self.username.setText('')
         self.passwort.setText('')
-
+    
     def logoutCompany(self):
         MitarbeiterLoginLogic.logoutCompany(mitarbeiter_login_widget=self)
 
@@ -103,8 +105,7 @@ class MitarbeiterLogin(QWidget):
 
         create_mitarbeiter = QAction('Mitarbeiter erstellen', self)
         del_mitarbeiter = QAction('Mitarbeiter löschen', self)
-        change_mitarbeiter_passwort = QAction(
-            'Mitarbeiterpasswort ändern', self)
+        change_mitarbeiter_passwort = QAction('Mitarbeiterpasswort ändern', self)
         logout_company = QAction('Firma abmelden', self)
         close = QAction('Beenden', self)
 
@@ -113,8 +114,7 @@ class MitarbeiterLogin(QWidget):
 
         create_mitarbeiter.triggered.connect(self.startCreateMitarbeiter)
         del_mitarbeiter.triggered.connect(self.startDelMitarbeiter)
-        change_mitarbeiter_passwort.triggered.connect(
-            self.startChangeMitarbeiterPasswort)
+        change_mitarbeiter_passwort.triggered.connect(self.startChangeMitarbeiterPasswort)
         logout_company.triggered.connect(self.logoutCompany)
         close.triggered.connect(self.closeApp)
 
