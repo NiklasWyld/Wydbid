@@ -4,6 +4,7 @@ import Wydbid
 import os
 from Data import Kunde
 
+
 def setupKundenFolder():
     kunden_path = f'{Wydbid.firmen_location}Kunden'
 
@@ -14,6 +15,8 @@ def setupKundenFolder():
 
 # ToDo: Add if not / .strip() to prove strings
 # ToDo: Fix reload
+
+
 def handleNextId(create_kunde):
     id_list = os.listdir(f'{Wydbid.firmen_location}Kunden/')
     if not id_list:
@@ -33,20 +36,24 @@ def handleNextId(create_kunde):
 
     return id_list[-1] + 1
 
+
 def createKunde(create_kunde):
     if create_kunde.id_tick.isChecked():
         print(handleNextId(create_kunde))
-
         return
-    else: new_id = create_kunde.id.text()
+    else:
+        new_id = create_kunde.id.text()
 
-    try: int(new_id)
+    try:
+        int(new_id)
     except:
-        QMessageBox.warning(Wydbid.app.parent(), 'Warnung', 'Die Kundennummer muss eine Zahl sein.')
+        QMessageBox.warning(Wydbid.app.parent(), 'Warnung',
+                            'Die Kundennummer muss eine Zahl sein.')
         return
 
     if not new_id.strip() or not create_kunde.vorname.text().strip() or not create_kunde.nachname.text().strip():
-        QMessageBox.warning(Wydbid.app.parent(), 'Warnung', 'Die Pflichtfelder muessen ausgefuellt werden!')
+        QMessageBox.warning(Wydbid.app.parent(), 'Warnung',
+                            'Die Pflichtfelder muessen ausgefuellt werden!')
         return
 
     kunde_new = Kunde.Kunde(id=int(new_id), vorname=create_kunde.vorname.text(), nachname=create_kunde.nachname.text(),
@@ -60,7 +67,8 @@ def createKunde(create_kunde):
     location = f'{Wydbid.firmen_location}Kunden/{kunde_loc_name}/'
 
     if os.path.exists(location):
-        QMessageBox.warning(Wydbid.app.parent(), 'Achtung', 'Ein Kunde mit dieser Kundennummer existiert bereits!')
+        QMessageBox.warning(Wydbid.app.parent(), 'Achtung',
+                            'Ein Kunde mit dieser Kundennummer existiert bereits!')
         return
 
     os.makedirs(location)
@@ -68,7 +76,8 @@ def createKunde(create_kunde):
 
     pickle.dump(kunde_new, k_file, pickle.HIGHEST_PROTOCOL)
 
-    QMessageBox.about(Wydbid.app.parent(), 'Abgeschlossen', f'{kunde_new.vorname} {kunde_new.nachname} wurde erstellt.')
+    QMessageBox.about(Wydbid.app.parent(), 'Abgeschlossen',
+                      f'{kunde_new.vorname} {kunde_new.nachname} wurde erstellt.')
 
     create_kunde.clear()
     create_kunde.hide()

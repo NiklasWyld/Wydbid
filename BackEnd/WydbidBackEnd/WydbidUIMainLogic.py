@@ -8,6 +8,7 @@ from CustomQt import MessageBox
 from UI.Login import FirmenLogin, MitarbeiterLogin
 from UI.WydbidUI.Prefabs.Kunde import CreateKunde
 
+
 def logoutCompany(widget: QWidget):
     Wydbid.firma = None
     Wydbid.firmen_location = ''
@@ -20,6 +21,7 @@ def logoutCompany(widget: QWidget):
             i.passwort.setText('')
             i.showMaximized()
 
+
 def logoutMitarbeiter(widget: QWidget):
     Wydbid.mitarbeiter = None
 
@@ -31,10 +33,12 @@ def logoutMitarbeiter(widget: QWidget):
             i.passwort.setText('')
             i.showMaximized()
 
+
 def appendKunden(kundenliste: QTableWidget):
     global d_geschlecht
     kundenliste.clear()
-    kundenliste.setHorizontalHeaderLabels(['Kundennummer', 'Name', 'E-Mail Adresse', 'Adresse', 'Nummer', 'Geschlecht', 'Geburtsdatum', ''])
+    kundenliste.setHorizontalHeaderLabels(
+        ['Kundennummer', 'Name', 'E-Mail Adresse', 'Adresse', 'Nummer', 'Geschlecht', 'Geburtsdatum', ''])
     kundenliste.setColumnWidth(0, 200)
     kundenliste.setColumnWidth(1, 200)
     kundenliste.setColumnWidth(2, 200)
@@ -47,7 +51,8 @@ def appendKunden(kundenliste: QTableWidget):
     dateien = os.listdir(f'{Wydbid.firmen_location}Kunden/')
 
     for datei in dateien:
-        kunde: Kunde.Kunde = pickle.load(open(f'{Wydbid.firmen_location}Kunden/{datei}/{datei}.wbk', 'rb'))
+        kunde: Kunde.Kunde = pickle.load(
+            open(f'{Wydbid.firmen_location}Kunden/{datei}/{datei}.wbk', 'rb'))
         kunden.append(kunde)
 
     kunden.sort(key=lambda x: x.nachname, reverse=False)
@@ -60,7 +65,8 @@ def appendKunden(kundenliste: QTableWidget):
         id = QTableWidgetItem()
         id.setData(Qt.DisplayRole, kunde.id)
 
-        kundenliste.setItem(i, 1, QTableWidgetItem(f'{kunde.vorname} {kunde.nachname}'))
+        kundenliste.setItem(i, 1, QTableWidgetItem(
+            f'{kunde.vorname} {kunde.nachname}'))
 
         email = QTableWidgetItem()
         email.setData(Qt.DisplayRole, kunde.email)
@@ -72,8 +78,10 @@ def appendKunden(kundenliste: QTableWidget):
         nummer.setData(Qt.DisplayRole, kunde.nummer)
 
         geschlecht = QTableWidgetItem()
-        if kunde.geschlecht == 'men': d_geschlecht = 'männlich'
-        elif kunde.geschlecht == 'women': d_geschlecht = 'weiblich'
+        if kunde.geschlecht == 'men':
+            d_geschlecht = 'männlich'
+        elif kunde.geschlecht == 'women':
+            d_geschlecht = 'weiblich'
         geschlecht.setData(Qt.DisplayRole, d_geschlecht)
 
         geburtsdatum = QTableWidgetItem()
@@ -93,6 +101,7 @@ def appendKunden(kundenliste: QTableWidget):
         kundenliste.setItem(i, 7, ansicht)
         i = i + 1
 
+
 def searchForName(search: QLineEdit, list: QTableWidget):
     name = search.text().lower()
     for row in range(list.rowCount()):
@@ -101,9 +110,12 @@ def searchForName(search: QLineEdit, list: QTableWidget):
         # if the search is not in the item's text do not hide the row
         list.setRowHidden(row, name not in item.text().lower())
 
+
 def contact():
-    p = MessageBox.MessageBox(parent=Wydbid.app.parent(), title='Kontakt', text='Bei einem einfachen Fehler kontaktieren Sie bitte den Administrator\n'
-                                                                            'Bei einem Softtware-Fehler in Wydbid kontaktieren Sie bitte den Softwareersteller per E-Mail: niklasch1999@gmail.com')
+    p = MessageBox.MessageBox(parent=Wydbid.app.parent(),
+                              title='Kontakt',
+                              text='Bei einem einfachen Fehler kontaktieren Sie bitte den Administrator\n'
+                              'Bei einem Softtware-Fehler in Wydbid kontaktieren Sie bitte den Softwareersteller per E-Mail: niklasch1999@gmail.com')
     p.setIcon(QMessageBox.Warning)
     p.setDefaultButton(QMessageBox.StandardButton.Ok)
     p.exec_()
