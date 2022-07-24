@@ -3,6 +3,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from BackEnd import ChangeFirmenPasswortLogic
 
+
 class ChangeFirmenPasswort(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -22,7 +23,8 @@ class ChangeFirmenPasswort(QWidget):
         self.new_passwort.setText('')
 
     def changePasswort(self):
-        ChangeFirmenPasswortLogic.changePasswortFinal(self.firma, self.passwort.text(), self.new_passwort.text(), self)
+        ChangeFirmenPasswortLogic.changePasswortFinal(
+            self.firma, self.passwort.text(), self.new_passwort.text(), self)
 
     def addItemsToFirma(self):
         ChangeFirmenPasswortLogic.addItems(self.firma)

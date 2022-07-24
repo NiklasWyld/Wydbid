@@ -2,11 +2,12 @@ import time
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-import sys
 import Wydbid
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from UI.Login.Prefabs import CreateFirma, DelFirma, ChangeFirmenPasswort
 from BackEnd import FirmenLoginLogic
+import screeninfo
+
 
 class FirmenLogin(QWidget):
     def __init__(self, *args, **kwargs):
@@ -16,7 +17,9 @@ class FirmenLogin(QWidget):
 
         self.setLayout(self.layout)
         self.setWindowTitle('Wydbid - Firmen-Login')
-        self.setGeometry(0, 0, 1920, 1080)
+        width = screeninfo.get_monitors()[0].width
+        height = screeninfo.get_monitors()[0].height
+        self.setGeometry(0, 0, width, height)
 
         self.cf = CreateFirma.CreateFirma()
         self.del_firma = DelFirma.DelFirma()
@@ -43,7 +46,7 @@ class FirmenLogin(QWidget):
         FirmenLoginLogic.login(self, self.firma, self.passwort.text())
 
     def setupUI(self):
-        self.layout.setAlignment(Qt.AlignTop| Qt.AlignHCenter)
+        self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
         title = QLabel(time.strftime('%d.%m.%y'))
         title.setFont(QFont('Montserrat', 30))
@@ -60,7 +63,8 @@ class FirmenLogin(QWidget):
         submit = QPushButton(parent=self, text='Bestätigen')
         submit.clicked.connect(self.login)
 
-        verticalSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)    
+        verticalSpacer = QSpacerItem(
+            40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.layout.addItem(verticalSpacer, 6, 0, Qt.AlignTop)
 
         # Set distance between top and content
@@ -104,7 +108,8 @@ class FirmenLogin(QWidget):
 
         create_company.triggered.connect(self.startCreateFirma)
         del_company.triggered.connect(self.startDelFirma)
-        change_company_password.triggered.connect(self.startChangeFirmenPasswort)
+        change_company_password.triggered.connect(
+            self.startChangeFirmenPasswort)
         reset.triggered.connect(Wydbid.reset)
         close.triggered.connect(self.closeApp)
 
