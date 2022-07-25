@@ -4,7 +4,7 @@ import os
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 from CustomQt import MessageBox
-from UI.Login import FirmenLogin
+from UI.Login import CompanyLogin
 from UI.WydbidUI.Prefabs import Settings
 from BackEnd.WydbidBackEnd import SettingsLogic
 
@@ -23,24 +23,24 @@ wydbidui = None
 
 def reset():
     m = QMessageBox.question(app.parent(),
-                             'Sicher?',
-                             'Bist du sicher, dass du Wydbid zurückstetzen möchtest? Achtung, denn es werden alle Daten gelöscht!',
+                             'Sure?',
+                             'Are you sure you want to reset Wydbid? Attention, because all data will be deleted!',
                              QMessageBox.Yes,
                              QMessageBox.No)
 
     if m == QMessageBox.No:
-        QMessageBox.about(app.parent(), 'Info', 'Wydbid wurde nicht zurückgesetzt!')
+        QMessageBox.about(app.parent(), 'Info', 'Wydbid has not been reset!')
         return
 
     elif m == QMessageBox.Yes:
-        p = MessageBox.MessageBox(parent=app.parent(), title='Info', text='Wydbid wird jetzt zurückgesetzt. Bitte bestätigen Sie um fortzufahren!')
+        p = MessageBox.MessageBox(parent=app.parent(), title='Info', text='Wydbid will now reset. Please confirm to continue!')
         p.setIcon(QMessageBox.Warning)
         p.setDefaultButton(QMessageBox.StandardButton.Ok)
         p.exec_()
 
         shutil.rmtree(location, ignore_errors=True)
 
-        q = MessageBox.MessageBox(parent=app.parent(), title='Info', text='Wydbid wurde erfolgreich zurückgesetzt. Das Programm wird jetzt beendet!')
+        q = MessageBox.MessageBox(parent=app.parent(), title='Info', text='Wydbid has been successfully reset. The programme will now be terminated!')
         q.setIcon(QMessageBox.Warning)
         q.setDefaultButton(QMessageBox.StandardButton.Ok)
         q.exec_()
@@ -76,7 +76,7 @@ if __name__ == '__main__':
 
     SettingsLogic.loadSettings()
 
-    firmen_login = FirmenLogin.FirmenLogin()
+    firmen_login = CompanyLogin.CompanyLogin()
     firmen_login.showMaximized()
 
     sys.exit(app.exec_())

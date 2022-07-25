@@ -2,7 +2,7 @@ import os
 import pickle
 import sys
 from PyQt5.QtWidgets import QComboBox, QMessageBox, QWidget
-from Data import Firma
+from Data import Company
 import shutil
 import Wydbid
 
@@ -20,15 +20,15 @@ def addItems(firma_liste: QComboBox):
         try:
             n = open(n_file, 'rb')
         except:
-            QMessageBox.about(Wydbid.app.parent(), 'Warnung',
-                              'Etwas ist schiefgelaufen!')
+            QMessageBox.about(Wydbid.app.parent(), 'Warning',
+                              'Something went wrong!')
             return
 
         try:
-            firma: Firma.Firma = pickle.load(n)
+            firma: Company.Company = pickle.load(n)
         except:
-            QMessageBox.about(Wydbid.app.parent(), 'Warnung',
-                              'Etwas ist schiefgelaufen!')
+            QMessageBox.about(Wydbid.app.parent(), 'Warning',
+                              'Something went wrong!')
             return
 
         firma_liste.addItem(firma.name, [firma, n_file])
@@ -39,12 +39,12 @@ def delFirmaFinal(file: str, widget: QWidget):
     folder = f'{Wydbid.location}Firmen/{folder}/'
     os.remove(file)
     shutil.rmtree(folder, ignore_errors=True)
-    QMessageBox.about(Wydbid.app.parent(), 'Abgeschlossen',
-                      'Die Firma wurde gelöscht!')
+    QMessageBox.about(Wydbid.app.parent(), 'Completed',
+                      'The company has been deleted!')
 
     m = QMessageBox.question(Wydbid.app.parent(),
-                             'Wydbid neustarten',
-                             'Achtung, um die Änderungen auszuführen, müssen Sie Wydbid neustarten! Wollen Sie jetzt neustarten?',
+                             'Restart Wydbid',
+                             'Attention, you need to restart Wydbid to make the changes! Do you want to restart now?',
                              QMessageBox.Yes,
                              QMessageBox.No)
 
@@ -57,15 +57,15 @@ def delFirmaFinal(file: str, widget: QWidget):
 
 
 def getFirma(firma_box: QComboBox, passwort: str, widget: QWidget):
-    firma: Firma.Firma = firma_box.currentData()[0]
+    firma: Company.Company = firma_box.currentData()[0]
 
     if passwort == '':
-        QMessageBox.warning(Wydbid.app.parent(), 'Warnung',
-                            'Alle Felder muessen ausgefuellt werden!')
+        QMessageBox.warning(Wydbid.app.parent(), 'Warning',
+                            'All fields must be filled in!')
         return
 
     if passwort != firma.passwort:
-        QMessageBox.warning(Wydbid.app.parent(), 'Achtung',
-                            'Achtung, das eingegebene Passwort ist falsch!')
+        QMessageBox.warning(Wydbid.app.parent(), 'Attention',
+                            'Attention, the password entered is incorrect!')
         return
     delFirmaFinal(firma_box.currentData()[1], widget)

@@ -1,10 +1,10 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from BackEnd import CreateFirmaLogic, FirmenLoginLogic, DelFirmaLogic
+from BackEnd import CreateCompanyLogic, CompanyLoginLogic, DelCompanyLogic
 
 
-class DelFirma(QWidget):
+class DelCompany(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
 
@@ -22,10 +22,10 @@ class DelFirma(QWidget):
         self.passwort.setText('')
 
     def addItemsToFirma(self):
-        DelFirmaLogic.addItems(self.firma)
+        DelCompanyLogic.addItems(self.firma)
 
     def delFirma(self):
-        DelFirmaLogic.getFirma(self.firma, self.passwort.text(), self.widget)
+        DelCompanyLogic.getFirma(self.firma, self.passwort.text(), self.widget)
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)

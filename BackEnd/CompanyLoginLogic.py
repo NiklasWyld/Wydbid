@@ -1,22 +1,22 @@
 import pickle
 from PyQt5.QtWidgets import QComboBox, QMessageBox, QWidget
-from Data import Firma
+from Data import Company
 import os
-from UI.Login import MitarbeiterLogin
+from UI.Login import EmployeeLogin
 import Wydbid
 
 
 def login(firmenlogin: QWidget, firma: QComboBox, password: str):
     if firma.currentData() == None or password == '':
-        QMessageBox.warning(Wydbid.app.parent(), 'Warnung',
-                            'Alle Felder muessen ausgefuellt werden!')
+        QMessageBox.warning(Wydbid.app.parent(), 'Warning',
+                            'All fields must be filled in!')
         return
 
-    firma: Firma.Firma = firma.currentData()
+    firma: Company.Company = firma.currentData()
 
     if password != firma.passwort:
-        QMessageBox.warning(Wydbid.app.parent(), 'Achtung',
-                            'Das eingegebene Passwort ist falsch!')
+        QMessageBox.warning(Wydbid.app.parent(), 'Attention',
+                            'The password you entered is incorrect!')
         return
 
     Wydbid.firmen_location = f'{Wydbid.location}Firmen/{firma.id}/'
@@ -24,7 +24,7 @@ def login(firmenlogin: QWidget, firma: QComboBox, password: str):
 
     firmenlogin.hide()
 
-    mitarbeiter_login = MitarbeiterLogin.MitarbeiterLogin()
+    mitarbeiter_login = EmployeeLogin.EmployeeLogin()
     mitarbeiter_login.title.setText(f'{firma.name}')
     mitarbeiter_login.showMaximized()
 
@@ -44,15 +44,15 @@ def addItems(firma_liste: QComboBox):
         try:
             n = open(n_file, 'rb')
         except:
-            QMessageBox.about(Wydbid.app.parent(), 'Warnung',
-                              'Etwas ist schiefgelaufen!')
+            QMessageBox.about(Wydbid.app.parent(), 'Warning',
+                              'Something went wrong!')
             return
 
         try:
-            firma: Firma.Firma = pickle.load(n)
+            firma: Company.Company = pickle.load(n)
         except:
-            QMessageBox.about(Wydbid.app.parent(), 'Warnung',
-                              'Etwas ist schiefgelaufen!')
+            QMessageBox.about(Wydbid.app.parent(), 'Warning',
+                              'Something went wrong!')
             return
 
         firma_liste.addItem(firma.name, firma)

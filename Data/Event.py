@@ -1,7 +1,7 @@
-import Kunde
+import Customer
 
-class Ereignis:
-    def __init__(self, id: int, kunde: Kunde, titel: str, beschreibung: str):
+class Event:
+    def __init__(self, id: int, kunde: Customer, titel: str, beschreibung: str):
         self.id = id
         self.kunde = kunde
         self.titel = titel

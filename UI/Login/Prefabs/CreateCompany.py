@@ -1,9 +1,9 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from BackEnd import CreateFirmaLogic
+from BackEnd import CreateCompanyLogic
 
-class CreateFirma(QWidget):
+class CreateCompany(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
 
@@ -18,7 +18,7 @@ class CreateFirma(QWidget):
         self.setupUI()
 
     def createFirma(self):
-        CreateFirmaLogic.getFirma(self.id_field.text(), self.name.text(), self.passwort.text(), self.widget)
+        CreateCompanyLogic.getFirma(self.id_field.text(), self.name.text(), self.passwort.text(), self.widget)
 
     def clear(self, clearOnlyId: bool = False):
         if not clearOnlyId:

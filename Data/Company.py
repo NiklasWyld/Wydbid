@@ -1,4 +1,4 @@
-class Firma:
+class Company:
     def __init__(self, id: int, name: str, passwort: str):
         self.id = id
         self.name = name

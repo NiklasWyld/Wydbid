@@ -1,8 +1,8 @@
 import pickle
 import sys
 from PyQt5.QtWidgets import QMessageBox, QWidget
-from UI.Login.Prefabs import CreateFirma
-from Data import Firma
+from UI.Login.Prefabs import CreateCompany
+from Data import Company
 import os
 import Wydbid
 
@@ -11,25 +11,22 @@ def writeFirma(id: int, name: str, passwort: str, widget: QWidget):
     location = Wydbid.location
 
     if os.path.exists(f'{location}Firmen/{str(id)}/'):
-        QMessageBox.warning(Wydbid.app.parent(), 'Achtung',
-                            'Eine Firma mit dieser ID existiert bereits!')
+        QMessageBox.warning(Wydbid.app.parent(), 'Attention',
+                            'A company with this ID already exists!')
         return
-
-    '''try: firma_file = open(f'{location}Firmen/{str(id)}.wbf', 'wb')
-    except: open(f'{location}Firmen/{str(id)}.wbf', 'x')'''
 
     os.makedirs(f'{location}Firmen/{str(id)}/')
     firma_file = open(f'{location}Firmen/{str(id)}/{str(id)}.wbf', 'wb')
-    firma = Firma.Firma(id, name, passwort)
+    firma = Company.Company(id, name, passwort)
 
     pickle.dump(firma, firma_file, pickle.HIGHEST_PROTOCOL)
 
-    QMessageBox.about(Wydbid.app.parent(), 'Abgeschlossen',
-                      f'{name} wurde erstellt.')
+    QMessageBox.about(Wydbid.app.parent(), 'Completed',
+                      f'{name} was created.')
 
     m = QMessageBox.question(Wydbid.app.parent(),
-                             'Wydbid neustarten',
-                             'Achtung, um dich in die neue Firma einzuloggen, muessen Sie zuerst das Programm neustarten! Wollen Sie Wydbid neustarten?',
+                             'Restart Wydbid',
+                             'Attention, to log in to the new company, you must first restart the programme! Do you want to restart Wydbid?',
                              QMessageBox.Yes,
                              QMessageBox.No)
 
@@ -43,16 +40,16 @@ def writeFirma(id: int, name: str, passwort: str, widget: QWidget):
 
 def getFirma(id: str, name: str, passwort: str, widget: QWidget):
     if id == '' or name == '' or passwort == '':
-        QMessageBox.warning(Wydbid.app.parent(), 'Warnung',
-                            'Alle Felder muessen ausgefuellt werden!')
+        QMessageBox.warning(Wydbid.app.parent(), 'Warning',
+                            'All fields must be filled in!')
         return
 
     try:
         id = int(id)
     except:
         QMessageBox.warning(Wydbid.app.parent(
-        ), 'Warnung', 'Es muss eine Zahl in das Firmen-ID Feld eingetragen werden!')
-        CreateFirma.CreateFirma().clear(clearOnlyId=True)
+        ), 'Warning', 'A number must be entered in the company ID field!')
+        CreateCompany.CreateCompany().clear(clearOnlyId=True)
         return
 
     writeFirma(id, name, passwort, widget)

@@ -46,8 +46,8 @@ def saveAndApplySetttings(settings):
 
     pickle.dump(_settings, file, pickle.HIGHEST_PROTOCOL)
 
-    QMessageBox.about(Wydbid.app.parent(), 'Vorgang abgeschlossen',
-                      'Änderungen angewandt.')
+    QMessageBox.about(Wydbid.app.parent(), 'Process completed',
+                      'Changes applied.')
 
     settings.hide()
 

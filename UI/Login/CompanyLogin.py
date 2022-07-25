@@ -5,11 +5,11 @@ from PyQt5.QtCore import *
 import sys
 import Wydbid
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
-from UI.Login.Prefabs import CreateFirma, DelFirma, ChangeFirmenPasswort
-from BackEnd import FirmenLoginLogic
+from UI.Login.Prefabs import CreateCompany, DelCompany, ChangeCompanyPassword
+from BackEnd import CompanyLoginLogic
 import screeninfo
 
-class FirmenLogin(QWidget):
+class CompanyLogin(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
 
@@ -21,16 +21,16 @@ class FirmenLogin(QWidget):
         height = screeninfo.get_monitors()[0].height
         self.setGeometry(0, 0, width, height)
 
-        self.cf = CreateFirma.CreateFirma()
-        self.del_firma = DelFirma.DelFirma()
-        self.cfp = ChangeFirmenPasswort.ChangeFirmenPasswort()
+        self.cf = CreateCompany.CreateCompany()
+        self.del_firma = DelCompany.DelCompany()
+        self.cfp = ChangeCompanyPassword.ChangeCompanyPassword()
 
         self.setupUI()
         self.setupMenuBar()
         self.repaint()
 
     def closeEvent(self, event: QCloseEvent):
-        reply = QMessageBox.question(self, 'Bist du sicher?', 'Bist du sicher, Wydbid beenden möchtest?',
+        reply = QMessageBox.question(self, 'Are you sure?', 'Are you sure you want to quit Wydbid?',
                                      QMessageBox.Yes, QMessageBox.No)
 
         if reply == QMessageBox.Yes:
@@ -40,10 +40,10 @@ class FirmenLogin(QWidget):
             pass
 
     def addItemsToFirma(self):
-        FirmenLoginLogic.addItems(self.firma)
+        CompanyLoginLogic.addItems(self.firma)
 
     def login(self):
-        FirmenLoginLogic.login(self, self.firma, self.passwort.text())
+        CompanyLoginLogic.login(self, self.firma, self.passwort.text())
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop| Qt.AlignHCenter)

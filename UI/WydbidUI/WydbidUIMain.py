@@ -6,7 +6,7 @@ import Wydbid
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
-from UI.WydbidUI.Prefabs.Kunde import CreateKunde
+from UI.WydbidUI.Prefabs.Customer import CreateCustomer
 import screeninfo
 
 # ToDo: Update pictures in README.md
@@ -29,13 +29,13 @@ class WydbidUIMain(QWidget):
         self.tabwidget = QTabWidget(parent=self)
 
         # Widgets
-        self.ck = CreateKunde.CreateKunde()
+        self.ck = CreateCustomer.CreateCustomer()
 
         self.setupUI()
         self.setupMenuBar()
 
     def closeEvent(self, event: QCloseEvent):
-        reply = QMessageBox.question(self, 'Bist du sicher?', 'Bist du sicher, Wydbid beenden möchtest?',
+        reply = QMessageBox.question(self, 'Are you sure?', 'Are you sure you want to quit Wydbid?',
                                      QMessageBox.Yes, QMessageBox.No)
 
         if reply == QMessageBox.Yes:
@@ -131,9 +131,9 @@ class WydbidUIMain(QWidget):
 
         # Kunden
         customer_note = QLabel(parent=action_list, text='Kunden 👨')
-        add_customer = ActionButton.ActionButton(parent=action_list, text='Kunde hinzufügen ➜', color='lightgreen', color_hover='green')
-        edit_customer = ActionButton.ActionButton(parent=action_list, text='Kunde bearbeiten ➜', color='lightskyblue', color_hover='blue')
-        del_customer = ActionButton.ActionButton(parent=action_list, text='Kunde löschen ➜', color='lightcoral', color_hover='red')
+        add_customer = ActionButton.ActionButton(parent=action_list, text='Customer hinzufügen ➜', color='lightgreen', color_hover='green')
+        edit_customer = ActionButton.ActionButton(parent=action_list, text='Customer bearbeiten ➜', color='lightskyblue', color_hover='blue')
+        del_customer = ActionButton.ActionButton(parent=action_list, text='Customer löschen ➜', color='lightcoral', color_hover='red')
 
         # Termine
         termin_note = QLabel(parent=action_list, text='Termine 📅')
@@ -230,7 +230,7 @@ class WydbidUIMain(QWidget):
 
         reload = QPushButton('Aktualisieren')
         reload.setFixedWidth(120)
-        reload.clicked.connect(lambda: WydbidUIMainLogic.appendKunden(kundenliste=self.kundenliste))
+        reload.clicked.connect(lambda: WydbidUIMainLogic.reloadKunden(kundenliste=self.kundenliste))
 
         # Add reload button to bottom layout
         hlyt.addWidget(reload)
