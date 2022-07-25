@@ -57,7 +57,7 @@ def buildLocation():
     if os.path.exists(f'{location}Firmen'): pass
     else: os.makedirs(f'{location}Firmen')
 
-    if os.path.exists(f'{location}README.txt'): pass
+    if os.path.exists(f'{location}WICHTIG.txt'): pass
     else: open(f'{location}WICHTIG.txt', 'w').write('Achtung!\n'
                                                    'Loeschen oder verschieben Sie diesen Ordner auf keinen Fall! Sonst werden Daten, wie Firmen, Mitarbeiter, Kunden, ... nicht mehr funktionieren!\n'
                                                    'Loeschen Sie Datein oder Ordner aus diesen Ordner nur, wenn Sie genau wissen, was Sie wollen und was Sie tun!')

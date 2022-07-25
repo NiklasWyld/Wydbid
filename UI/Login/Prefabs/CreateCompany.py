@@ -31,7 +31,7 @@ class CreateCompany(QWidget):
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
-        title = QLabel('Neue Firma')
+        title = QLabel('New company')
         title.setFont(QFont('Montserrat', 30))
 
         # Prove for type of id equals integer

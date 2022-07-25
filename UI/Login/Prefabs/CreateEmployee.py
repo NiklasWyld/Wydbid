@@ -31,7 +31,7 @@ class CreateEmployee(QWidget):
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
-        title = QLabel('Neuer Mitarbeiter')
+        title = QLabel('New employee')
         title.setFont(QFont('Montserrat', 30))
 
         name_note = QLabel('Name: ')

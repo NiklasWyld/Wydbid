@@ -19,7 +19,7 @@ class CreateCustomer(QWidget):
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
-        title = QLabel('Customer erstellen')
+        title = QLabel('Create customer')
         title.setFont(QFont('Montserrat', 30))
 
         id_note = QLabel(parent=self, text='Kundennummer: ')

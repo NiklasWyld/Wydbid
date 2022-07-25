@@ -1,7 +1,7 @@
-from Data.Employee import Mitarbeiter
+from Data.Employee import Employee
 
 class Task:
-    def __init__(self, author: Mitarbeiter, receiver: Mitarbeiter, title: str, description: str):
+    def __init__(self, author: Employee, receiver: Employee, title: str, description: str):
         self.author = author
         self.receiver = receiver
         self.title = title

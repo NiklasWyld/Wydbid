@@ -29,7 +29,7 @@ class DelEmployee(QWidget):
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
-        title = QLabel('Mitarbeiter löschen')
+        title = QLabel('Delete employee')
         title.setFont(QFont('Montserrat', 30))
 
         username_note = QLabel(parent=self, text='Nutzername: ')

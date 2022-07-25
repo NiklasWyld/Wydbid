@@ -30,7 +30,7 @@ class DelCompany(QWidget):
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
-        title = QLabel('Firma löschen')
+        title = QLabel('Delete company')
         title.setFont(QFont('Montserrat', 30))
 
         firmen_note = QLabel(parent=self, text='Firma: ')

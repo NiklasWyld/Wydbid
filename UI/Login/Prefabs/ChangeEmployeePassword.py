@@ -30,7 +30,7 @@ class ChangeEmployeePassword(QWidget):
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
-        title = QLabel('Mitarbeiterpasswort ändern')
+        title = QLabel('Change employee password')
         title.setFont(QFont('Montserrat', 30))
 
         username_note = QLabel(parent=self, text='Nutzername: ')

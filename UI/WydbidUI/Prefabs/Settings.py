@@ -20,7 +20,7 @@ class Settings(QWidget):
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
-        title = QLabel(parent=self, text='Einstellungen')
+        title = QLabel(parent=self, text='Settings')
         title.setFont(QFont('Montserrat', 30))
 
         iconnote = QLabel(parent=self, text='Programmsymbol: ')
