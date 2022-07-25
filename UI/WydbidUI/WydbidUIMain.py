@@ -10,8 +10,8 @@ from UI.WydbidUI.Prefabs.Customer import CreateCustomer
 import screeninfo
 
 # ToDo: Update pictures in README.md
-# ToDo: Aufgaben und Neuigkeite
-# ToDo: Ins Englische uebersetzten
+# ToDo: Tasks and News / New Tabs in Main / ...
+# ToDo: Translate into English
 
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
@@ -129,56 +129,56 @@ class WydbidUIMain(QWidget):
         action_list.setLayout(QGridLayout())
         action_list.layout().setAlignment(Qt.AlignTop| Qt.AlignHCenter)
 
-        # Kunden
+        # Customers
         customer_note = QLabel(parent=action_list, text='Kunden 👨')
         add_customer = ActionButton.ActionButton(parent=action_list, text='Customer hinzufügen ➜', color='lightgreen', color_hover='green')
         edit_customer = ActionButton.ActionButton(parent=action_list, text='Customer bearbeiten ➜', color='lightskyblue', color_hover='blue')
         del_customer = ActionButton.ActionButton(parent=action_list, text='Customer löschen ➜', color='lightcoral', color_hover='red')
 
-        # Termine
+        # Appointments
         termin_note = QLabel(parent=action_list, text='Termine 📅')
         add_termin = ActionButton.ActionButton(parent=action_list, text='Termin hinzufügen ➜', color='lightgreen', color_hover='green')
         edit_termin = ActionButton.ActionButton(parent=action_list, text='Termin bearbeiten ➜', color='lightskyblue', color_hover='blue')
         del_termin = ActionButton.ActionButton(parent=action_list, text='Termin löschen ➜', color='lightcoral', color_hover='red')
 
-        # Auftraege
+        # Orders
         auftrag_note = QLabel(parent=action_list, text='Aufträge 📦')
         add_auftrag = ActionButton.ActionButton(parent=action_list, text='Auftrag hinzufügen ➜', color='lightgreen', color_hover='green')
         edit_auftrag = ActionButton.ActionButton(parent=action_list, text='Auftrag bearbeiten ➜', color='lightskyblue', color_hover='blue')
         del_auftrag = ActionButton.ActionButton(parent=action_list, text='Auftrag löschen ➜', color='lightcoral', color_hover='red')
 
-        # Ereignisse
+        # Events
         ereignis_note = QLabel(parent=action_list, text='Ereignis 📝')
         add_ereignis = ActionButton.ActionButton(parent=action_list, text='Ereignis hinzufügen ➜', color='lightgreen', color_hover='green')
         edit_ereignis = ActionButton.ActionButton(parent=action_list, text='Ereignis bearbeiten ➜', color='lightskyblue', color_hover='blue')
         del_ereignis = ActionButton.ActionButton(parent=action_list, text='Ereignis löschen ➜', color='lightcoral', color_hover='red')
 
-        # E-Mails
+        # Emails
         email_note = QLabel(parent=action_list, text='E-Mail ✉')
         send_email = ActionButton.ActionButton(parent=action_list, text='E-Mail senden ➜', color='cornflowerblue', color_hover='lightskyblue')
         make_email = ActionButton.ActionButton(parent=action_list, text='E-Mail erstellen ➜', color='lightgreen', color_hover='green')
         edit_email = ActionButton.ActionButton(parent=action_list, text='E-Mail bearbeiten ➜', color='lightskyblue', color_hover='blue')
         del_email = ActionButton.ActionButton(parent=action_list, text='E-Mail löschen ➜', color='lightcoral', color_hover='red')
 
-        # Kunden Layout Management
+        # Customer Layout Management
         action_list.layout().addWidget(customer_note, 0, 0, 1, 0, Qt.AlignLeft)
         action_list.layout().addWidget(add_customer, 1, 0, 1, 0, Qt.AlignCenter)
         action_list.layout().addWidget(edit_customer, 2, 0, 1, 0, Qt.AlignCenter)
         action_list.layout().addWidget(del_customer, 3, 0, 1, 0, Qt.AlignCenter)
 
-        # Termin Layout Management
+        # Appointment Layout Management
         action_list.layout().addWidget(termin_note, 5, 0, 1, 0, Qt.AlignLeft)
         action_list.layout().addWidget(add_termin, 6, 0, 1, 0, Qt.AlignCenter)
         action_list.layout().addWidget(edit_termin, 7, 0, 1, 0, Qt.AlignCenter)
         action_list.layout().addWidget(del_termin, 8, 0, 1, 0, Qt.AlignCenter)
 
-        # Auftrag Layout Management
+        # Order Layout Management
         action_list.layout().addWidget(auftrag_note, 10, 0, 1, 0, Qt.AlignLeft)
         action_list.layout().addWidget(add_auftrag, 11, 0, 1, 0, Qt.AlignCenter)
         action_list.layout().addWidget(edit_auftrag, 12, 0, 1, 0, Qt.AlignCenter)
         action_list.layout().addWidget(del_auftrag, 13, 0, 1, 0, Qt.AlignCenter)
 
-        # Ereignis Layout Management
+        # Event Layout Management
         action_list.layout().addWidget(ereignis_note, 15, 0, 1, 0, Qt.AlignLeft)
         action_list.layout().addWidget(add_ereignis, 16, 0, 1, 0, Qt.AlignCenter)
         action_list.layout().addWidget(edit_ereignis, 17, 0, 1, 0, Qt.AlignCenter)
@@ -193,7 +193,7 @@ class WydbidUIMain(QWidget):
 
         # ToDo: Event Management
 
-        # Kunden Event Management
+        # Customer Event Management
         add_customer.clicked.connect(self.startCreateKunde)
 
     # Setup tab widgets
