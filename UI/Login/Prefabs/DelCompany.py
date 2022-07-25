@@ -42,7 +42,7 @@ class DelCompany(QWidget):
         self.passwort.setEchoMode(QLineEdit.Password)
         self.passwort.returnPressed.connect(self.delFirma)
 
-        submit = QPushButton(parent=self, text='Löschen')
+        submit = QPushButton(parent=self, text='Delete')
         submit.clicked.connect(self.delFirma)
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)

@@ -130,35 +130,35 @@ class WydbidUIMain(QWidget):
         action_list.layout().setAlignment(Qt.AlignTop| Qt.AlignHCenter)
 
         # Customers
-        customer_note = QLabel(parent=action_list, text='Kunden 👨')
-        add_customer = ActionButton.ActionButton(parent=action_list, text='Customer hinzufügen ➜', color='lightgreen', color_hover='green')
-        edit_customer = ActionButton.ActionButton(parent=action_list, text='Customer bearbeiten ➜', color='lightskyblue', color_hover='blue')
-        del_customer = ActionButton.ActionButton(parent=action_list, text='Customer löschen ➜', color='lightcoral', color_hover='red')
+        customer_note = QLabel(parent=action_list, text='Customers 👨')
+        add_customer = ActionButton.ActionButton(parent=action_list, text='Add customer ➜', color='lightgreen', color_hover='green')
+        edit_customer = ActionButton.ActionButton(parent=action_list, text='Edit customer ➜', color='lightskyblue', color_hover='blue')
+        del_customer = ActionButton.ActionButton(parent=action_list, text='Delete customer ➜', color='lightcoral', color_hover='red')
 
         # Appointments
-        termin_note = QLabel(parent=action_list, text='Termine 📅')
-        add_termin = ActionButton.ActionButton(parent=action_list, text='Termin hinzufügen ➜', color='lightgreen', color_hover='green')
-        edit_termin = ActionButton.ActionButton(parent=action_list, text='Termin bearbeiten ➜', color='lightskyblue', color_hover='blue')
-        del_termin = ActionButton.ActionButton(parent=action_list, text='Termin löschen ➜', color='lightcoral', color_hover='red')
+        termin_note = QLabel(parent=action_list, text='Appointments 📅')
+        add_termin = ActionButton.ActionButton(parent=action_list, text='Add appointment ➜', color='lightgreen', color_hover='green')
+        edit_termin = ActionButton.ActionButton(parent=action_list, text='Edit appointment ➜', color='lightskyblue', color_hover='blue')
+        del_termin = ActionButton.ActionButton(parent=action_list, text='Delete appointment ➜', color='lightcoral', color_hover='red')
 
         # Orders
-        auftrag_note = QLabel(parent=action_list, text='Aufträge 📦')
-        add_auftrag = ActionButton.ActionButton(parent=action_list, text='Auftrag hinzufügen ➜', color='lightgreen', color_hover='green')
-        edit_auftrag = ActionButton.ActionButton(parent=action_list, text='Auftrag bearbeiten ➜', color='lightskyblue', color_hover='blue')
-        del_auftrag = ActionButton.ActionButton(parent=action_list, text='Auftrag löschen ➜', color='lightcoral', color_hover='red')
+        auftrag_note = QLabel(parent=action_list, text='Orders 📦')
+        add_auftrag = ActionButton.ActionButton(parent=action_list, text='Add order ➜', color='lightgreen', color_hover='green')
+        edit_auftrag = ActionButton.ActionButton(parent=action_list, text='Edit order ➜', color='lightskyblue', color_hover='blue')
+        del_auftrag = ActionButton.ActionButton(parent=action_list, text='Delete order ➜', color='lightcoral', color_hover='red')
 
         # Events
-        ereignis_note = QLabel(parent=action_list, text='Ereignis 📝')
-        add_ereignis = ActionButton.ActionButton(parent=action_list, text='Ereignis hinzufügen ➜', color='lightgreen', color_hover='green')
-        edit_ereignis = ActionButton.ActionButton(parent=action_list, text='Ereignis bearbeiten ➜', color='lightskyblue', color_hover='blue')
-        del_ereignis = ActionButton.ActionButton(parent=action_list, text='Ereignis löschen ➜', color='lightcoral', color_hover='red')
+        ereignis_note = QLabel(parent=action_list, text='Events 📝')
+        add_ereignis = ActionButton.ActionButton(parent=action_list, text='Add event ➜', color='lightgreen', color_hover='green')
+        edit_ereignis = ActionButton.ActionButton(parent=action_list, text='Edit event ➜', color='lightskyblue', color_hover='blue')
+        del_ereignis = ActionButton.ActionButton(parent=action_list, text='Delete event ➜', color='lightcoral', color_hover='red')
 
         # Emails
         email_note = QLabel(parent=action_list, text='E-Mail ✉')
-        send_email = ActionButton.ActionButton(parent=action_list, text='E-Mail senden ➜', color='cornflowerblue', color_hover='lightskyblue')
-        make_email = ActionButton.ActionButton(parent=action_list, text='E-Mail erstellen ➜', color='lightgreen', color_hover='green')
-        edit_email = ActionButton.ActionButton(parent=action_list, text='E-Mail bearbeiten ➜', color='lightskyblue', color_hover='blue')
-        del_email = ActionButton.ActionButton(parent=action_list, text='E-Mail löschen ➜', color='lightcoral', color_hover='red')
+        send_email = ActionButton.ActionButton(parent=action_list, text='Send e-mail ➜', color='cornflowerblue', color_hover='lightskyblue')
+        make_email = ActionButton.ActionButton(parent=action_list, text='Create email ➜', color='lightgreen', color_hover='green')
+        edit_email = ActionButton.ActionButton(parent=action_list, text='Edit e-mail ➜', color='lightskyblue', color_hover='blue')
+        del_email = ActionButton.ActionButton(parent=action_list, text='Delete e-mail ➜', color='lightcoral', color_hover='red')
 
         # Customer Layout Management
         action_list.layout().addWidget(customer_note, 0, 0, 1, 0, Qt.AlignLeft)
@@ -228,7 +228,7 @@ class WydbidUIMain(QWidget):
         lyt.addWidget(self.searchbar, Qt.AlignCenter)
         lyt.addWidget(self.kundenliste, Qt.AlignCenter)
 
-        reload = QPushButton('Aktualisieren')
+        reload = QPushButton('Reload')
         reload.setFixedWidth(120)
         reload.clicked.connect(lambda: WydbidUIMainLogic.reloadKunden(kundenliste=self.kundenliste))
 

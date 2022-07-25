@@ -36,7 +36,7 @@ class Settings(QWidget):
         self.mode.addItem('Dunkel', 'dark')
         self.mode.setCurrentIndex(1)
 
-        apply = QPushButton(parent=self, text='Anwenden und speichern')
+        apply = QPushButton(parent=self, text='Apply and save')
         apply.clicked.connect(lambda: SettingsLogic.saveAndApplySetttings(settings=self))
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)

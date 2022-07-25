@@ -41,7 +41,7 @@ class DelEmployee(QWidget):
         self.passwort.setEchoMode(QLineEdit.Password)
         self.passwort.returnPressed.connect(self.delMitarbeiter)
 
-        submit = QPushButton(parent=self, text='Löschen')
+        submit = QPushButton(parent=self, text='Delete')
         submit.clicked.connect(self.delMitarbeiter)
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)

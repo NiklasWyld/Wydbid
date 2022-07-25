@@ -60,7 +60,7 @@ class CompanyLogin(QWidget):
         self.passwort.setEchoMode(QLineEdit.Password)
         self.passwort.returnPressed.connect(self.login)
 
-        submit = QPushButton(parent=self, text='Bestätigen')
+        submit = QPushButton(parent=self, text='Confirm')
         submit.clicked.connect(self.login)
 
         verticalSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)    

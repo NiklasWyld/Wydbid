@@ -49,7 +49,7 @@ class CreateCompany(QWidget):
         self.passwort.setEchoMode(QLineEdit.Password)
         self.passwort.returnPressed.connect(self.createFirma)
 
-        self.submit = QPushButton('Erstellen')
+        self.submit = QPushButton('Create')
         self.submit.clicked.connect(self.createFirma)
 
         self.layout.addWidget(title, 0, 0, 1, 0, Qt.AlignTop|Qt.AlignCenter)

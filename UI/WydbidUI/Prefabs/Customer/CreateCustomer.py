@@ -53,7 +53,7 @@ class CreateCustomer(QWidget):
         informationen_note = QLabel(parent=self, text='Informationen: ')
         self.informationen = QTextEdit(parent=self)
 
-        submit = QPushButton(parent=self, text='Erstellen')
+        submit = QPushButton(parent=self, text='Create')
         submit.clicked.connect(lambda: CustomerLogic.createKunde(create_kunde=self))
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)

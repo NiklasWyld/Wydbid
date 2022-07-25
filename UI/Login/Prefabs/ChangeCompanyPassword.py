@@ -47,7 +47,7 @@ class ChangeCompanyPassword(QWidget):
         self.new_passwort.setEchoMode(QLineEdit.Password)
         self.new_passwort.returnPressed.connect(self.changePasswort)
 
-        submit = QPushButton(parent=self, text='Ändern')
+        submit = QPushButton(parent=self, text='Change')
         submit.clicked.connect(self.changePasswort)
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)

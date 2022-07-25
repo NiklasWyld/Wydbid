@@ -47,7 +47,7 @@ class CreateEmployee(QWidget):
         self.passwort.setEchoMode(QLineEdit.Password)
         self.passwort.returnPressed.connect(self.createMitarbeiter)
 
-        self.submit = QPushButton('Erstellen')
+        self.submit = QPushButton('Create')
         self.submit.clicked.connect(self.createMitarbeiter)
 
         self.layout.addWidget(title, 0, 0, 1, 0, Qt.AlignTop|Qt.AlignCenter)
