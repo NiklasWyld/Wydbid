@@ -177,9 +177,9 @@ def searchForName(search: QLineEdit, list: QTableWidget):
 
 def contact():
     p = MessageBox.MessageBox(parent=Wydbid.app.parent(),
-                              title='Kontakt',
-                              text='Bei einem einfachen Fehler kontaktieren Sie bitte den Administrator\n'
-                              'Bei einem Softtware-Fehler in Wydbid kontaktieren Sie bitte den Softwareersteller per E-Mail: niklasch1999@gmail.com')
+                              title='Contact',
+                              text='In case of a simple error, please contact the administrator\n'
+                              'In case of a software error in Wydbid, please contact the software producer by e-mail: niklasch1999@gmail.com')
     p.setIcon(QMessageBox.Warning)
     p.setDefaultButton(QMessageBox.StandardButton.Ok)
     p.exec_()
