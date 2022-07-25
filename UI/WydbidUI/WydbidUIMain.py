@@ -45,11 +45,11 @@ class WydbidUIMain(QWidget):
             pass
 
     def setupUI(self):
-        date_time = QGroupBox(parent=self, title='Datum und Uhrzeit')
+        date_time = QGroupBox(parent=self, title='Date and time')
         date_time.setFixedHeight(150)
         self.setupDateTime(date_time)
 
-        action_list = QGroupBox(parent=self, title='Aktionen')
+        action_list = QGroupBox(parent=self, title='Actions')
         action_list.setFixedWidth(200)
         self.setupActionBox(action_list)
 
@@ -64,11 +64,11 @@ class WydbidUIMain(QWidget):
 
         email_widget = QWidget()
 
-        self.tabwidget.addTab(customer_widget, 'Kundenliste')
-        self.tabwidget.addTab(termin_widget, 'Termine')
-        self.tabwidget.addTab(auftrag_widget, 'Aufträge')
-        self.tabwidget.addTab(ereignis_widget, 'Ereignisse')
-        self.tabwidget.addTab(email_widget, 'E-Mails')
+        self.tabwidget.addTab(customer_widget, 'Customer list')
+        self.tabwidget.addTab(termin_widget, 'Appointments')
+        self.tabwidget.addTab(auftrag_widget, 'Orders')
+        self.tabwidget.addTab(ereignis_widget, 'Events')
+        self.tabwidget.addTab(email_widget, 'Emails')
 
         self.layout().addWidget(date_time, 0, 0, 1, 0)
         self.layout().addWidget(action_list, 1, 0)
@@ -205,13 +205,13 @@ class WydbidUIMain(QWidget):
 
         self.searchbar = QLineEdit(parent=kunden_liste)
         self.searchbar.setFixedHeight(40)
-        self.searchbar.setPlaceholderText('Nach Namen filtern')
+        self.searchbar.setPlaceholderText('Filter by name')
 
         self.kundenliste = QTableWidget(parent=kunden_liste)
         self.kundenliste.verticalHeader().setVisible(False)
 
         self.kundenliste.setColumnCount(8)
-        self.kundenliste.setHorizontalHeaderLabels(['Kundennummer', 'Name', 'E-Mail Adresse', 'Adresse', 'Nummer', 'Geschlecht', 'Geburtsdatum', ''])
+        self.kundenliste.setHorizontalHeaderLabels(['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
 
         WydbidUIMainLogic.appendKunden(kundenliste=self.kundenliste)
 

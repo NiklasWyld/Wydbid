@@ -44,8 +44,8 @@ class CreateCustomer(QWidget):
 
         geschlecht_note = QLabel(parent=self, text='Gender: ')
         self.geschlecht = QComboBox(parent=self)
-        self.geschlecht.addItem('Männlich', 'men')
-        self.geschlecht.addItem('Weiblich', 'women')
+        self.geschlecht.addItem('Male', 'men')
+        self.geschlecht.addItem('Female', 'women')
 
         geburtsdatum_note = QLabel(parent=self, text='Birth date: ')
         self.geburtsdatum = QLineEdit(parent=self)

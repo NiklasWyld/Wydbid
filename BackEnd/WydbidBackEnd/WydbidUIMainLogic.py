@@ -35,7 +35,7 @@ def logoutMitarbeiter(widget: QWidget):
 
 def reloadKunden(kundenliste: QTableWidget):
     kundenliste.setHorizontalHeaderLabels(
-        ['Kundennummer', 'Name', 'E-Mail Adresse', 'Adresse', 'Nummer', 'Geschlecht', 'Geburtsdatum', ''])
+        ['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
     kundenliste.setColumnWidth(0, 200)
     kundenliste.setColumnWidth(1, 200)
     kundenliste.setColumnWidth(2, 200)
@@ -76,9 +76,9 @@ def reloadKunden(kundenliste: QTableWidget):
 
         geschlecht = QTableWidgetItem()
         if kunde.geschlecht == 'men':
-            d_geschlecht = 'männlich'
+            d_geschlecht = 'Male'
         elif kunde.geschlecht == 'women':
-            d_geschlecht = 'weiblich'
+            d_geschlecht = 'Female'
         geschlecht.setData(Qt.DisplayRole, d_geschlecht)
 
         geburtsdatum = QTableWidgetItem()
@@ -102,7 +102,7 @@ def appendKunden(kundenliste: QTableWidget):
     global d_geschlecht
     kundenliste.clear()
     kundenliste.setHorizontalHeaderLabels(
-        ['Kundennummer', 'Name', 'E-Mail Adresse', 'Adresse', 'Nummer', 'Geschlecht', 'Geburtsdatum', ''])
+        ['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
     kundenliste.setColumnWidth(0, 200)
     kundenliste.setColumnWidth(1, 200)
     kundenliste.setColumnWidth(2, 200)
@@ -143,9 +143,9 @@ def appendKunden(kundenliste: QTableWidget):
 
         geschlecht = QTableWidgetItem()
         if kunde.geschlecht == 'men':
-            d_geschlecht = 'männlich'
+            d_geschlecht = 'Male'
         elif kunde.geschlecht == 'women':
-            d_geschlecht = 'weiblich'
+            d_geschlecht = 'Female'
         geschlecht.setData(Qt.DisplayRole, d_geschlecht)
 
         geburtsdatum = QTableWidgetItem()
