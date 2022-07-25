@@ -33,16 +33,16 @@ class ChangeEmployeePassword(QWidget):
         title = QLabel('Change employee password')
         title.setFont(QFont('Montserrat', 30))
 
-        username_note = QLabel(parent=self, text='Nutzername: ')
+        username_note = QLabel(parent=self, text='Username: ')
         self.username = QLineEdit(parent=self)
         self.username.returnPressed.connect(self.changePasswort)
 
-        passwort_note = QLabel(parent=self, text='Altes Passwort: ')
+        passwort_note = QLabel(parent=self, text='Old password: ')
         self.passwort = QLineEdit(parent=self)
         self.passwort.setEchoMode(QLineEdit.Password)
         self.passwort.returnPressed.connect(self.changePasswort)
 
-        new_passwort_note = QLabel(parent=self, text='Neues Passwort: ')
+        new_passwort_note = QLabel(parent=self, text='New password: ')
         self.new_passwort = QLineEdit(parent=self)
         self.new_passwort.setEchoMode(QLineEdit.Password)
         self.new_passwort.returnPressed.connect(self.changePasswort)

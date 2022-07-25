@@ -33,11 +33,11 @@ class DelCompany(QWidget):
         title = QLabel('Delete company')
         title.setFont(QFont('Montserrat', 30))
 
-        firmen_note = QLabel(parent=self, text='Firma: ')
+        firmen_note = QLabel(parent=self, text='Company: ')
         self.firma = QComboBox(parent=self)
         self.addItemsToFirma()
 
-        passwort_note = QLabel(parent=self, text='Passwort: ')
+        passwort_note = QLabel(parent=self, text='Password: ')
         self.passwort = QLineEdit(parent=self)
         self.passwort.setEchoMode(QLineEdit.Password)
         self.passwort.returnPressed.connect(self.delFirma)

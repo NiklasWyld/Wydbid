@@ -23,17 +23,17 @@ class Settings(QWidget):
         title = QLabel(parent=self, text='Settings')
         title.setFont(QFont('Montserrat', 30))
 
-        iconnote = QLabel(parent=self, text='Programmsymbol: ')
+        iconnote = QLabel(parent=self, text='Programm icon: ')
         self.icon = QLineEdit(parent=self)
         selecticon = QPushButton(parent=self, text='...')
         selecticon.clicked.connect(self.selectFile)
         selecticon.setFixedWidth(30)
 
-        modenote = QLabel(parent=self, text='Umgebung: ')
+        modenote = QLabel(parent=self, text='Theme: ')
         self.mode = QComboBox(parent=self)
 
-        self.mode.addItem('Hell', 'light')
-        self.mode.addItem('Dunkel', 'dark')
+        self.mode.addItem('Light', 'light')
+        self.mode.addItem('Dark', 'dark')
         self.mode.setCurrentIndex(1)
 
         apply = QPushButton(parent=self, text='Apply and save')
@@ -51,7 +51,7 @@ class Settings(QWidget):
         self.layout.addWidget(apply, 5, 0, 1, 0, Qt.AlignCenter)
 
     def selectFile(self):
-        file, check = QFileDialog.getOpenFileName(None, caption='Wähle das neue Programm-Icon.', directory='',
+        file, check = QFileDialog.getOpenFileName(None, caption='Select the new programm icon.', directory='',
                                                   filter='PNG Files (*.png);;JPG Files (*.jpg);;JPEG Files (*.jpeg)')
 
         if check:

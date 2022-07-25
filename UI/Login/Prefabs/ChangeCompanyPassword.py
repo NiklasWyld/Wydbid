@@ -33,16 +33,16 @@ class ChangeCompanyPassword(QWidget):
         title = QLabel('Change company password')
         title.setFont(QFont('Montserrat', 30))
 
-        firmen_note = QLabel(parent=self, text='Firma: ')
+        firmen_note = QLabel(parent=self, text='Company: ')
         self.firma = QComboBox(parent=self)
         self.addItemsToFirma()
 
-        passwort_note = QLabel(parent=self, text='Altes Passwort: ')
+        passwort_note = QLabel(parent=self, text='Old password: ')
         self.passwort = QLineEdit(parent=self)
         self.passwort.setEchoMode(QLineEdit.Password)
         self.passwort.returnPressed.connect(self.changePasswort)
 
-        new_passwort_note = QLabel(parent=self, text='Neues Passwort: ')
+        new_passwort_note = QLabel(parent=self, text='New password: ')
         self.new_passwort = QLineEdit(parent=self)
         self.new_passwort.setEchoMode(QLineEdit.Password)
         self.new_passwort.returnPressed.connect(self.changePasswort)

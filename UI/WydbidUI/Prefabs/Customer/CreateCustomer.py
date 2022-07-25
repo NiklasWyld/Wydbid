@@ -22,35 +22,35 @@ class CreateCustomer(QWidget):
         title = QLabel('Create customer')
         title.setFont(QFont('Montserrat', 30))
 
-        id_note = QLabel(parent=self, text='Kundennummer: ')
-        self.id_tick = QCheckBox(parent=self, text='Kundennummer automatisch vergeben')
+        id_note = QLabel(parent=self, text='Customer-ID: ')
+        self.id_tick = QCheckBox(parent=self, text='Asign Customer ID automatically')
         self.id = QLineEdit(parent=self)
         self.id.setFixedWidth(60)
 
-        vorname_note = QLabel(parent=self, text='Vorname: ')
+        vorname_note = QLabel(parent=self, text='First name: ')
         self.vorname = QLineEdit(parent=self)
 
-        nachname_note = QLabel(parent=self, text='Nachname: ')
+        nachname_note = QLabel(parent=self, text='Last name: ')
         self.nachname = QLineEdit(parent=self)
 
-        email_note = QLabel(parent=self, text='E-Mail Adresse: ')
+        email_note = QLabel(parent=self, text='E-mail address: ')
         self.email = QLineEdit(parent=self)
 
-        adresse_note = QLabel(parent=self, text='Adresse: ')
+        adresse_note = QLabel(parent=self, text='Address: ')
         self.adresse = QLineEdit(parent=self)
 
-        nummer_note = QLabel(parent=self, text='Telefonnummer: ')
+        nummer_note = QLabel(parent=self, text='Telephone number: ')
         self.nummer = QLineEdit(parent=self)
 
-        geschlecht_note = QLabel(parent=self, text='Geschlecht: ')
+        geschlecht_note = QLabel(parent=self, text='Gender: ')
         self.geschlecht = QComboBox(parent=self)
         self.geschlecht.addItem('Männlich', 'men')
         self.geschlecht.addItem('Weiblich', 'women')
 
-        geburtsdatum_note = QLabel(parent=self, text='Geburtsdatum: ')
+        geburtsdatum_note = QLabel(parent=self, text='Birth date: ')
         self.geburtsdatum = QLineEdit(parent=self)
 
-        informationen_note = QLabel(parent=self, text='Informationen: ')
+        informationen_note = QLabel(parent=self, text='Information: ')
         self.informationen = QTextEdit(parent=self)
 
         submit = QPushButton(parent=self, text='Create')

@@ -32,11 +32,11 @@ class DelEmployee(QWidget):
         title = QLabel('Delete employee')
         title.setFont(QFont('Montserrat', 30))
 
-        username_note = QLabel(parent=self, text='Nutzername: ')
+        username_note = QLabel(parent=self, text='Username: ')
         self.username = QLineEdit(parent=self)
         self.username.returnPressed.connect(self.delMitarbeiter)
 
-        passwort_note = QLabel(parent=self, text='Passwort: ')
+        passwort_note = QLabel(parent=self, text='Password: ')
         self.passwort = QLineEdit(parent=self)
         self.passwort.setEchoMode(QLineEdit.Password)
         self.passwort.returnPressed.connect(self.delMitarbeiter)

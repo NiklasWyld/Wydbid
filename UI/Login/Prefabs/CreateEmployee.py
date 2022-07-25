@@ -38,11 +38,11 @@ class CreateEmployee(QWidget):
         self.name = QLineEdit()
         self.name.returnPressed.connect(self.createMitarbeiter)
 
-        username_note = QLabel('Nutzername: ')
+        username_note = QLabel('Username: ')
         self.username = QLineEdit()
         self.username.returnPressed.connect(self.createMitarbeiter)
 
-        passwort_note = QLabel('Passwort: ')
+        passwort_note = QLabel('Password: ')
         self.passwort = QLineEdit()
         self.passwort.setEchoMode(QLineEdit.Password)
         self.passwort.returnPressed.connect(self.createMitarbeiter)

@@ -36,7 +36,7 @@ class CreateCompany(QWidget):
 
         # Prove for type of id equals integer
 
-        id_note = QLabel('Firmen-ID: ')
+        id_note = QLabel('Company-ID: ')
         self.id_field = QLineEdit()
         self.id_field.returnPressed.connect(self.createFirma)
 
@@ -44,7 +44,7 @@ class CreateCompany(QWidget):
         self.name = QLineEdit()
         self.name.returnPressed.connect(self.createFirma)
 
-        passwort_note = QLabel('Passwort: ')
+        passwort_note = QLabel('Password: ')
         self.passwort = QLineEdit()
         self.passwort.setEchoMode(QLineEdit.Password)
         self.passwort.returnPressed.connect(self.createFirma)
