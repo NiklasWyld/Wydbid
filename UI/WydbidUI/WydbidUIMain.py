@@ -9,6 +9,10 @@ from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Kunde import CreateKunde
 import screeninfo
 
+# ToDo: Update pictures in README.md
+# ToDo: Aufgaben und Neuigkeite
+# ToDo: Ins Englische uebersetzten
+
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
