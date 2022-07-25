@@ -10,7 +10,7 @@ class CreateCompany(QWidget):
         self.layout = QGridLayout()
 
         self.setLayout(self.layout)
-        self.setWindowTitle('Wydbid - Firma erstellen')
+        self.setWindowTitle('Wydbid - Create company')
         self.setGeometry(0, 0, 600, 450)
 
         self.widget = self

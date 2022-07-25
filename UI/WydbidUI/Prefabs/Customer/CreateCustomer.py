@@ -10,7 +10,7 @@ class CreateCustomer(QWidget):
         self.layout = QGridLayout()
 
         self.setLayout(self.layout)
-        self.setWindowTitle('Wydbid - Customer erstellen')
+        self.setWindowTitle('Wydbid - Create customer')
         self.setGeometry(0, 0, 600, 600)
 
         CustomerLogic.setupKundenFolder()

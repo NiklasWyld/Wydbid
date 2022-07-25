@@ -11,7 +11,7 @@ class DelCompany(QWidget):
         self.layout = QGridLayout()
 
         self.setLayout(self.layout)
-        self.setWindowTitle('Wydbid - Firma löschen')
+        self.setWindowTitle('Wydbid - Delete company')
         self.setGeometry(0, 0, 600, 450)
 
         self.widget = self

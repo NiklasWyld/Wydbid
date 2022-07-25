@@ -10,7 +10,7 @@ class Settings(QWidget):
         self.layout = QGridLayout()
 
         self.setLayout(self.layout)
-        self.setWindowTitle('Wydbid - Einstellungen')
+        self.setWindowTitle('Wydbid - Settings')
         self.setGeometry(0, 0, 600, 450)
 
         self.setupUI()

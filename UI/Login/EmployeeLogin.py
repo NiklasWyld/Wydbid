@@ -16,7 +16,7 @@ class EmployeeLogin(QWidget):
         self.layout = QGridLayout()
 
         self.setLayout(self.layout)
-        self.setWindowTitle('Wydbid - Mitarbeiter-Login')
+        self.setWindowTitle('Wydbid - Employee-Login')
         width = screeninfo.get_monitors()[0].width
         height = screeninfo.get_monitors()[0].height
         self.setGeometry(0, 0, width, height)

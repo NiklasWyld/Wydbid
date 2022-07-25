@@ -10,7 +10,7 @@ class ChangeEmployeePassword(QWidget):
         self.layout = QGridLayout()
 
         self.setLayout(self.layout)
-        self.setWindowTitle('Wydbid - Mitarbeiterpasswort ändern')
+        self.setWindowTitle('Wydbid - Change employee password')
         self.setGeometry(0, 0, 600, 450)
 
         self.widget = self

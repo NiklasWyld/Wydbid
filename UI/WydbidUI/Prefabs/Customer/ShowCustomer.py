@@ -10,7 +10,7 @@ class ShowCustomer(QWidget):
         self.layout = QGridLayout()
 
         self.setLayout(self.layout)
-        self.setWindowTitle('Wydbid - Customer ansehen')
+        self.setWindowTitle('Wydbid - View customer')
         self.setGeometry(0, 0, 600, 600)
 
         self.setupUI()

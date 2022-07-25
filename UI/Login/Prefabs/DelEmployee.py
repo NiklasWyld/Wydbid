@@ -10,7 +10,7 @@ class DelEmployee(QWidget):
         self.layout = QGridLayout()
 
         self.setLayout(self.layout)
-        self.setWindowTitle('Wydbid - Mitarbeiter löschen')
+        self.setWindowTitle('Wydbid - Delete employee')
         self.setGeometry(0, 0, 600, 450)
 
         self.widget = self
