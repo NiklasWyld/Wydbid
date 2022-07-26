@@ -33,16 +33,18 @@ def addItems(firma_liste: QComboBox):
 
 
 def changePasswordFinal(firma_box: QComboBox, old_passwort: str, new_passwort: str, widget: QWidget):
-    if firma_box.currentData() == None or old_passwort == '' or new_passwort == '':
+    if old_passwort == '' or new_passwort == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')
         return
 
     firma: Company.Company = firma_box.currentData()[0]
-    if old_passwort != firma.password:
+
+    if not old_passwort == firma.password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'The password you entered is incorrect!')
         return
+
     firma.password = new_passwort
     writer = open(firma_box.currentData()[1], 'wb')
     pickle.dump(firma, writer, pickle.HIGHEST_PROTOCOL)
@@ -52,8 +54,8 @@ def changePasswordFinal(firma_box: QComboBox, old_passwort: str, new_passwort: s
                       f'The password of {firma.name} was successfully changed.')
 
     m = QMessageBox.question(Wydbid.app.parent(),
-                             'Wydbid neustarten',
-                             'Achtung, um die Änderungen auszuführen, müssen Sie Wydbid neustarten! Wollen Sie jetzt neustarten?',
+                             'Restart Wydbid',
+                             'Attention, you need to restart Wydbid to make the changes! Do you want to restart now?',
                              QMessageBox.Yes,
                              QMessageBox.No)
 
