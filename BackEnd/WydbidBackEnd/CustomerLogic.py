@@ -25,7 +25,7 @@ def handleNextId():
     id_list = [int(x) for x in id_list]
 
     id_list.sort()
-    print(id_list)
+
     _number = 0
 
     for id in id_list:

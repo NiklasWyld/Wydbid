@@ -22,7 +22,6 @@ class ChangeCompanyPassword(QWidget):
         self.new_passwort.setText('')
 
     def changePassword(self):
-        print('vor call')
         ChangeCompanyPasswordLogic.changePasswordFinal(self.firma, self.passwort.text(), self.new_passwort.text(), self)
 
     def addItemsToCompany(self):
