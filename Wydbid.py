@@ -8,7 +8,7 @@ from UI.Login import CompanyLogin
 from UI.WydbidUI.Prefabs import Settings
 from BackEnd.WydbidBackEnd import SettingsLogic
 
-location = './Daten/'
+location = './WydbidData/'
 # Must be set at login
 firmen_location = ''
 firma = None
@@ -54,13 +54,13 @@ def buildLocation():
     if os.path.exists(location): pass
     else: os.makedirs(location)
 
-    if os.path.exists(f'{location}Firmen'): pass
-    else: os.makedirs(f'{location}Firmen')
+    if os.path.exists(f'{location}Companies'): pass
+    else: os.makedirs(f'{location}Companies')
 
-    if os.path.exists(f'{location}WICHTIG.txt'): pass
-    else: open(f'{location}WICHTIG.txt', 'w').write('Achtung!\n'
-                                                   'Loeschen oder verschieben Sie diesen Ordner auf keinen Fall! Sonst werden Daten, wie Firmen, Mitarbeiter, Kunden, ... nicht mehr funktionieren!\n'
-                                                   'Loeschen Sie Datein oder Ordner aus diesen Ordner nur, wenn Sie genau wissen, was Sie wollen und was Sie tun!')
+    if os.path.exists(f'{location}IMPORTANT.txt'): pass
+    else: open(f'{location}IMPORTANT.txt', 'w').write('Attention!\n'
+                                                   'Do not delete or move this folder under any conditions! Otherwise, data such as companies, employees, customers, ... will no longer work!\n'
+                                                   'Only delete files or folders from this folders if you know exactly what you want and what you are doing!')
 
     # ...
 
