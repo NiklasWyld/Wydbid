@@ -94,16 +94,16 @@ class CompanyLogin(QWidget):
         self.menubar = QMenuBar(parent=self)
 
         file = QMenu(parent=self.menubar, title='Wydbid')
-        help = QMenu(parent=self.menubar, title='Hilfe')
+        help = QMenu(parent=self.menubar, title='Help')
 
-        create_company = QAction('Firma erstellen', self)
-        del_company = QAction('Firma löschen', self)
-        change_company_password = QAction('Firmenpasswort ändern', self)
-        reset = QAction('Programm zurücksetzen', self)
-        close = QAction('Beenden', self)
+        create_company = QAction('Create company', self)
+        del_company = QAction('Delete company', self)
+        change_company_password = QAction('Change company password', self)
+        reset = QAction('Reset Wydbid', self)
+        close = QAction('Exit', self)
 
-        contact = QAction('Kontakt', self)
-        report_bug = QAction('Fehler melden', self)
+        contact = QAction('Contact', self)
+        report_bug = QAction('Report error', self)
 
         create_company.triggered.connect(self.startCreateFirma)
         del_company.triggered.connect(self.startDelFirma)

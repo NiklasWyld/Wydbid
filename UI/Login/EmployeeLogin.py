@@ -101,16 +101,16 @@ class EmployeeLogin(QWidget):
         self.menubar = QMenuBar(parent=self)
 
         file = QMenu(parent=self.menubar, title='Wydbid')
-        help = QMenu(parent=self.menubar, title='Hilfe')
+        help = QMenu(parent=self.menubar, title='Help')
 
-        create_mitarbeiter = QAction('Mitarbeiter erstellen', self)
-        del_mitarbeiter = QAction('Mitarbeiter löschen', self)
-        change_mitarbeiter_passwort = QAction('Mitarbeiterpasswort ändern', self)
-        logout_company = QAction('Firma abmelden', self)
-        close = QAction('Beenden', self)
+        create_mitarbeiter = QAction('Create employee', self)
+        del_mitarbeiter = QAction('Delete employee', self)
+        change_mitarbeiter_passwort = QAction('Change employee password', self)
+        logout_company = QAction('Log out company', self)
+        close = QAction('Exit', self)
 
-        contact = QAction('Kontakt', self)
-        report_bug = QAction('Fehler melden', self)
+        contact = QAction('Contact', self)
+        report_bug = QAction('Report error', self)
 
         create_mitarbeiter.triggered.connect(self.startCreateMitarbeiter)
         del_mitarbeiter.triggered.connect(self.startDelMitarbeiter)

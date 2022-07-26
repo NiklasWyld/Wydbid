@@ -77,16 +77,16 @@ class WydbidUIMain(QWidget):
     def setupMenuBar(self):
         self.menubar = QMenuBar(parent=self)
         file = QMenu(parent=self.menubar, title='Wydbid')
-        help = QMenu(parent=self.menubar, title='Hilfe')
+        help = QMenu(parent=self.menubar, title='Help')
 
-        logout_mitarbeiter = QAction('Mitarbeiter abmelden', self)
-        logout_company = QAction('Aus Firma abmelden', self)
-        reset_programm = QAction('Programm zurücksetzen', self)
-        settings = QAction('Einstellungen', self)
-        close = QAction('Beenden', self)
+        logout_mitarbeiter = QAction('Deregister employee', self)
+        logout_company = QAction('Log out from company', self)
+        reset_programm = QAction('Reset Wydbid', self)
+        settings = QAction('Settings', self)
+        close = QAction('Exit', self)
 
-        contact = QAction('Kontakt', self)
-        report_bug = QAction('Fehler melden', self)
+        contact = QAction('Contact', self)
+        report_bug = QAction('Report error', self)
 
         logout_mitarbeiter.triggered.connect(lambda: WydbidUIMainLogic.logoutMitarbeiter(self))
         logout_company.triggered.connect(self.startCompanyLogout)
