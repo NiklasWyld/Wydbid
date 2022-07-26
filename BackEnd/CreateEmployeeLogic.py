@@ -6,7 +6,7 @@ import Wydbid
 from Data import Employee
 
 
-def createMitarbeiterFinal(name: str, username: str, passwort: str, widget: QWidget):
+def createEmployeeFinal(name: str, username: str, passwort: str, widget: QWidget):
     if os.path.exists(f'{Wydbid.firmen_location}Employees/{str(username)}.wbm'):
         QMessageBox.warning(Wydbid.app.parent(
         ), 'Attention', 'A staff member with these usernames already exists!')

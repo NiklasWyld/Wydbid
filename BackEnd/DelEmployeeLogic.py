@@ -7,7 +7,7 @@ import Wydbid
 from Data import Employee
 
 
-def delMitarbeiterFinal(username: str, passwort: str, widget: QWidget):
+def delEmployeeFinal(username: str, passwort: str, widget: QWidget):
     if username == '' or passwort == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')

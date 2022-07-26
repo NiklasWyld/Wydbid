@@ -7,7 +7,7 @@ import os
 import Wydbid
 
 
-def writeFirma(id: int, name: str, passwort: str, widget: QWidget):
+def writeCompany(id: int, name: str, passwort: str, widget: QWidget):
     location = Wydbid.location
 
     if os.path.exists(f'{location}Companies/{str(id)}/'):
@@ -52,4 +52,4 @@ def getFirma(id: str, name: str, passwort: str, widget: QWidget):
         CreateCompany.CreateCompany().clear(clearOnlyId=True)
         return
 
-    writeFirma(id, name, passwort, widget)
+    writeCompany(id, name, passwort, widget)

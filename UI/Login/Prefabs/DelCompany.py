@@ -21,11 +21,11 @@ class DelCompany(QWidget):
     def clear(self):
         self.passwort.setText('')
 
-    def addItemsToFirma(self):
+    def addItemsToCompany(self):
         DelCompanyLogic.addItems(self.firma)
 
-    def delFirma(self):
-        DelCompanyLogic.getFirma(self.firma, self.passwort.text(), self.widget)
+    def delCompany(self):
+        DelCompanyLogic.getCompany(self.firma, self.passwort.text(), self.widget)
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
@@ -35,15 +35,15 @@ class DelCompany(QWidget):
 
         firmen_note = QLabel(parent=self, text='Company: ')
         self.firma = QComboBox(parent=self)
-        self.addItemsToFirma()
+        self.addItemsToCompany()
 
         passwort_note = QLabel(parent=self, text='Password: ')
         self.passwort = QLineEdit(parent=self)
         self.passwort.setEchoMode(QLineEdit.Password)
-        self.passwort.returnPressed.connect(self.delFirma)
+        self.passwort.returnPressed.connect(self.delCompany)
 
         submit = QPushButton(parent=self, text='Delete')
-        submit.clicked.connect(self.delFirma)
+        submit.clicked.connect(self.delCompany)
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 

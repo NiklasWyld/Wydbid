@@ -21,10 +21,10 @@ class ChangeCompanyPassword(QWidget):
         self.passwort.setText('')
         self.new_passwort.setText('')
 
-    def changePasswort(self):
-        ChangeCompanyPasswordLogic.changePasswortFinal(self.firma, self.passwort.text(), self.new_passwort.text(), self)
+    def changePassword(self):
+        ChangeCompanyPasswordLogic.changePasswordFinal(self.firma, self.passwort.text(), self.new_passwort.text(), self)
 
-    def addItemsToFirma(self):
+    def addItemsToCompany(self):
         ChangeCompanyPasswordLogic.addItems(self.firma)
 
     def setupUI(self):
@@ -35,20 +35,20 @@ class ChangeCompanyPassword(QWidget):
 
         firmen_note = QLabel(parent=self, text='Company: ')
         self.firma = QComboBox(parent=self)
-        self.addItemsToFirma()
+        self.addItemsToCompany()
 
         passwort_note = QLabel(parent=self, text='Old password: ')
         self.passwort = QLineEdit(parent=self)
         self.passwort.setEchoMode(QLineEdit.Password)
-        self.passwort.returnPressed.connect(self.changePasswort)
+        self.passwort.returnPressed.connect(self.changePassword)
 
         new_passwort_note = QLabel(parent=self, text='New password: ')
         self.new_passwort = QLineEdit(parent=self)
         self.new_passwort.setEchoMode(QLineEdit.Password)
-        self.new_passwort.returnPressed.connect(self.changePasswort)
+        self.new_passwort.returnPressed.connect(self.changePassword)
 
         submit = QPushButton(parent=self, text='Change')
-        submit.clicked.connect(self.changePasswort)
+        submit.clicked.connect(self.changePassword)
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 

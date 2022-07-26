@@ -39,7 +39,7 @@ class EmployeeLogin(QWidget):
             event.ignore()
             pass
 
-    def startMitarbeiterLogin(self):
+    def startEmployeeLogin(self):
         EmployeeLoginLogic.login(self.username.text(),
                                  self.passwort.text(),
                                  self)
@@ -52,15 +52,15 @@ class EmployeeLogin(QWidget):
 
         username_note = QLabel(parent=self, text='Username: ')
         self.username = QLineEdit(parent=self)
-        self.username.returnPressed.connect(self.startMitarbeiterLogin)
+        self.username.returnPressed.connect(self.startEmployeeLogin)
 
         passwort_note = QLabel(parent=self, text='Password: ')
         self.passwort = QLineEdit(parent=self)
         self.passwort.setEchoMode(QLineEdit.Password)
-        self.passwort.returnPressed.connect(self.startMitarbeiterLogin)
+        self.passwort.returnPressed.connect(self.startEmployeeLogin)
 
         submit = QPushButton(parent=self, text='Confirm')
-        submit.clicked.connect(self.startMitarbeiterLogin)
+        submit.clicked.connect(self.startEmployeeLogin)
 
         verticalSpacer = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.layout.addItem(verticalSpacer, 6, 0, Qt.AlignTop)
@@ -85,15 +85,15 @@ class EmployeeLogin(QWidget):
     def logoutCompany(self):
         EmployeeLoginLogic.logoutCompany(mitarbeiter_login_widget=self)
 
-    def startCreateMitarbeiter(self):
+    def startCreateEmployee(self):
         self.cm.clear()
         self.cm.show()
 
-    def startDelMitarbeiter(self):
+    def startDelEmployee(self):
         self.dm.show()
         self.dm.clear()
 
-    def startChangeMitarbeiterPasswort(self):
+    def startChangeEmployeePassword(self):
         self.cmp.clear()
         self.cmp.show()
 
@@ -112,9 +112,9 @@ class EmployeeLogin(QWidget):
         contact = QAction('Contact', self)
         report_bug = QAction('Report error', self)
 
-        create_mitarbeiter.triggered.connect(self.startCreateMitarbeiter)
-        del_mitarbeiter.triggered.connect(self.startDelMitarbeiter)
-        change_mitarbeiter_passwort.triggered.connect(self.startChangeMitarbeiterPasswort)
+        create_mitarbeiter.triggered.connect(self.startCreateEmployee)
+        del_mitarbeiter.triggered.connect(self.startDelEmployee)
+        change_mitarbeiter_passwort.triggered.connect(self.startChangeEmployeePassword)
         logout_company.triggered.connect(self.logoutCompany)
         close.triggered.connect(self.closeApp)
 

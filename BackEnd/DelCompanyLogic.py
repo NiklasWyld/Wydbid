@@ -34,7 +34,7 @@ def addItems(firma_liste: QComboBox):
         firma_liste.addItem(firma.name, [firma, n_file])
 
 
-def delFirmaFinal(file: str, widget: QWidget):
+def delCompanyFinal(file: str, widget: QWidget):
     folder = file.split('/')[-2]
     folder = f'{Wydbid.location}Companies/{folder}/'
     os.remove(file)
@@ -56,7 +56,7 @@ def delFirmaFinal(file: str, widget: QWidget):
         Wydbid.app.exit(0)
 
 
-def getFirma(firma_box: QComboBox, passwort: str, widget: QWidget):
+def getCompany(firma_box: QComboBox, passwort: str, widget: QWidget):
     firma: Company.Company = firma_box.currentData()[0]
 
     if passwort == '':
@@ -68,4 +68,4 @@ def getFirma(firma_box: QComboBox, passwort: str, widget: QWidget):
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'Attention, the password entered is incorrect!')
         return
-    delFirmaFinal(firma_box.currentData()[1], widget)
+    delCompanyFinal(firma_box.currentData()[1], widget)

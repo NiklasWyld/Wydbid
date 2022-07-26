@@ -13,7 +13,7 @@ class CreateCustomer(QWidget):
         self.setWindowTitle('Wydbid - Create customer')
         self.setGeometry(0, 0, 600, 600)
 
-        CustomerLogic.setupKundenFolder()
+        CustomerLogic.setupCustomerFolder()
         self.setupUI()
 
     def setupUI(self):
@@ -54,7 +54,7 @@ class CreateCustomer(QWidget):
         self.informationen = QTextEdit(parent=self)
 
         submit = QPushButton(parent=self, text='Create')
-        submit.clicked.connect(lambda: CustomerLogic.createKunde(create_kunde=self))
+        submit.clicked.connect(lambda: CustomerLogic.createCustomer(create_kunde=self))
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 

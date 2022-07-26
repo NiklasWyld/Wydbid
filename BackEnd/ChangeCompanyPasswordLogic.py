@@ -32,7 +32,7 @@ def addItems(firma_liste: QComboBox):
         firma_liste.addItem(firma.name, [firma, n_file])
 
 
-def changePasswortFinal(firma_box: QComboBox, old_passwort: str, new_passwort: str, widget: QWidget):
+def changePasswordFinal(firma_box: QComboBox, old_passwort: str, new_passwort: str, widget: QWidget):
     if firma_box.currentData() == None or old_passwort == '' or new_passwort == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')

@@ -39,7 +39,7 @@ class CompanyLogin(QWidget):
             event.ignore()
             pass
 
-    def addItemsToFirma(self):
+    def addItemsToCompany(self):
         CompanyLoginLogic.addItems(self.firma)
 
     def login(self):
@@ -53,7 +53,7 @@ class CompanyLogin(QWidget):
 
         firmen_note = QLabel(parent=self, text='Company: ')
         self.firma = QComboBox(parent=self)
-        self.addItemsToFirma()
+        self.addItemsToCompany()
 
         passwort_note = QLabel(parent=self, text='Password: ')
         self.passwort = QLineEdit(parent=self)
@@ -79,15 +79,15 @@ class CompanyLogin(QWidget):
 
         self.layout.addWidget(submit, 4, 0, 1, 0, Qt.AlignCenter)
 
-    def startCreateFirma(self):
+    def startCreateCompany(self):
         self.cf.clear(clearOnlyId=False)
         self.cf.show()
 
-    def startDelFirma(self):
+    def startDelCompany(self):
         self.del_firma.clear()
         self.del_firma.show()
 
-    def startChangeFirmenPasswort(self):
+    def startChangeCompanyPassword(self):
         self.cfp.show()
 
     def setupMenuBar(self):
@@ -105,9 +105,9 @@ class CompanyLogin(QWidget):
         contact = QAction('Contact', self)
         report_bug = QAction('Report error', self)
 
-        create_company.triggered.connect(self.startCreateFirma)
-        del_company.triggered.connect(self.startDelFirma)
-        change_company_password.triggered.connect(self.startChangeFirmenPasswort)
+        create_company.triggered.connect(self.startCreateCompany)
+        del_company.triggered.connect(self.startDelCompany)
+        change_company_password.triggered.connect(self.startChangeCompanyPassword)
         reset.triggered.connect(Wydbid.reset)
         close.triggered.connect(self.closeApp)
 

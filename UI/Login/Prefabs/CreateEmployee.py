@@ -22,11 +22,11 @@ class CreateEmployee(QWidget):
         self.username.setText('')
         self.passwort.setText('')
 
-    def createMitarbeiter(self):
-        CreateEmployeeLogic.createMitarbeiterFinal(self.name.text(),
-                                                   self.username.text(),
-                                                   self.passwort.text(),
-                                                   self.widget)
+    def createEmployee(self):
+        CreateEmployeeLogic.createEmployeeFinal(self.name.text(),
+                                                self.username.text(),
+                                                self.passwort.text(),
+                                                self.widget)
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
@@ -36,19 +36,19 @@ class CreateEmployee(QWidget):
 
         name_note = QLabel('Name: ')
         self.name = QLineEdit()
-        self.name.returnPressed.connect(self.createMitarbeiter)
+        self.name.returnPressed.connect(self.createEmployee)
 
         username_note = QLabel('Username: ')
         self.username = QLineEdit()
-        self.username.returnPressed.connect(self.createMitarbeiter)
+        self.username.returnPressed.connect(self.createEmployee)
 
         passwort_note = QLabel('Password: ')
         self.passwort = QLineEdit()
         self.passwort.setEchoMode(QLineEdit.Password)
-        self.passwort.returnPressed.connect(self.createMitarbeiter)
+        self.passwort.returnPressed.connect(self.createEmployee)
 
         self.submit = QPushButton('Create')
-        self.submit.clicked.connect(self.createMitarbeiter)
+        self.submit.clicked.connect(self.createEmployee)
 
         self.layout.addWidget(title, 0, 0, 1, 0, Qt.AlignTop|Qt.AlignCenter)
 

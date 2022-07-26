@@ -17,7 +17,7 @@ class CreateCompany(QWidget):
 
         self.setupUI()
 
-    def createFirma(self):
+    def createCompany(self):
         CreateCompanyLogic.getFirma(self.id_field.text(), self.name.text(), self.passwort.text(), self.widget)
 
     def clear(self, clearOnlyId: bool = False):
@@ -38,19 +38,19 @@ class CreateCompany(QWidget):
 
         id_note = QLabel('Company-ID: ')
         self.id_field = QLineEdit()
-        self.id_field.returnPressed.connect(self.createFirma)
+        self.id_field.returnPressed.connect(self.createCompany)
 
         name_note = QLabel('Name: ')
         self.name = QLineEdit()
-        self.name.returnPressed.connect(self.createFirma)
+        self.name.returnPressed.connect(self.createCompany)
 
         passwort_note = QLabel('Password: ')
         self.passwort = QLineEdit()
         self.passwort.setEchoMode(QLineEdit.Password)
-        self.passwort.returnPressed.connect(self.createFirma)
+        self.passwort.returnPressed.connect(self.createCompany)
 
         self.submit = QPushButton('Create')
-        self.submit.clicked.connect(self.createFirma)
+        self.submit.clicked.connect(self.createCompany)
 
         self.layout.addWidget(title, 0, 0, 1, 0, Qt.AlignTop|Qt.AlignCenter)
 

@@ -22,7 +22,7 @@ def logoutCompany(widget: QWidget):
             i.showMaximized()
 
 
-def logoutMitarbeiter(widget: QWidget):
+def logoutEmployee(widget: QWidget):
     Wydbid.mitarbeiter = None
 
     widget.hide()
@@ -33,7 +33,7 @@ def logoutMitarbeiter(widget: QWidget):
             i.password.setText('')
             i.showMaximized()
 
-def reloadKunden(kundenliste: QTableWidget):
+def reloadCustomers(kundenliste: QTableWidget):
     kundenliste.setHorizontalHeaderLabels(
         ['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
     kundenliste.setColumnWidth(0, 200)
@@ -98,7 +98,7 @@ def reloadKunden(kundenliste: QTableWidget):
         kundenliste.setItem(i, 7, ansicht)
         i = i + 1
 
-def appendKunden(kundenliste: QTableWidget):
+def appendCustomers(kundenliste: QTableWidget):
     global d_geschlecht
     kundenliste.clear()
     kundenliste.setHorizontalHeaderLabels(

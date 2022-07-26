@@ -6,7 +6,7 @@ import Wydbid
 from Data import Employee
 
 
-def changePasswortFinal(username: str, passwort: str, new_passwort: str, widget: QWidget):
+def changePasswordFinal(username: str, passwort: str, new_passwort: str, widget: QWidget):
     if username == '' or passwort == '' or new_passwort == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')

@@ -54,7 +54,7 @@ class WydbidUIMain(QWidget):
         self.setupActionBox(action_list)
 
         customer_widget = QWidget()
-        self.setupKundenListe(kunden_liste=customer_widget)
+        self.setupCustomerList(kunden_liste=customer_widget)
 
         termin_widget = QWidget()
 
@@ -88,7 +88,7 @@ class WydbidUIMain(QWidget):
         contact = QAction('Contact', self)
         report_bug = QAction('Report error', self)
 
-        logout_mitarbeiter.triggered.connect(lambda: WydbidUIMainLogic.logoutMitarbeiter(self))
+        logout_mitarbeiter.triggered.connect(lambda: WydbidUIMainLogic.logoutEmployee(self))
         logout_company.triggered.connect(self.startCompanyLogout)
         reset_programm.triggered.connect(Wydbid.reset)
         settings.triggered.connect(self.startSettings)
@@ -194,11 +194,11 @@ class WydbidUIMain(QWidget):
         # ToDo: Event Management
 
         # Customer Event Management
-        add_customer.clicked.connect(self.startCreateKunde)
+        add_customer.clicked.connect(self.startCreateCustomer)
 
     # Setup tab widgets
 
-    def setupKundenListe(self, kunden_liste: QWidget):
+    def setupCustomerList(self, kunden_liste: QWidget):
         # Layout declarations
         lyt = QVBoxLayout()
         hlyt = QHBoxLayout()
@@ -213,7 +213,7 @@ class WydbidUIMain(QWidget):
         self.kundenliste.setColumnCount(8)
         self.kundenliste.setHorizontalHeaderLabels(['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
 
-        WydbidUIMainLogic.appendKunden(kundenliste=self.kundenliste)
+        WydbidUIMainLogic.appendCustomers(kundenliste=self.kundenliste)
 
         self.kundenliste.setSortingEnabled(True)
         self.kundenliste.setFocusPolicy(Qt.NoFocus)
@@ -230,7 +230,7 @@ class WydbidUIMain(QWidget):
 
         reload = QPushButton('Reload')
         reload.setFixedWidth(120)
-        reload.clicked.connect(lambda: WydbidUIMainLogic.reloadKunden(kundenliste=self.kundenliste))
+        reload.clicked.connect(lambda: WydbidUIMainLogic.reloadCustomers(kundenliste=self.kundenliste))
 
         # Add reload button to bottom layout
         hlyt.addWidget(reload)
@@ -270,5 +270,5 @@ class WydbidUIMain(QWidget):
 
     # Event Management Methods
 
-    def startCreateKunde(self):
+    def startCreateCustomer(self):
         self.ck.show()

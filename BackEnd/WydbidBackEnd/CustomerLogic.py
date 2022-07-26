@@ -5,7 +5,7 @@ import os
 from Data import Customer
 
 
-def setupKundenFolder():
+def setupCustomerFolder():
     kunden_path = f'{Wydbid.firmen_location}Customers'
 
     if os.path.exists(kunden_path):
@@ -37,7 +37,7 @@ def handleNextId():
     return str(id_list[-1] + 1)
 
 
-def createKunde(create_kunde):
+def createCustomer(create_kunde):
     if create_kunde.id_tick.isChecked():
         new_id = handleNextId()
     else:

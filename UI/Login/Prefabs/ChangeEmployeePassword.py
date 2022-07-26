@@ -21,8 +21,8 @@ class ChangeEmployeePassword(QWidget):
         self.passwort.setText('')
         self.new_passwort.setText('')
 
-    def changePasswort(self):
-        ChangeEmployeePasswordLogic.changePasswortFinal(self.username.text(),
+    def changePassword(self):
+        ChangeEmployeePasswordLogic.changePasswordFinal(self.username.text(),
                                                         self.passwort.text(),
                                                         self.new_passwort.text(),
                                                         self.widget)
@@ -35,20 +35,20 @@ class ChangeEmployeePassword(QWidget):
 
         username_note = QLabel(parent=self, text='Username: ')
         self.username = QLineEdit(parent=self)
-        self.username.returnPressed.connect(self.changePasswort)
+        self.username.returnPressed.connect(self.changePassword)
 
         passwort_note = QLabel(parent=self, text='Old password: ')
         self.passwort = QLineEdit(parent=self)
         self.passwort.setEchoMode(QLineEdit.Password)
-        self.passwort.returnPressed.connect(self.changePasswort)
+        self.passwort.returnPressed.connect(self.changePassword)
 
         new_passwort_note = QLabel(parent=self, text='New password: ')
         self.new_passwort = QLineEdit(parent=self)
         self.new_passwort.setEchoMode(QLineEdit.Password)
-        self.new_passwort.returnPressed.connect(self.changePasswort)
+        self.new_passwort.returnPressed.connect(self.changePassword)
 
         submit = QPushButton(parent=self, text='Change')
-        submit.clicked.connect(self.changePasswort)
+        submit.clicked.connect(self.changePassword)
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 
