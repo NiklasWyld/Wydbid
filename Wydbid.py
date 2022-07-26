@@ -21,6 +21,7 @@ firmen_login = None
 mitarbeiter_login = None
 wydbidui = None
 
+
 def reset():
     m = QMessageBox.question(app.parent(),
                              'Sure?',
@@ -33,36 +34,41 @@ def reset():
         return
 
     elif m == QMessageBox.Yes:
-        p = MessageBox.MessageBox(parent=app.parent(), title='Info', text='Wydbid will now reset. Please confirm to continue!')
+        p = MessageBox.MessageBox(parent=app.parent(
+        ), title='Info', text='Wydbid will now reset. Please confirm to continue!')
         p.setIcon(QMessageBox.Warning)
         p.setDefaultButton(QMessageBox.StandardButton.Ok)
         p.exec_()
 
         shutil.rmtree(location, ignore_errors=True)
 
-        q = MessageBox.MessageBox(parent=app.parent(), title='Info', text='Wydbid has been successfully reset. The programme will now be terminated!')
+        q = MessageBox.MessageBox(parent=app.parent(
+        ), title='Info', text='Wydbid has been successfully reset. The programme will now be terminated!')
         q.setIcon(QMessageBox.Warning)
         q.setDefaultButton(QMessageBox.StandardButton.Ok)
         q.exec_()
 
         app.exit(0)
 
+
 def close():
     app.exit(0)
 
+
 def buildLocation():
-    if os.path.exists(location): pass
-    else: os.makedirs(location)
+    if not os.path.exists(location):
+        os.makedirs(location)
 
-    if os.path.exists(f'{location}Companies'): pass
-    else: os.makedirs(f'{location}Companies')
+    if not os.path.exists(f'{location}Companies'):
+        os.makedirs(f'{location}Companies')
 
-    if os.path.exists(f'{location}IMPORTANT.txt'): pass
-    else: open(f'{location}IMPORTANT.txt', 'w').write('Attention!\n'
-                                                   'Do not delete or move this folder under any conditions! Otherwise, data such as companies, employees, customers, ... will no longer work!\n'
-                                                   'Only delete files or folders from this folders if you know exactly what you want and what you are doing!')
-
+    if not os.path.exists(f'{location}IMPORTANT.txt'):
+        with open(f'{location}IMPORTANT.txt', 'w') as f:
+            f.write('Attention!\n'
+                    'Do not delete or move this folder under any conditions! Otherwise, data such as companies, employees, customers, ... will no longer work!\n'
+                    'Only delete files or folders from this folders if you know exactly what you want and what you are doing!')
     # ...
+
 
 if __name__ == '__main__':
     buildLocation()
@@ -70,9 +76,8 @@ if __name__ == '__main__':
     # Set icon for all widgets
     app.setWindowIcon(QIcon('./Assets/Icon.jpeg'))
 
-    stylesheet = open('./Assets/stylesheet', 'r').read()
-
-    app.setStyleSheet(stylesheet)
+    with open('./Assets/stylesheet', 'r') as f:
+        app.setStyleSheet(f.read())
 
     SettingsLogic.loadSettings()
 
