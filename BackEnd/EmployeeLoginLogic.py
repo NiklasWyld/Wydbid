@@ -17,7 +17,7 @@ def logoutCompany(mitarbeiter_login_widget: EmployeeLogin):
     # Loop through all widgets to get the company login widget to show it and clear the text fields
     for i in Wydbid.app.allWidgets():
         if type(i) == CompanyLogin.CompanyLogin:
-            i.passwort.setText('')
+            i.password.setText('')
             i.showMaximized()
 
 
@@ -35,7 +35,7 @@ def login(username: str, password: str, widget: QWidget):
     mitarbeiter_file = open(
         f'{Wydbid.firmen_location}Employees/{username}.wbm', 'rb')
     mitarbeiter: Employee.Employee = pickle.load(mitarbeiter_file)
-    if mitarbeiter.passwort != password:
+    if mitarbeiter.password != password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'Attention, the password entered is incorrect!')
         return

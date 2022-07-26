@@ -1,8 +1,8 @@
 import Customer
 
 class Event:
-    def __init__(self, id: int, kunde: Customer, titel: str, beschreibung: str):
+    def __init__(self, id: int, customer: Customer, title: str, description: str):
         self.id = id
-        self.kunde = kunde
-        self.titel = titel
-        self.beschreibung = beschreibung
+        self.customer = customer
+        self.title = title
+        self.description = description

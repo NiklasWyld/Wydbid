@@ -64,7 +64,7 @@ def getFirma(firma_box: QComboBox, passwort: str, widget: QWidget):
                             'All fields must be filled in!')
         return
 
-    if passwort != firma.passwort:
+    if passwort != firma.password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'Attention, the password entered is incorrect!')
         return

@@ -22,14 +22,14 @@ def changePasswortFinal(username: str, passwort: str, new_passwort: str, widget:
     mitarbeiter: Employee.Employee = pickle.load(mitarbeiter_file)
     mitarbeiter_file.close()
 
-    if not mitarbeiter.passwort == passwort:
+    if not mitarbeiter.password == passwort:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'Attention, the password entered is incorrect!')
         return
 
     mitarbeiter_file_new = open(
         f'{Wydbid.firmen_location}Employees/{username}.wbm', 'wb')
-    mitarbeiter.passwort = new_passwort
+    mitarbeiter.password = new_passwort
     pickle.dump(mitarbeiter, mitarbeiter_file_new, pickle.HIGHEST_PROTOCOL)
 
     QMessageBox.about(Wydbid.app.parent(), 'Process completed',

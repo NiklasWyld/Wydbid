@@ -1,9 +1,9 @@
 import Customer
 
 class Order:
-    def __init__(self, id: int, kunde: Customer.Customer, titel: str, beschreibung: str, preis: str):
+    def __init__(self, id: int, customer: Customer.Customer, title: str, description: str, price: str):
         self.id = id
-        self.kunde = kunde
-        self.titel = titel
-        self.beschreibung = beschreibung
-        self.preis = preis
+        self.customer = customer
+        self.title = title
+        self.description = description
+        self.price = price

@@ -1,8 +1,8 @@
 import Customer
 
 class Termin:
-    def __init__(self, id: int, titel: str, datum: str, kunde: Customer):
+    def __init__(self, id: int, title: str, date: str, customer: Customer):
         self.id = id
-        self.titel = titel
-        self.datum = datum
-        self.kunde = kunde
+        self.title = title
+        self.date = date
+        self.customer = customer

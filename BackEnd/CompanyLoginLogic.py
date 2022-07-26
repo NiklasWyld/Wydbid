@@ -14,7 +14,7 @@ def login(firmenlogin: QWidget, firma: QComboBox, password: str):
 
     firma: Company.Company = firma.currentData()
 
-    if password != firma.passwort:
+    if password != firma.password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'The password you entered is incorrect!')
         return

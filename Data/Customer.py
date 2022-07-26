@@ -1,11 +1,11 @@
 class Customer:
-    def __init__(self, id: int, vorname: str, nachname: str, email: str, adresse: str, nummer: str, geschlecht: str, geburtsdatum: str, informationen: str):
+    def __init__(self, id: int, firstname: str, lastname: str, email: str, adress: str, number: str, gender: str, birthdate: str, information: str):
         self.id = id
-        self.vorname = vorname
-        self.nachname = nachname
+        self.firstname = firstname
+        self.lastname = lastname
         self.email = email
-        self.adresse = adresse
-        self.nummer = nummer
-        self.geschlecht = geschlecht
-        self.geburtsdatum = geburtsdatum
-        self.informationen = informationen
+        self.adress = adress
+        self.number = number
+        self.gender = gender
+        self.birthdate = birthdate
+        self.information = information

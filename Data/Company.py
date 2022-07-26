@@ -1,5 +1,5 @@
 class Company:
-    def __init__(self, id: int, name: str, passwort: str):
+    def __init__(self, id: int, name: str, password: str):
         self.id = id
         self.name = name
-        self.passwort = passwort
+        self.password = password

@@ -18,7 +18,7 @@ def logoutCompany(widget: QWidget):
     # Loop through all widgets to get the company login widget to show it and clear the text fields
     for i in Wydbid.app.allWidgets():
         if type(i) == CompanyLogin.CompanyLogin:
-            i.passwort.setText('')
+            i.password.setText('')
             i.showMaximized()
 
 
@@ -30,7 +30,7 @@ def logoutMitarbeiter(widget: QWidget):
     # Loop through all widgets to get the company login widget to show it and clear the text fields
     for i in Wydbid.app.allWidgets():
         if type(i) == EmployeeLogin.EmployeeLogin:
-            i.passwort.setText('')
+            i.password.setText('')
             i.showMaximized()
 
 def reloadKunden(kundenliste: QTableWidget):
@@ -52,7 +52,7 @@ def reloadKunden(kundenliste: QTableWidget):
             open(f'{Wydbid.firmen_location}Customers/{datei}/{datei}.wbk', 'rb'))
         kunden.append(kunde)
 
-    kunden.sort(key=lambda x: x.nachname, reverse=False)
+    kunden.sort(key=lambda x: x.lastname, reverse=False)
 
     kundenliste.setRowCount(len(kunden))
 
@@ -63,26 +63,26 @@ def reloadKunden(kundenliste: QTableWidget):
         id.setData(Qt.DisplayRole, kunde.id)
 
         kundenliste.setItem(i, 1, QTableWidgetItem(
-            f'{kunde.vorname} {kunde.nachname}'))
+            f'{kunde.firstname} {kunde.lastname}'))
 
         email = QTableWidgetItem()
         email.setData(Qt.DisplayRole, kunde.email)
 
         adresse = QTableWidgetItem()
-        adresse.setData(Qt.DisplayRole, kunde.adresse)
+        adresse.setData(Qt.DisplayRole, kunde.adress)
 
         nummer = QTableWidgetItem()
-        nummer.setData(Qt.DisplayRole, kunde.nummer)
+        nummer.setData(Qt.DisplayRole, kunde.number)
 
         geschlecht = QTableWidgetItem()
-        if kunde.geschlecht == 'men':
+        if kunde.gender == 'men':
             d_geschlecht = 'Male'
-        elif kunde.geschlecht == 'women':
+        elif kunde.gender == 'women':
             d_geschlecht = 'Female'
         geschlecht.setData(Qt.DisplayRole, d_geschlecht)
 
         geburtsdatum = QTableWidgetItem()
-        geburtsdatum.setData(Qt.DisplayRole, kunde.geburtsdatum)
+        geburtsdatum.setData(Qt.DisplayRole, kunde.birthdate)
 
         ansicht = QTableWidgetItem()
         ansicht.setData(Qt.DisplayRole, '🔎')
@@ -119,7 +119,7 @@ def appendKunden(kundenliste: QTableWidget):
             open(f'{Wydbid.firmen_location}Customers/{datei}/{datei}.wbk', 'rb'))
         kunden.append(kunde)
 
-    kunden.sort(key=lambda x: x.nachname, reverse=False)
+    kunden.sort(key=lambda x: x.lastname, reverse=False)
 
     kundenliste.setRowCount(len(kunden))
 
@@ -130,26 +130,26 @@ def appendKunden(kundenliste: QTableWidget):
         id.setData(Qt.DisplayRole, kunde.id)
 
         kundenliste.setItem(i, 1, QTableWidgetItem(
-            f'{kunde.vorname} {kunde.nachname}'))
+            f'{kunde.firstname} {kunde.lastname}'))
 
         email = QTableWidgetItem()
         email.setData(Qt.DisplayRole, kunde.email)
 
         adresse = QTableWidgetItem()
-        adresse.setData(Qt.DisplayRole, kunde.adresse)
+        adresse.setData(Qt.DisplayRole, kunde.adress)
 
         nummer = QTableWidgetItem()
-        nummer.setData(Qt.DisplayRole, kunde.nummer)
+        nummer.setData(Qt.DisplayRole, kunde.number)
 
         geschlecht = QTableWidgetItem()
-        if kunde.geschlecht == 'men':
+        if kunde.gender == 'men':
             d_geschlecht = 'Male'
-        elif kunde.geschlecht == 'women':
+        elif kunde.gender == 'women':
             d_geschlecht = 'Female'
         geschlecht.setData(Qt.DisplayRole, d_geschlecht)
 
         geburtsdatum = QTableWidgetItem()
-        geburtsdatum.setData(Qt.DisplayRole, kunde.geburtsdatum)
+        geburtsdatum.setData(Qt.DisplayRole, kunde.birthdate)
 
         ansicht = QTableWidgetItem()
         ansicht.setData(Qt.DisplayRole, '🔎')

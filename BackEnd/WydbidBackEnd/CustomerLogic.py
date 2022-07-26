@@ -50,16 +50,16 @@ def createKunde(create_kunde):
                             'The customer number must be a number.')
         return
 
-    if not new_id.strip() or not create_kunde.vorname.text().strip() or not create_kunde.nachname.text().strip():
+    if not new_id.strip() or not create_kunde.firstname.text().strip() or not create_kunde.lastname.text().strip():
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'The mandatory fields must be filled in!')
         return
 
-    kunde_new = Customer.Customer(id=int(new_id), vorname=create_kunde.vorname.text(), nachname=create_kunde.nachname.text(),
-                               email=create_kunde.email.text(), adresse=create_kunde.adresse.text(),
-                               nummer=create_kunde.nummer.text(), geschlecht=create_kunde.geschlecht.currentData(),
-                               geburtsdatum=create_kunde.geburtsdatum.text(),
-                               informationen=create_kunde.informationen.toPlainText())
+    kunde_new = Customer.Customer(id=int(new_id), firstname=create_kunde.firstname.text(), lastname=create_kunde.lastname.text(),
+                                  email=create_kunde.email.text(), adress=create_kunde.adress.text(),
+                                  number=create_kunde.number.text(), gender=create_kunde.gender.currentData(),
+                                  birthdate=create_kunde.birthdate.text(),
+                                  information=create_kunde.information.toPlainText())
 
     kunde_loc_name = new_id
 
@@ -76,7 +76,7 @@ def createKunde(create_kunde):
     pickle.dump(kunde_new, k_file, pickle.HIGHEST_PROTOCOL)
 
     QMessageBox.about(Wydbid.app.parent(), 'Completed',
-                      f'{kunde_new. vorname} {kunde_new.nachname} was created.')
+                      f'{kunde_new. firstname} {kunde_new.lastname} was created.')
 
     create_kunde.clear()
     create_kunde.hide()

@@ -39,11 +39,11 @@ def changePasswortFinal(firma_box: QComboBox, old_passwort: str, new_passwort: s
         return
 
     firma: Company.Company = firma_box.currentData()[0]
-    if old_passwort != firma.passwort:
+    if old_passwort != firma.password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'The password you entered is incorrect!')
         return
-    firma.passwort = new_passwort
+    firma.password = new_passwort
     writer = open(firma_box.currentData()[1], 'wb')
     pickle.dump(firma, writer, pickle.HIGHEST_PROTOCOL)
     writer.close()

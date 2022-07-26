@@ -26,7 +26,7 @@ def delMitarbeiterFinal(username: str, passwort: str, widget: QWidget):
     mitarbeiter: Employee.Employee = pickle.load(readable_file)
     readable_file.close()
 
-    if not passwort == mitarbeiter.passwort:
+    if not passwort == mitarbeiter.password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'Attention, the password entered is incorrect!')
         return
