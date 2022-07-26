@@ -12,7 +12,6 @@ import screeninfo
 # ToDo: Update pictures in README.md
 # ToDo: Tasks and News / New Tabs in Main / ...
 # ToDo: Translate into English
-# Test Comment
 
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
