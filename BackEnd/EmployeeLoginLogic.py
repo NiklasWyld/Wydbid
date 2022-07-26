@@ -27,13 +27,13 @@ def login(username: str, password: str, widget: QWidget):
                             'All fields must be filled in!')
         return
 
-    if not os.path.exists(f'{Wydbid.firmen_location}Mitarbeiter/{username}.wbm'):
+    if not os.path.exists(f'{Wydbid.firmen_location}Employees/{username}.wbm'):
         QMessageBox.warning(Wydbid.app.parent(
         ), 'Attention', 'A staff member with these usernames does not exist!')
         return
 
     mitarbeiter_file = open(
-        f'{Wydbid.firmen_location}Mitarbeiter/{username}.wbm', 'rb')
+        f'{Wydbid.firmen_location}Employees/{username}.wbm', 'rb')
     mitarbeiter: Employee.Employee = pickle.load(mitarbeiter_file)
     if mitarbeiter.passwort != password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',

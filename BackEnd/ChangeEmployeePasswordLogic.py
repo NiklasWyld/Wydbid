@@ -12,13 +12,13 @@ def changePasswortFinal(username: str, passwort: str, new_passwort: str, widget:
                             'All fields must be filled in!')
         return
 
-    if not os.path.exists(f'{Wydbid.firmen_location}Mitarbeiter/{username}.wbm'):
+    if not os.path.exists(f'{Wydbid.firmen_location}Employees/{username}.wbm'):
         QMessageBox.warning(Wydbid.app.parent(
         ), 'Attention', 'The user name or employee you entered does not exist.')
         return
 
     mitarbeiter_file = open(
-        f'{Wydbid.firmen_location}Mitarbeiter/{username}.wbm', 'rb')
+        f'{Wydbid.firmen_location}Employees/{username}.wbm', 'rb')
     mitarbeiter: Employee.Employee = pickle.load(mitarbeiter_file)
     mitarbeiter_file.close()
 
@@ -28,7 +28,7 @@ def changePasswortFinal(username: str, passwort: str, new_passwort: str, widget:
         return
 
     mitarbeiter_file_new = open(
-        f'{Wydbid.firmen_location}Mitarbeiter/{username}.wbm', 'wb')
+        f'{Wydbid.firmen_location}Employees/{username}.wbm', 'wb')
     mitarbeiter.passwort = new_passwort
     pickle.dump(mitarbeiter, mitarbeiter_file_new, pickle.HIGHEST_PROTOCOL)
 

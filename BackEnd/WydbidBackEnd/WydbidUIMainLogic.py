@@ -45,11 +45,11 @@ def reloadKunden(kundenliste: QTableWidget):
     kundenliste.setColumnWidth(6, 200)
 
     kunden = []
-    dateien = os.listdir(f'{Wydbid.firmen_location}Kunden/')
+    dateien = os.listdir(f'{Wydbid.firmen_location}Customers/')
 
     for datei in dateien:
         kunde: Customer.Customer = pickle.load(
-            open(f'{Wydbid.firmen_location}Kunden/{datei}/{datei}.wbk', 'rb'))
+            open(f'{Wydbid.firmen_location}Customers/{datei}/{datei}.wbk', 'rb'))
         kunden.append(kunde)
 
     kunden.sort(key=lambda x: x.nachname, reverse=False)
@@ -112,11 +112,11 @@ def appendKunden(kundenliste: QTableWidget):
     kundenliste.setColumnWidth(6, 200)
 
     kunden = []
-    dateien = os.listdir(f'{Wydbid.firmen_location}Kunden/')
+    dateien = os.listdir(f'{Wydbid.firmen_location}Customers/')
 
     for datei in dateien:
         kunde: Customer.Customer = pickle.load(
-            open(f'{Wydbid.firmen_location}Kunden/{datei}/{datei}.wbk', 'rb'))
+            open(f'{Wydbid.firmen_location}Customers/{datei}/{datei}.wbk', 'rb'))
         kunden.append(kunde)
 
     kunden.sort(key=lambda x: x.nachname, reverse=False)

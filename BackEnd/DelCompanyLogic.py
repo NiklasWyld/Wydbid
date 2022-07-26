@@ -8,7 +8,7 @@ import Wydbid
 
 
 def addItems(firma_liste: QComboBox):
-    l = f'{Wydbid.location}Firmen/'
+    l = f'{Wydbid.location}Companies/'
     files = []
 
     for folder in os.listdir(l):
@@ -36,7 +36,7 @@ def addItems(firma_liste: QComboBox):
 
 def delFirmaFinal(file: str, widget: QWidget):
     folder = file.split('/')[-2]
-    folder = f'{Wydbid.location}Firmen/{folder}/'
+    folder = f'{Wydbid.location}Companies/{folder}/'
     os.remove(file)
     shutil.rmtree(folder, ignore_errors=True)
     QMessageBox.about(Wydbid.app.parent(), 'Completed',

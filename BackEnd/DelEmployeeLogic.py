@@ -14,14 +14,14 @@ def delMitarbeiterFinal(username: str, passwort: str, widget: QWidget):
         return
 
     # See if the file or employee exists
-    if not os.path.exists(f'{Wydbid.firmen_location}Mitarbeiter/{username}.wbm'):
+    if not os.path.exists(f'{Wydbid.firmen_location}Employees/{username}.wbm'):
         QMessageBox.warning(Wydbid.app.parent(
         ), 'Attention', 'The user name or employee you entered does not exist.')
         return
 
     readable_file = open(
-        f'{Wydbid.firmen_location}Mitarbeiter/{username}.wbm', 'rb')
-    file_path = f'{Wydbid.firmen_location}Mitarbeiter/{username}.wbm'
+        f'{Wydbid.firmen_location}Employees/{username}.wbm', 'rb')
+    file_path = f'{Wydbid.firmen_location}Employees/{username}.wbm'
 
     mitarbeiter: Employee.Employee = pickle.load(readable_file)
     readable_file.close()

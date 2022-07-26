@@ -6,7 +6,7 @@ from Data import Customer
 
 
 def setupKundenFolder():
-    kunden_path = f'{Wydbid.firmen_location}Kunden'
+    kunden_path = f'{Wydbid.firmen_location}Customers'
 
     if os.path.exists(kunden_path):
         return
@@ -18,7 +18,7 @@ def setupKundenFolder():
 
 
 def handleNextId():
-    id_list = os.listdir(f'{Wydbid.firmen_location}Kunden/')
+    id_list = os.listdir(f'{Wydbid.firmen_location}Customers/')
     if not id_list:
         return str(1)
 
@@ -63,7 +63,7 @@ def createKunde(create_kunde):
 
     kunde_loc_name = new_id
 
-    location = f'{Wydbid.firmen_location}Kunden/{kunde_loc_name}/'
+    location = f'{Wydbid.firmen_location}Customers/{kunde_loc_name}/'
 
     if os.path.exists(location):
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',

@@ -19,7 +19,7 @@ def login(firmenlogin: QWidget, firma: QComboBox, password: str):
                             'The password you entered is incorrect!')
         return
 
-    Wydbid.firmen_location = f'{Wydbid.location}Firmen/{firma.id}/'
+    Wydbid.firmen_location = f'{Wydbid.location}Companies/{firma.id}/'
     Wydbid.firma = firma
 
     firmenlogin.hide()
@@ -32,7 +32,7 @@ def login(firmenlogin: QWidget, firma: QComboBox, password: str):
 
 
 def addItems(firma_liste: QComboBox):
-    l = f'{Wydbid.location}Firmen/'
+    l = f'{Wydbid.location}Companies/'
     files = []
 
     for folder in os.listdir(l):

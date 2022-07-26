@@ -10,13 +10,13 @@ import Wydbid
 def writeFirma(id: int, name: str, passwort: str, widget: QWidget):
     location = Wydbid.location
 
-    if os.path.exists(f'{location}Firmen/{str(id)}/'):
+    if os.path.exists(f'{location}Companies/{str(id)}/'):
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'A company with this ID already exists!')
         return
 
-    os.makedirs(f'{location}Firmen/{str(id)}/')
-    firma_file = open(f'{location}Firmen/{str(id)}/{str(id)}.wbf', 'wb')
+    os.makedirs(f'{location}Companies/{str(id)}/')
+    firma_file = open(f'{location}Companies/{str(id)}/{str(id)}.wbf', 'wb')
     firma = Company.Company(id, name, passwort)
 
     pickle.dump(firma, firma_file, pickle.HIGHEST_PROTOCOL)

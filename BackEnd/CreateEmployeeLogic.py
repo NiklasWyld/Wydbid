@@ -7,7 +7,7 @@ from Data import Employee
 
 
 def createMitarbeiterFinal(name: str, username: str, passwort: str, widget: QWidget):
-    if os.path.exists(f'{Wydbid.firmen_location}Mitarbeiter/{str(username)}.wbm'):
+    if os.path.exists(f'{Wydbid.firmen_location}Employees/{str(username)}.wbm'):
         QMessageBox.warning(Wydbid.app.parent(
         ), 'Attention', 'A staff member with these usernames already exists!')
         return
@@ -17,10 +17,10 @@ def createMitarbeiterFinal(name: str, username: str, passwort: str, widget: QWid
                             'All fields must be filled in!')
         return
 
-    if not os.path.exists(f'{Wydbid.firmen_location}Mitarbeiter/'):
-        os.makedirs(f'{Wydbid.firmen_location}Mitarbeiter/')
+    if not os.path.exists(f'{Wydbid.firmen_location}Employees/'):
+        os.makedirs(f'{Wydbid.firmen_location}Employees/')
     mitarbeiter_file = open(
-        f'{Wydbid.firmen_location}Mitarbeiter/{str(username)}.wbm', 'wb')
+        f'{Wydbid.firmen_location}Employees/{str(username)}.wbm', 'wb')
     mitarbeiter = Employee.Employee(username, name, passwort)
 
     pickle.dump(mitarbeiter, mitarbeiter_file, pickle.HIGHEST_PROTOCOL)

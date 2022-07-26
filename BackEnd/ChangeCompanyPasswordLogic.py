@@ -6,7 +6,7 @@ import Wydbid
 
 
 def addItems(firma_liste: QComboBox):
-    l = f'{Wydbid.location}Firmen/'
+    l = f'{Wydbid.location}Companies/'
     files = []
 
     for folder in os.listdir(l):
