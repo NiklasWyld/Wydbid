@@ -40,7 +40,7 @@ def reloadCustomers(customerlist: QTableWidget):
     customerlist.setColumnCount(0)
     customerlist.setRowCount(0)
 
-    customerlist.setColumnCount(7)
+    customerlist.setColumnCount(8)
     customerlist.setHorizontalHeaderLabels(
         ['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
     customerlist.setColumnWidth(0, 200)
@@ -50,6 +50,7 @@ def reloadCustomers(customerlist: QTableWidget):
     customerlist.setColumnWidth(4, 200)
     customerlist.setColumnWidth(5, 200)
     customerlist.setColumnWidth(6, 200)
+
 
     customers = []
     files = os.listdir(f'{Wydbid.company_location}Customers/')

@@ -131,70 +131,48 @@ class WydbidUIMain(QWidget):
 
         # Customers
         customer_note = QLabel(parent=action_list, text='Customers 👨')
-        add_customer = ActionButton.ActionButton(parent=action_list, text='Add customer ➜', color='lightgreen', color_hover='green')
-        edit_customer = ActionButton.ActionButton(parent=action_list, text='Edit customer ➜', color='lightskyblue', color_hover='blue')
-        del_customer = ActionButton.ActionButton(parent=action_list, text='Delete customer ➜', color='lightcoral', color_hover='red')
+        customer_actions = ActionButton.ActionButton(parent=action_list, text='Customer Actions ➜', color='lightskyblue', color_hover='blue')
 
         # Appointments
         appointment_note = QLabel(parent=action_list, text='Appointments 📅')
-        add_appointment = ActionButton.ActionButton(parent=action_list, text='Add appointment ➜', color='lightgreen', color_hover='green')
-        edit_appointment = ActionButton.ActionButton(parent=action_list, text='Edit appointment ➜', color='lightskyblue', color_hover='blue')
-        del_appointment = ActionButton.ActionButton(parent=action_list, text='Delete appointment ➜', color='lightcoral', color_hover='red')
+        appointment_actions = ActionButton.ActionButton(parent=action_list, text='Appointment Actions ➜', color='lightgreen', color_hover='green')
 
         # Orders
         order_note = QLabel(parent=action_list, text='Orders 📦')
-        add_order = ActionButton.ActionButton(parent=action_list, text='Add order ➜', color='lightgreen', color_hover='green')
-        edit_order = ActionButton.ActionButton(parent=action_list, text='Edit order ➜', color='lightskyblue', color_hover='blue')
-        del_order = ActionButton.ActionButton(parent=action_list, text='Delete order ➜', color='lightcoral', color_hover='red')
+        order_actions = ActionButton.ActionButton(parent=action_list, text='Order Actions ➜', color='lightcoral', color_hover='red')
 
         # Events
         event_note = QLabel(parent=action_list, text='Events 📝')
-        add_event = ActionButton.ActionButton(parent=action_list, text='Add event ➜', color='lightgreen', color_hover='green')
-        edit_event = ActionButton.ActionButton(parent=action_list, text='Edit event ➜', color='lightskyblue', color_hover='blue')
-        del_event = ActionButton.ActionButton(parent=action_list, text='Delete event ➜', color='lightcoral', color_hover='red')
+        event_actions = ActionButton.ActionButton(parent=action_list, text='Event Actions ➜', color='lightsalmon', color_hover='orange')
 
         # Emails
         email_note = QLabel(parent=action_list, text='E-Mail ✉')
-        send_email = ActionButton.ActionButton(parent=action_list, text='Send e-mail ➜', color='cornflowerblue', color_hover='lightskyblue')
-        make_email = ActionButton.ActionButton(parent=action_list, text='Create email ➜', color='lightgreen', color_hover='green')
-        edit_email = ActionButton.ActionButton(parent=action_list, text='Edit e-mail ➜', color='lightskyblue', color_hover='blue')
-        del_email = ActionButton.ActionButton(parent=action_list, text='Delete e-mail ➜', color='lightcoral', color_hover='red')
+        email_actions = ActionButton.ActionButton(parent=action_list, text='E-Mail Actions ➜', color='darkslateblue', color_hover='purple')
 
         # Customer Layout Management
         action_list.layout().addWidget(customer_note, 0, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(add_customer, 1, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(edit_customer, 2, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(del_customer, 3, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(customer_actions, 2, 0, 1, 0, Qt.AlignCenter)
 
         # Appointment Layout Management
         action_list.layout().addWidget(appointment_note, 5, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(add_appointment, 6, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(edit_appointment, 7, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(del_appointment, 8, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(appointment_actions, 7, 0, 1, 0, Qt.AlignCenter)
 
         # Order Layout Management
         action_list.layout().addWidget(order_note, 10, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(add_order, 11, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(edit_order, 12, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(del_order, 13, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(order_actions, 12, 0, 1, 0, Qt.AlignCenter)
 
         # Event Layout Management
         action_list.layout().addWidget(event_note, 15, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(add_event, 16, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(edit_event, 17, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(del_event, 18, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(event_actions, 17, 0, 1, 0, Qt.AlignCenter)
 
         # E-Mail Layout Management
         action_list.layout().addWidget(email_note, 19, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(send_email, 20, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(make_email, 21, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(edit_email, 22, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(del_email, 23, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(email_actions, 22, 0, 1, 0, Qt.AlignCenter)
 
         # ToDo: Event Management
 
         # Customer Event Management
-        add_customer.clicked.connect(self.startCreateCustomer)
+        #add_customer.clicked.connect(self.startCreateCustomer)
 
     # Setup tab widgets
 
