@@ -2,7 +2,6 @@ import time
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-import sys
 import Wydbid
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from UI.Login.Prefabs import CreateCompany, DelCompany, ChangeCompanyPassword

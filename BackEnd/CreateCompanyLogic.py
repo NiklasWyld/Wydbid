@@ -7,7 +7,7 @@ import os
 import Wydbid
 
 
-def writeCompany(id: int, name: str, passwort: str, widget: QWidget):
+def writeCompany(id: int, name: str, password: str, widget: QWidget):
     location = Wydbid.location
 
     if os.path.exists(f'{location}Companies/{str(id)}/'):
@@ -17,7 +17,7 @@ def writeCompany(id: int, name: str, passwort: str, widget: QWidget):
 
     os.makedirs(f'{location}Companies/{str(id)}/')
     firma_file = open(f'{location}Companies/{str(id)}/{str(id)}.wbf', 'wb')
-    firma = Company.Company(id, name, passwort)
+    firma = Company.Company(id, name, password)
 
     pickle.dump(firma, firma_file, pickle.HIGHEST_PROTOCOL)
 
@@ -38,8 +38,8 @@ def writeCompany(id: int, name: str, passwort: str, widget: QWidget):
         Wydbid.app.exit(0)
 
 
-def getFirma(id: str, name: str, passwort: str, widget: QWidget):
-    if id == '' or name == '' or passwort == '':
+def getFirma(id: str, name: str, password: str, widget: QWidget):
+    if id == '' or name == '' or password == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')
         return
@@ -52,4 +52,4 @@ def getFirma(id: str, name: str, passwort: str, widget: QWidget):
         CreateCompany.CreateCompany().clear(clearOnlyId=True)
         return
 
-    writeCompany(id, name, passwort, widget)
+    writeCompany(id, name, password, widget)

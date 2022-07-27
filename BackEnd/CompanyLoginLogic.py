@@ -6,26 +6,26 @@ from UI.Login import EmployeeLogin
 import Wydbid
 
 
-def login(firmenlogin: QWidget, firma: QComboBox, password: str):
-    if firma.currentData() == None or password == '':
+def login(companylogin: QWidget, company: QComboBox, password: str):
+    if company.currentData() == None or password == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')
         return
 
-    firma: Company.Company = firma.currentData()
+    company: Company.Company = company.currentData()
 
-    if password != firma.password:
+    if password != company.password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'The password you entered is incorrect!')
         return
 
-    Wydbid.firmen_location = f'{Wydbid.location}Companies/{firma.id}/'
-    Wydbid.firma = firma
+    Wydbid.firmen_location = f'{Wydbid.location}Companies/{company.id}/'
+    Wydbid.firma = company
 
-    firmenlogin.hide()
+    companylogin.hide()
 
     mitarbeiter_login = EmployeeLogin.EmployeeLogin()
-    mitarbeiter_login.title.setText(f'{firma.name}')
+    mitarbeiter_login.title.setText(f'{company.name}')
     mitarbeiter_login.showMaximized()
 
     Wydbid.mitarbeiter_login = mitarbeiter_login

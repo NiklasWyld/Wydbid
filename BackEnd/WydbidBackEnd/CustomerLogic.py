@@ -37,11 +37,11 @@ def handleNextId():
     return str(id_list[-1] + 1)
 
 
-def createCustomer(create_kunde):
-    if create_kunde.id_tick.isChecked():
+def createCustomer(create_customer):
+    if create_customer.id_tick.isChecked():
         new_id = handleNextId()
     else:
-        new_id = create_kunde.id.text()
+        new_id = create_customer.id.text()
 
     try:
         int(new_id)
@@ -50,16 +50,16 @@ def createCustomer(create_kunde):
                             'The customer number must be a number.')
         return
 
-    if not new_id.strip() or not create_kunde.firstname.text().strip() or not create_kunde.lastname.text().strip():
+    if not new_id.strip() or not create_customer.firstname.text().strip() or not create_customer.lastname.text().strip():
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'The mandatory fields must be filled in!')
         return
 
-    kunde_new = Customer.Customer(id=int(new_id), firstname=create_kunde.firstname.text(), lastname=create_kunde.lastname.text(),
-                                  email=create_kunde.email.text(), adress=create_kunde.adress.text(),
-                                  number=create_kunde.number.text(), gender=create_kunde.gender.currentData(),
-                                  birthdate=create_kunde.birthdate.text(),
-                                  information=create_kunde.information.toPlainText())
+    kunde_new = Customer.Customer(id=int(new_id), firstname=create_customer.firstname.text(), lastname=create_customer.lastname.text(),
+                                  email=create_customer.email.text(), adress=create_customer.adress.text(),
+                                  number=create_customer.number.text(), gender=create_customer.gender.currentData(),
+                                  birthdate=create_customer.birthdate.text(),
+                                  information=create_customer.information.toPlainText())
 
     kunde_loc_name = new_id
 
@@ -78,5 +78,5 @@ def createCustomer(create_kunde):
     QMessageBox.about(Wydbid.app.parent(), 'Completed',
                       f'{kunde_new. firstname} {kunde_new.lastname} was created.')
 
-    create_kunde.clear()
-    create_kunde.hide()
+    create_customer.clear()
+    create_customer.hide()

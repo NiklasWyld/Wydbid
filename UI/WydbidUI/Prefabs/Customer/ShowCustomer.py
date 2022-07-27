@@ -18,7 +18,7 @@ class ShowCustomer(QWidget):
     def setupUI(self):
         pass
 
-    def setCustomer(self, kunde: Customer.Customer):
+    def setCustomer(self, customer: Customer.Customer):
         pass
 
     def clear(self):

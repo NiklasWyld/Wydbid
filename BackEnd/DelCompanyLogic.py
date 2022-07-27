@@ -7,7 +7,7 @@ import shutil
 import Wydbid
 
 
-def addItems(firma_liste: QComboBox):
+def addItems(companylist: QComboBox):
     l = f'{Wydbid.location}Companies/'
     files = []
 
@@ -31,7 +31,7 @@ def addItems(firma_liste: QComboBox):
                               'Something went wrong!')
             return
 
-        firma_liste.addItem(firma.name, [firma, n_file])
+        companylist.addItem(firma.name, [firma, n_file])
 
 
 def delCompanyFinal(file: str, widget: QWidget):
@@ -56,16 +56,16 @@ def delCompanyFinal(file: str, widget: QWidget):
         Wydbid.app.exit(0)
 
 
-def getCompany(firma_box: QComboBox, passwort: str, widget: QWidget):
-    firma: Company.Company = firma_box.currentData()[0]
+def getCompany(companybox: QComboBox, password: str, widget: QWidget):
+    firma: Company.Company = companybox.currentData()[0]
 
-    if passwort == '':
+    if password == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')
         return
 
-    if passwort != firma.password:
+    if password != firma.password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'Attention, the password entered is incorrect!')
         return
-    delCompanyFinal(firma_box.currentData()[1], widget)
+    delCompanyFinal(companybox.currentData()[1], widget)

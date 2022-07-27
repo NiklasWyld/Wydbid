@@ -33,16 +33,16 @@ def logoutEmployee(widget: QWidget):
             i.password.setText('')
             i.showMaximized()
 
-def reloadCustomers(kundenliste: QTableWidget):
-    kundenliste.setHorizontalHeaderLabels(
+def reloadCustomers(customerlist: QTableWidget):
+    customerlist.setHorizontalHeaderLabels(
         ['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
-    kundenliste.setColumnWidth(0, 200)
-    kundenliste.setColumnWidth(1, 200)
-    kundenliste.setColumnWidth(2, 200)
-    kundenliste.setColumnWidth(3, 200)
-    kundenliste.setColumnWidth(4, 200)
-    kundenliste.setColumnWidth(5, 200)
-    kundenliste.setColumnWidth(6, 200)
+    customerlist.setColumnWidth(0, 200)
+    customerlist.setColumnWidth(1, 200)
+    customerlist.setColumnWidth(2, 200)
+    customerlist.setColumnWidth(3, 200)
+    customerlist.setColumnWidth(4, 200)
+    customerlist.setColumnWidth(5, 200)
+    customerlist.setColumnWidth(6, 200)
 
     kunden = []
     dateien = os.listdir(f'{Wydbid.firmen_location}Customers/')
@@ -54,7 +54,7 @@ def reloadCustomers(kundenliste: QTableWidget):
 
     kunden.sort(key=lambda x: x.lastname, reverse=False)
 
-    kundenliste.setRowCount(len(kunden))
+    customerlist.setRowCount(len(kunden))
 
     i = 0
 
@@ -62,7 +62,7 @@ def reloadCustomers(kundenliste: QTableWidget):
         id = QTableWidgetItem()
         id.setData(Qt.DisplayRole, kunde.id)
 
-        kundenliste.setItem(i, 1, QTableWidgetItem(
+        customerlist.setItem(i, 1, QTableWidgetItem(
             f'{kunde.firstname} {kunde.lastname}'))
 
         email = QTableWidgetItem()
@@ -87,29 +87,29 @@ def reloadCustomers(kundenliste: QTableWidget):
         ansicht = QTableWidgetItem()
         ansicht.setData(Qt.DisplayRole, '🔎')
         ansicht.setTextAlignment(Qt.AlignCenter)
-        kundenliste.setColumnWidth(7, 40)
+        customerlist.setColumnWidth(7, 40)
 
-        kundenliste.setItem(i, 0, id)
-        kundenliste.setItem(i, 2, email)
-        kundenliste.setItem(i, 3, adresse)
-        kundenliste.setItem(i, 4, nummer)
-        kundenliste.setItem(i, 5, geschlecht)
-        kundenliste.setItem(i, 6, geburtsdatum)
-        kundenliste.setItem(i, 7, ansicht)
+        customerlist.setItem(i, 0, id)
+        customerlist.setItem(i, 2, email)
+        customerlist.setItem(i, 3, adresse)
+        customerlist.setItem(i, 4, nummer)
+        customerlist.setItem(i, 5, geschlecht)
+        customerlist.setItem(i, 6, geburtsdatum)
+        customerlist.setItem(i, 7, ansicht)
         i = i + 1
 
-def appendCustomers(kundenliste: QTableWidget):
+def appendCustomers(customerlist: QTableWidget):
     global d_geschlecht
-    kundenliste.clear()
-    kundenliste.setHorizontalHeaderLabels(
+    customerlist.clear()
+    customerlist.setHorizontalHeaderLabels(
         ['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
-    kundenliste.setColumnWidth(0, 200)
-    kundenliste.setColumnWidth(1, 200)
-    kundenliste.setColumnWidth(2, 200)
-    kundenliste.setColumnWidth(3, 200)
-    kundenliste.setColumnWidth(4, 200)
-    kundenliste.setColumnWidth(5, 200)
-    kundenliste.setColumnWidth(6, 200)
+    customerlist.setColumnWidth(0, 200)
+    customerlist.setColumnWidth(1, 200)
+    customerlist.setColumnWidth(2, 200)
+    customerlist.setColumnWidth(3, 200)
+    customerlist.setColumnWidth(4, 200)
+    customerlist.setColumnWidth(5, 200)
+    customerlist.setColumnWidth(6, 200)
 
     kunden = []
     dateien = os.listdir(f'{Wydbid.firmen_location}Customers/')
@@ -121,7 +121,7 @@ def appendCustomers(kundenliste: QTableWidget):
 
     kunden.sort(key=lambda x: x.lastname, reverse=False)
 
-    kundenliste.setRowCount(len(kunden))
+    customerlist.setRowCount(len(kunden))
 
     i = 0
 
@@ -129,7 +129,7 @@ def appendCustomers(kundenliste: QTableWidget):
         id = QTableWidgetItem()
         id.setData(Qt.DisplayRole, kunde.id)
 
-        kundenliste.setItem(i, 1, QTableWidgetItem(
+        customerlist.setItem(i, 1, QTableWidgetItem(
             f'{kunde.firstname} {kunde.lastname}'))
 
         email = QTableWidgetItem()
@@ -154,15 +154,15 @@ def appendCustomers(kundenliste: QTableWidget):
         ansicht = QTableWidgetItem()
         ansicht.setData(Qt.DisplayRole, '🔎')
         ansicht.setTextAlignment(Qt.AlignCenter)
-        kundenliste.setColumnWidth(7, 40)
+        customerlist.setColumnWidth(7, 40)
 
-        kundenliste.setItem(i, 0, id)
-        kundenliste.setItem(i, 2, email)
-        kundenliste.setItem(i, 3, adresse)
-        kundenliste.setItem(i, 4, nummer)
-        kundenliste.setItem(i, 5, geschlecht)
-        kundenliste.setItem(i, 6, geburtsdatum)
-        kundenliste.setItem(i, 7, ansicht)
+        customerlist.setItem(i, 0, id)
+        customerlist.setItem(i, 2, email)
+        customerlist.setItem(i, 3, adresse)
+        customerlist.setItem(i, 4, nummer)
+        customerlist.setItem(i, 5, geschlecht)
+        customerlist.setItem(i, 6, geburtsdatum)
+        customerlist.setItem(i, 7, ansicht)
         i = i + 1
 
 

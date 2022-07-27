@@ -6,8 +6,8 @@ import Wydbid
 from Data import Employee
 
 
-def changePasswordFinal(username: str, passwort: str, new_passwort: str, widget: QWidget):
-    if username == '' or passwort == '' or new_passwort == '':
+def changePasswordFinal(username: str, password: str, new_password: str, widget: QWidget):
+    if username == '' or password == '' or new_password == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')
         return
@@ -22,14 +22,14 @@ def changePasswordFinal(username: str, passwort: str, new_passwort: str, widget:
     mitarbeiter: Employee.Employee = pickle.load(mitarbeiter_file)
     mitarbeiter_file.close()
 
-    if not mitarbeiter.password == passwort:
+    if not mitarbeiter.password == password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'Attention, the password entered is incorrect!')
         return
 
     mitarbeiter_file_new = open(
         f'{Wydbid.firmen_location}Employees/{username}.wbm', 'wb')
-    mitarbeiter.password = new_passwort
+    mitarbeiter.password = new_password
     pickle.dump(mitarbeiter, mitarbeiter_file_new, pickle.HIGHEST_PROTOCOL)
 
     QMessageBox.about(Wydbid.app.parent(), 'Process completed',

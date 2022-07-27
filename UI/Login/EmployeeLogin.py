@@ -83,7 +83,7 @@ class EmployeeLogin(QWidget):
         self.passwort.setText('')
     
     def logoutCompany(self):
-        EmployeeLoginLogic.logoutCompany(mitarbeiter_login_widget=self)
+        EmployeeLoginLogic.logoutCompany(employee_login_widget=self)
 
     def startCreateEmployee(self):
         self.cm.clear()

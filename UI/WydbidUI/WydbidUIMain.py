@@ -54,7 +54,7 @@ class WydbidUIMain(QWidget):
         self.setupActionBox(action_list)
 
         customer_widget = QWidget()
-        self.setupCustomerList(kunden_liste=customer_widget)
+        self.setupCustomerList(customerlist=customer_widget)
 
         termin_widget = QWidget()
 
@@ -198,22 +198,22 @@ class WydbidUIMain(QWidget):
 
     # Setup tab widgets
 
-    def setupCustomerList(self, kunden_liste: QWidget):
+    def setupCustomerList(self, customerlist: QWidget):
         # Layout declarations
         lyt = QVBoxLayout()
         hlyt = QHBoxLayout()
 
-        self.searchbar = QLineEdit(parent=kunden_liste)
+        self.searchbar = QLineEdit(parent=customerlist)
         self.searchbar.setFixedHeight(40)
         self.searchbar.setPlaceholderText('Filter by name')
 
-        self.kundenliste = QTableWidget(parent=kunden_liste)
+        self.kundenliste = QTableWidget(parent=customerlist)
         self.kundenliste.verticalHeader().setVisible(False)
 
         self.kundenliste.setColumnCount(8)
         self.kundenliste.setHorizontalHeaderLabels(['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
 
-        WydbidUIMainLogic.appendCustomers(kundenliste=self.kundenliste)
+        WydbidUIMainLogic.appendCustomers(customerlist=self.kundenliste)
 
         self.kundenliste.setSortingEnabled(True)
         self.kundenliste.setFocusPolicy(Qt.NoFocus)
@@ -230,7 +230,7 @@ class WydbidUIMain(QWidget):
 
         reload = QPushButton('Reload')
         reload.setFixedWidth(120)
-        reload.clicked.connect(lambda: WydbidUIMainLogic.reloadCustomers(kundenliste=self.kundenliste))
+        reload.clicked.connect(lambda: WydbidUIMainLogic.reloadCustomers(customerlist=self.kundenliste))
 
         # Add reload button to bottom layout
         hlyt.addWidget(reload)
@@ -239,7 +239,7 @@ class WydbidUIMain(QWidget):
         lyt.addLayout(hlyt)
 
         # Set layout of customer list tab widget
-        kunden_liste.setLayout(lyt)
+        customerlist.setLayout(lyt)
 
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)

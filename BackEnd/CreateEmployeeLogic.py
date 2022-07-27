@@ -6,13 +6,13 @@ import Wydbid
 from Data import Employee
 
 
-def createEmployeeFinal(name: str, username: str, passwort: str, widget: QWidget):
+def createEmployeeFinal(name: str, username: str, password: str, widget: QWidget):
     if os.path.exists(f'{Wydbid.firmen_location}Employees/{str(username)}.wbm'):
         QMessageBox.warning(Wydbid.app.parent(
         ), 'Attention', 'A staff member with these usernames already exists!')
         return
 
-    if name == '' or username == '' or passwort == '':
+    if name == '' or username == '' or password == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')
         return
@@ -21,7 +21,7 @@ def createEmployeeFinal(name: str, username: str, passwort: str, widget: QWidget
         os.makedirs(f'{Wydbid.firmen_location}Employees/')
     mitarbeiter_file = open(
         f'{Wydbid.firmen_location}Employees/{str(username)}.wbm', 'wb')
-    mitarbeiter = Employee.Employee(username, name, passwort)
+    mitarbeiter = Employee.Employee(username, name, password)
 
     pickle.dump(mitarbeiter, mitarbeiter_file, pickle.HIGHEST_PROTOCOL)
 

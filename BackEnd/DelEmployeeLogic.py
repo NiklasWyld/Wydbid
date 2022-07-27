@@ -7,8 +7,8 @@ import Wydbid
 from Data import Employee
 
 
-def delEmployeeFinal(username: str, passwort: str, widget: QWidget):
-    if username == '' or passwort == '':
+def delEmployeeFinal(username: str, password: str, widget: QWidget):
+    if username == '' or password == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')
         return
@@ -26,7 +26,7 @@ def delEmployeeFinal(username: str, passwort: str, widget: QWidget):
     mitarbeiter: Employee.Employee = pickle.load(readable_file)
     readable_file.close()
 
-    if not passwort == mitarbeiter.password:
+    if not password == mitarbeiter.password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'Attention, the password entered is incorrect!')
         return

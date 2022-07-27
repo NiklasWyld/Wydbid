@@ -5,7 +5,7 @@ from Data import Company
 import Wydbid
 
 
-def addItems(firma_liste: QComboBox):
+def addItems(companylist: QComboBox):
     l = f'{Wydbid.location}Companies/'
     files = []
 
@@ -29,24 +29,24 @@ def addItems(firma_liste: QComboBox):
                               'Something went wrong!')
             return
 
-        firma_liste.addItem(firma.name, [firma, n_file])
+        companylist.addItem(firma.name, [firma, n_file])
 
 
-def changePasswordFinal(firma_box: QComboBox, old_passwort: str, new_passwort: str, widget: QWidget):
-    if old_passwort == '' or new_passwort == '':
+def changePasswordFinal(companybox: QComboBox, old_password: str, new_password: str, widget: QWidget):
+    if old_password == '' or new_password == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')
         return
 
-    firma: Company.Company = firma_box.currentData()[0]
+    firma: Company.Company = companybox.currentData()[0]
 
-    if not old_passwort == firma.password:
+    if not old_password == firma.password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'The password you entered is incorrect!')
         return
 
-    firma.password = new_passwort
-    writer = open(firma_box.currentData()[1], 'wb')
+    firma.password = new_password
+    writer = open(companybox.currentData()[1], 'wb')
     pickle.dump(firma, writer, pickle.HIGHEST_PROTOCOL)
     writer.close()
 
