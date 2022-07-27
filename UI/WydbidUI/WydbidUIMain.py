@@ -199,8 +199,38 @@ class WydbidUIMain(QWidget):
     # Setup tab widgets
 
     def setupNewsWidget(self, newswidget: QWidget):
-        ###
-        pass
+        # ToDo: Load newest News
+        # ToDo: Add news list / new load to this widget
+
+        # Layout declarations
+        lyt = QVBoxLayout()
+        hlyt = QHBoxLayout()
+
+        title = QLabel(parent=newswidget)
+        title.setAlignment(Qt.AlignCenter)
+        title.setFont(QFont('Arial', 20))
+        title.setFixedHeight(40)
+
+        description = QTextEdit(parent=newswidget)
+        description.setEnabled(False)
+
+        # Only test news
+        title.setText('First news in Wydbid')
+
+        description.setText('Test News in Wydbid\n'
+                            'With more lines')
+
+        showall = QPushButton(parent=newswidget, text='Show all')
+        showall.setFixedWidth(120)
+
+        lyt.addWidget(title, Qt.AlignCenter)
+        lyt.addWidget(description, Qt.AlignCenter)
+
+        hlyt.addWidget(showall)
+
+        lyt.addLayout(hlyt)
+
+        newswidget.setLayout(lyt)
 
     def setupCustomerList(self, customerlist: QWidget):
         # Layout declarations
