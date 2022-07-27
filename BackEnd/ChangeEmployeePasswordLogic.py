@@ -12,25 +12,25 @@ def changePasswordFinal(username: str, password: str, new_password: str, widget:
                             'All fields must be filled in!')
         return
 
-    if not os.path.exists(f'{Wydbid.firmen_location}Employees/{username}.wbm'):
+    if not os.path.exists(f'{Wydbid.company_location}Employees/{username}.wbm'):
         QMessageBox.warning(Wydbid.app.parent(
         ), 'Attention', 'The user name or employee you entered does not exist.')
         return
 
-    mitarbeiter_file = open(
-        f'{Wydbid.firmen_location}Employees/{username}.wbm', 'rb')
-    mitarbeiter: Employee.Employee = pickle.load(mitarbeiter_file)
-    mitarbeiter_file.close()
+    employee_file = open(
+        f'{Wydbid.company_location}Employees/{username}.wbm', 'rb')
+    employee: Employee.Employee = pickle.load(employee_file)
+    employee_file.close()
 
-    if not mitarbeiter.password == password:
+    if not employee.password == password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'Attention, the password entered is incorrect!')
         return
 
-    mitarbeiter_file_new = open(
-        f'{Wydbid.firmen_location}Employees/{username}.wbm', 'wb')
-    mitarbeiter.password = new_password
-    pickle.dump(mitarbeiter, mitarbeiter_file_new, pickle.HIGHEST_PROTOCOL)
+    employee_file_new = open(
+        f'{Wydbid.company_location}Employees/{username}.wbm', 'wb')
+    employee.password = new_password
+    pickle.dump(employee, employee_file_new, pickle.HIGHEST_PROTOCOL)
 
     QMessageBox.about(Wydbid.app.parent(), 'Process completed',
                       f'The password of {username} has been successfully changed.')

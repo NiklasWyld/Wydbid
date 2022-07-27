@@ -10,15 +10,15 @@ from BackEnd.WydbidBackEnd import SettingsLogic
 
 location = './WydbidData/'
 # Must be set at login
-firmen_location = ''
-firma = None
-mitarbeiter = None
+company_location = ''
+company = None
+employee = None
 
 app = QApplication(sys.argv)
 
 # Variables that are set during runtime
-firmen_login = None
-mitarbeiter_login = None
+company_login = None
+employee_login = None
 wydbidui = None
 
 
@@ -81,7 +81,7 @@ if __name__ == '__main__':
 
     SettingsLogic.loadSettings()
 
-    firmen_login = CompanyLogin.CompanyLogin()
-    firmen_login.showMaximized()
+    company_login = CompanyLogin.CompanyLogin()
+    company_login.showMaximized()
 
     sys.exit(app.exec_())

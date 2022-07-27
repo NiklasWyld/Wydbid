@@ -23,13 +23,13 @@ def addItems(companylist: QComboBox):
             return
 
         try:
-            firma: Company.Company = pickle.load(n)
+            company: Company.Company = pickle.load(n)
         except:
             QMessageBox.about(Wydbid.app.parent(), 'Warning',
                               'Something went wrong!')
             return
 
-        companylist.addItem(firma.name, [firma, n_file])
+        companylist.addItem(company.name, [company, n_file])
 
 
 def changePasswordFinal(companybox: QComboBox, old_password: str, new_password: str, widget: QWidget):
@@ -38,20 +38,20 @@ def changePasswordFinal(companybox: QComboBox, old_password: str, new_password: 
                             'All fields must be filled in!')
         return
 
-    firma: Company.Company = companybox.currentData()[0]
+    company: Company.Company = companybox.currentData()[0]
 
-    if not old_password == firma.password:
+    if not old_password == company.password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'The password you entered is incorrect!')
         return
 
-    firma.password = new_password
+    company.password = new_password
     writer = open(companybox.currentData()[1], 'wb')
-    pickle.dump(firma, writer, pickle.HIGHEST_PROTOCOL)
+    pickle.dump(company, writer, pickle.HIGHEST_PROTOCOL)
     writer.close()
 
     QMessageBox.about(Wydbid.app.parent(), 'Process completed',
-                      f'The password of {firma.name} was successfully changed.')
+                      f'The password of {company.name} was successfully changed.')
 
     m = QMessageBox.question(Wydbid.app.parent(),
                              'Restart Wydbid',

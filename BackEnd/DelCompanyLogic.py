@@ -25,13 +25,13 @@ def addItems(companylist: QComboBox):
             return
 
         try:
-            firma: Company.Company = pickle.load(n)
+            company: Company.Company = pickle.load(n)
         except:
             QMessageBox.about(Wydbid.app.parent(), 'Warning',
                               'Something went wrong!')
             return
 
-        companylist.addItem(firma.name, [firma, n_file])
+        companylist.addItem(company.name, [company, n_file])
 
 
 def delCompanyFinal(file: str, widget: QWidget):
@@ -57,14 +57,14 @@ def delCompanyFinal(file: str, widget: QWidget):
 
 
 def getCompany(companybox: QComboBox, password: str, widget: QWidget):
-    firma: Company.Company = companybox.currentData()[0]
+    company: Company.Company = companybox.currentData()[0]
 
     if password == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')
         return
 
-    if password != firma.password:
+    if password != company.password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'Attention, the password entered is incorrect!')
         return

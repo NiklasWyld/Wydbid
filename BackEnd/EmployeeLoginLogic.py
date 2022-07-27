@@ -8,8 +8,8 @@ from Data import Employee
 
 
 def logoutCompany(employee_login_widget: EmployeeLogin):
-    Wydbid.firma = None
-    Wydbid.firmen_location = ''
+    Wydbid.company = None
+    Wydbid.company_location = ''
 
     employee_login_widget.clear()
     employee_login_widget.hide()
@@ -27,26 +27,26 @@ def login(username: str, password: str, widget: QWidget):
                             'All fields must be filled in!')
         return
 
-    if not os.path.exists(f'{Wydbid.firmen_location}Employees/{username}.wbm'):
+    if not os.path.exists(f'{Wydbid.company_location}Employees/{username}.wbm'):
         QMessageBox.warning(Wydbid.app.parent(
         ), 'Attention', 'A staff member with these usernames does not exist!')
         return
 
-    mitarbeiter_file = open(
-        f'{Wydbid.firmen_location}Employees/{username}.wbm', 'rb')
-    mitarbeiter: Employee.Employee = pickle.load(mitarbeiter_file)
-    if mitarbeiter.password != password:
+    employee_file = open(
+        f'{Wydbid.company_location}Employees/{username}.wbm', 'rb')
+    employee: Employee.Employee = pickle.load(employee_file)
+    if employee.password != password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'Attention, the password entered is incorrect!')
         return
 
-    Wydbid.mitarbeiter = mitarbeiter
+    Wydbid.employee = employee
 
     widget.hide()
 
     wydbidui = WydbidUIMain.WydbidUIMain()
     wydbidui.setWindowTitle(
-        f'Wydbid - Center | {Wydbid.firma.name} | {mitarbeiter.name}')
+        f'Wydbid - Center | {Wydbid.company.name} | {employee.name}')
     wydbidui.showMaximized()
 
     Wydbid.wydbidui = wydbidui

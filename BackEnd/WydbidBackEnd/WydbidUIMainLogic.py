@@ -10,8 +10,8 @@ from UI.WydbidUI.Prefabs.Customer import CreateCustomer
 
 
 def logoutCompany(widget: QWidget):
-    Wydbid.firma = None
-    Wydbid.firmen_location = ''
+    Wydbid.company = None
+    Wydbid.company_location = ''
 
     widget.hide()
 
@@ -23,7 +23,7 @@ def logoutCompany(widget: QWidget):
 
 
 def logoutEmployee(widget: QWidget):
-    Wydbid.mitarbeiter = None
+    Wydbid.employee = None
 
     widget.hide()
 
@@ -44,62 +44,62 @@ def reloadCustomers(customerlist: QTableWidget):
     customerlist.setColumnWidth(5, 200)
     customerlist.setColumnWidth(6, 200)
 
-    kunden = []
-    dateien = os.listdir(f'{Wydbid.firmen_location}Customers/')
+    customers = []
+    files = os.listdir(f'{Wydbid.company_location}Customers/')
 
-    for datei in dateien:
-        kunde: Customer.Customer = pickle.load(
-            open(f'{Wydbid.firmen_location}Customers/{datei}/{datei}.wbk', 'rb'))
-        kunden.append(kunde)
+    for file in files:
+        customer: Customer.Customer = pickle.load(
+            open(f'{Wydbid.company_location}Customers/{file}/{file}.wbk', 'rb'))
+        customers.append(customer)
 
-    kunden.sort(key=lambda x: x.lastname, reverse=False)
+    customers.sort(key=lambda x: x.lastname, reverse=False)
 
-    customerlist.setRowCount(len(kunden))
+    customerlist.setRowCount(len(customers))
 
     i = 0
 
-    for kunde in kunden:
+    for customer in customers:
         id = QTableWidgetItem()
-        id.setData(Qt.DisplayRole, kunde.id)
+        id.setData(Qt.DisplayRole, customer.id)
 
         customerlist.setItem(i, 1, QTableWidgetItem(
-            f'{kunde.firstname} {kunde.lastname}'))
+            f'{customer.firstname} {customer.lastname}'))
 
         email = QTableWidgetItem()
-        email.setData(Qt.DisplayRole, kunde.email)
+        email.setData(Qt.DisplayRole, customer.email)
 
-        adresse = QTableWidgetItem()
-        adresse.setData(Qt.DisplayRole, kunde.adress)
+        adress = QTableWidgetItem()
+        adress.setData(Qt.DisplayRole, customer.adress)
 
-        nummer = QTableWidgetItem()
-        nummer.setData(Qt.DisplayRole, kunde.number)
+        number = QTableWidgetItem()
+        number.setData(Qt.DisplayRole, customer.number)
 
-        geschlecht = QTableWidgetItem()
-        if kunde.gender == 'men':
-            d_geschlecht = 'Male'
-        elif kunde.gender == 'women':
-            d_geschlecht = 'Female'
-        geschlecht.setData(Qt.DisplayRole, d_geschlecht)
+        gender = QTableWidgetItem()
+        if customer.gender == 'men':
+            d_gender = 'Male'
+        elif customer.gender == 'women':
+            d_gender = 'Female'
+        gender.setData(Qt.DisplayRole, d_gender)
 
-        geburtsdatum = QTableWidgetItem()
-        geburtsdatum.setData(Qt.DisplayRole, kunde.birthdate)
+        birthdate = QTableWidgetItem()
+        birthdate.setData(Qt.DisplayRole, customer.birthdate)
 
-        ansicht = QTableWidgetItem()
-        ansicht.setData(Qt.DisplayRole, '🔎')
-        ansicht.setTextAlignment(Qt.AlignCenter)
+        view = QTableWidgetItem()
+        view.setData(Qt.DisplayRole, '🔎')
+        view.setTextAlignment(Qt.AlignCenter)
         customerlist.setColumnWidth(7, 40)
 
         customerlist.setItem(i, 0, id)
         customerlist.setItem(i, 2, email)
-        customerlist.setItem(i, 3, adresse)
-        customerlist.setItem(i, 4, nummer)
-        customerlist.setItem(i, 5, geschlecht)
-        customerlist.setItem(i, 6, geburtsdatum)
-        customerlist.setItem(i, 7, ansicht)
+        customerlist.setItem(i, 3, adress)
+        customerlist.setItem(i, 4, number)
+        customerlist.setItem(i, 5, gender)
+        customerlist.setItem(i, 6, birthdate)
+        customerlist.setItem(i, 7, view)
         i = i + 1
 
 def appendCustomers(customerlist: QTableWidget):
-    global d_geschlecht
+    global d_gender
     customerlist.clear()
     customerlist.setHorizontalHeaderLabels(
         ['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
@@ -111,58 +111,58 @@ def appendCustomers(customerlist: QTableWidget):
     customerlist.setColumnWidth(5, 200)
     customerlist.setColumnWidth(6, 200)
 
-    kunden = []
-    dateien = os.listdir(f'{Wydbid.firmen_location}Customers/')
+    customers = []
+    files = os.listdir(f'{Wydbid.company_location}Customers/')
 
-    for datei in dateien:
-        kunde: Customer.Customer = pickle.load(
-            open(f'{Wydbid.firmen_location}Customers/{datei}/{datei}.wbk', 'rb'))
-        kunden.append(kunde)
+    for file in files:
+        customer: Customer.Customer = pickle.load(
+            open(f'{Wydbid.company_location}Customers/{file}/{file}.wbk', 'rb'))
+        customers.append(customer)
 
-    kunden.sort(key=lambda x: x.lastname, reverse=False)
+    customers.sort(key=lambda x: x.lastname, reverse=False)
 
-    customerlist.setRowCount(len(kunden))
+    customerlist.setRowCount(len(customers))
 
     i = 0
 
-    for kunde in kunden:
+    for customer in customers:
         id = QTableWidgetItem()
-        id.setData(Qt.DisplayRole, kunde.id)
+        id.setData(Qt.DisplayRole, customer.id)
 
         customerlist.setItem(i, 1, QTableWidgetItem(
-            f'{kunde.firstname} {kunde.lastname}'))
+            f'{customer.firstname} {customer.lastname}'))
 
         email = QTableWidgetItem()
-        email.setData(Qt.DisplayRole, kunde.email)
+        email.setData(Qt.DisplayRole, customer.email)
 
-        adresse = QTableWidgetItem()
-        adresse.setData(Qt.DisplayRole, kunde.adress)
+        adress = QTableWidgetItem()
+        adress.setData(Qt.DisplayRole, customer.adress)
 
-        nummer = QTableWidgetItem()
-        nummer.setData(Qt.DisplayRole, kunde.number)
+        number = QTableWidgetItem()
+        number.setData(Qt.DisplayRole, customer.number)
 
-        geschlecht = QTableWidgetItem()
-        if kunde.gender == 'men':
-            d_geschlecht = 'Male'
-        elif kunde.gender == 'women':
-            d_geschlecht = 'Female'
-        geschlecht.setData(Qt.DisplayRole, d_geschlecht)
+        gender = QTableWidgetItem()
+        if customer.gender == 'men':
+            d_gender = 'Male'
+        elif customer.gender == 'women':
+            d_gender = 'Female'
+        gender.setData(Qt.DisplayRole, d_gender)
 
-        geburtsdatum = QTableWidgetItem()
-        geburtsdatum.setData(Qt.DisplayRole, kunde.birthdate)
+        birthdate = QTableWidgetItem()
+        birthdate.setData(Qt.DisplayRole, customer.birthdate)
 
-        ansicht = QTableWidgetItem()
-        ansicht.setData(Qt.DisplayRole, '🔎')
-        ansicht.setTextAlignment(Qt.AlignCenter)
+        view = QTableWidgetItem()
+        view.setData(Qt.DisplayRole, '🔎')
+        view.setTextAlignment(Qt.AlignCenter)
         customerlist.setColumnWidth(7, 40)
 
         customerlist.setItem(i, 0, id)
         customerlist.setItem(i, 2, email)
-        customerlist.setItem(i, 3, adresse)
-        customerlist.setItem(i, 4, nummer)
-        customerlist.setItem(i, 5, geschlecht)
-        customerlist.setItem(i, 6, geburtsdatum)
-        customerlist.setItem(i, 7, ansicht)
+        customerlist.setItem(i, 3, adress)
+        customerlist.setItem(i, 4, number)
+        customerlist.setItem(i, 5, gender)
+        customerlist.setItem(i, 6, birthdate)
+        customerlist.setItem(i, 7, view)
         i = i + 1
 
 

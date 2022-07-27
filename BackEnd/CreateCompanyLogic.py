@@ -16,10 +16,10 @@ def writeCompany(id: int, name: str, password: str, widget: QWidget):
         return
 
     os.makedirs(f'{location}Companies/{str(id)}/')
-    firma_file = open(f'{location}Companies/{str(id)}/{str(id)}.wbf', 'wb')
-    firma = Company.Company(id, name, password)
+    company_file = open(f'{location}Companies/{str(id)}/{str(id)}.wbf', 'wb')
+    company = Company.Company(id, name, password)
 
-    pickle.dump(firma, firma_file, pickle.HIGHEST_PROTOCOL)
+    pickle.dump(company, company_file, pickle.HIGHEST_PROTOCOL)
 
     QMessageBox.about(Wydbid.app.parent(), 'Completed',
                       f'{name} was created.')

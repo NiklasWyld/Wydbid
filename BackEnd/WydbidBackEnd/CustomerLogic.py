@@ -6,19 +6,19 @@ from Data import Customer
 
 
 def setupCustomerFolder():
-    kunden_path = f'{Wydbid.firmen_location}Customers'
+    customer_path = f'{Wydbid.company_location}Customers'
 
-    if os.path.exists(kunden_path):
+    if os.path.exists(customer_path):
         return
     else:
-        os.mkdir(kunden_path)
+        os.mkdir(customer_path)
 
 # ToDo: Add if not / .strip() to prove strings
 # ToDo: Fix reload
 
 
 def handleNextId():
-    id_list = os.listdir(f'{Wydbid.firmen_location}Customers/')
+    id_list = os.listdir(f'{Wydbid.company_location}Customers/')
     if not id_list:
         return str(1)
 
@@ -55,15 +55,15 @@ def createCustomer(create_customer):
                             'The mandatory fields must be filled in!')
         return
 
-    kunde_new = Customer.Customer(id=int(new_id), firstname=create_customer.firstname.text(), lastname=create_customer.lastname.text(),
+    customer_new = Customer.Customer(id=int(new_id), firstname=create_customer.firstname.text(), lastname=create_customer.lastname.text(),
                                   email=create_customer.email.text(), adress=create_customer.adress.text(),
                                   number=create_customer.number.text(), gender=create_customer.gender.currentData(),
                                   birthdate=create_customer.birthdate.text(),
                                   information=create_customer.information.toPlainText())
 
-    kunde_loc_name = new_id
+    customer_loc_name = new_id
 
-    location = f'{Wydbid.firmen_location}Customers/{kunde_loc_name}/'
+    location = f'{Wydbid.company_location}Customers/{customer_loc_name}/'
 
     if os.path.exists(location):
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
@@ -71,12 +71,12 @@ def createCustomer(create_customer):
         return
 
     os.makedirs(location)
-    k_file = open(f'{location}{kunde_loc_name}.wbk', 'wb')
+    k_file = open(f'{location}{customer_loc_name}.wbk', 'wb')
 
-    pickle.dump(kunde_new, k_file, pickle.HIGHEST_PROTOCOL)
+    pickle.dump(customer_new, k_file, pickle.HIGHEST_PROTOCOL)
 
     QMessageBox.about(Wydbid.app.parent(), 'Completed',
-                      f'{kunde_new. firstname} {kunde_new.lastname} was created.')
+                      f'{customer_new. firstname} {customer_new.lastname} was created.')
 
     create_customer.clear()
     create_customer.hide()

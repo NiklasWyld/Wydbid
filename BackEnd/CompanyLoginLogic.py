@@ -19,16 +19,16 @@ def login(companylogin: QWidget, company: QComboBox, password: str):
                             'The password you entered is incorrect!')
         return
 
-    Wydbid.firmen_location = f'{Wydbid.location}Companies/{company.id}/'
-    Wydbid.firma = company
+    Wydbid.company_location = f'{Wydbid.location}Companies/{company.id}/'
+    Wydbid.company = company
 
     companylogin.hide()
 
-    mitarbeiter_login = EmployeeLogin.EmployeeLogin()
-    mitarbeiter_login.title.setText(f'{company.name}')
-    mitarbeiter_login.showMaximized()
+    employee_login = EmployeeLogin.EmployeeLogin()
+    employee_login.title.setText(f'{company.name}')
+    employee_login.showMaximized()
 
-    Wydbid.mitarbeiter_login = mitarbeiter_login
+    Wydbid.employee_login = employee_login
 
 
 def addItems(firma_liste: QComboBox):
@@ -49,10 +49,10 @@ def addItems(firma_liste: QComboBox):
             return
 
         try:
-            firma: Company.Company = pickle.load(n)
+            company: Company.Company = pickle.load(n)
         except:
             QMessageBox.about(Wydbid.app.parent(), 'Warning',
                               'Something went wrong!')
             return
 
-        firma_liste.addItem(firma.name, firma)
+        firma_liste.addItem(company.name, company)
