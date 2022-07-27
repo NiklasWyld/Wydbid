@@ -34,6 +34,13 @@ def logoutEmployee(widget: QWidget):
             i.showMaximized()
 
 def reloadCustomers(customerlist: QTableWidget):
+    customerlist.setSortingEnabled(False)
+    customerlist.clear()
+    customerlist.clearContents()
+    customerlist.setColumnCount(0)
+    customerlist.setRowCount(0)
+
+    customerlist.setColumnCount(7)
     customerlist.setHorizontalHeaderLabels(
         ['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
     customerlist.setColumnWidth(0, 200)
@@ -97,6 +104,8 @@ def reloadCustomers(customerlist: QTableWidget):
         customerlist.setItem(i, 6, birthdate)
         customerlist.setItem(i, 7, view)
         i = i + 1
+
+    customerlist.setSortingEnabled(True)
 
 def appendCustomers(customerlist: QTableWidget):
     global d_gender
