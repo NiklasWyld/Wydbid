@@ -56,18 +56,18 @@ class WydbidUIMain(QWidget):
         customer_widget = QWidget()
         self.setupCustomerList(customerlist=customer_widget)
 
-        termin_widget = QWidget()
+        appointment_widget = QWidget()
 
-        auftrag_widget = QWidget()
+        order_widget = QWidget()
 
-        ereignis_widget = QWidget()
+        event_widget = QWidget()
 
         email_widget = QWidget()
 
         self.tabwidget.addTab(customer_widget, 'Customer list')
-        self.tabwidget.addTab(termin_widget, 'Appointments')
-        self.tabwidget.addTab(auftrag_widget, 'Orders')
-        self.tabwidget.addTab(ereignis_widget, 'Events')
+        self.tabwidget.addTab(appointment_widget, 'Appointments')
+        self.tabwidget.addTab(order_widget, 'Orders')
+        self.tabwidget.addTab(event_widget, 'Events')
         self.tabwidget.addTab(email_widget, 'Emails')
 
         self.layout().addWidget(date_time, 0, 0, 1, 0)
@@ -79,7 +79,7 @@ class WydbidUIMain(QWidget):
         file = QMenu(parent=self.menubar, title='Wydbid')
         help = QMenu(parent=self.menubar, title='Help')
 
-        logout_mitarbeiter = QAction('Deregister employee', self)
+        logout_employee = QAction('Deregister employee', self)
         logout_company = QAction('Log out from company', self)
         reset_programm = QAction('Reset Wydbid', self)
         settings = QAction('Settings', self)
@@ -88,7 +88,7 @@ class WydbidUIMain(QWidget):
         contact = QAction('Contact', self)
         report_bug = QAction('Report error', self)
 
-        logout_mitarbeiter.triggered.connect(lambda: WydbidUIMainLogic.logoutEmployee(self))
+        logout_employee.triggered.connect(lambda: WydbidUIMainLogic.logoutEmployee(self))
         logout_company.triggered.connect(self.startCompanyLogout)
         reset_programm.triggered.connect(Wydbid.reset)
         settings.triggered.connect(self.startSettings)
@@ -97,7 +97,7 @@ class WydbidUIMain(QWidget):
         contact.triggered.connect(WydbidUIMainLogic.contact)
         report_bug.triggered.connect(WydbidUIMainLogic.contact)
 
-        file.addAction(logout_mitarbeiter)
+        file.addAction(logout_employee)
         file.addAction(logout_company)
         file.addSeparator()
         file.addAction(reset_programm)
@@ -136,22 +136,22 @@ class WydbidUIMain(QWidget):
         del_customer = ActionButton.ActionButton(parent=action_list, text='Delete customer ➜', color='lightcoral', color_hover='red')
 
         # Appointments
-        termin_note = QLabel(parent=action_list, text='Appointments 📅')
-        add_termin = ActionButton.ActionButton(parent=action_list, text='Add appointment ➜', color='lightgreen', color_hover='green')
-        edit_termin = ActionButton.ActionButton(parent=action_list, text='Edit appointment ➜', color='lightskyblue', color_hover='blue')
-        del_termin = ActionButton.ActionButton(parent=action_list, text='Delete appointment ➜', color='lightcoral', color_hover='red')
+        appointment_note = QLabel(parent=action_list, text='Appointments 📅')
+        add_appointment = ActionButton.ActionButton(parent=action_list, text='Add appointment ➜', color='lightgreen', color_hover='green')
+        edit_appointment = ActionButton.ActionButton(parent=action_list, text='Edit appointment ➜', color='lightskyblue', color_hover='blue')
+        del_appointment = ActionButton.ActionButton(parent=action_list, text='Delete appointment ➜', color='lightcoral', color_hover='red')
 
         # Orders
-        auftrag_note = QLabel(parent=action_list, text='Orders 📦')
-        add_auftrag = ActionButton.ActionButton(parent=action_list, text='Add order ➜', color='lightgreen', color_hover='green')
-        edit_auftrag = ActionButton.ActionButton(parent=action_list, text='Edit order ➜', color='lightskyblue', color_hover='blue')
-        del_auftrag = ActionButton.ActionButton(parent=action_list, text='Delete order ➜', color='lightcoral', color_hover='red')
+        order_note = QLabel(parent=action_list, text='Orders 📦')
+        add_order = ActionButton.ActionButton(parent=action_list, text='Add order ➜', color='lightgreen', color_hover='green')
+        edit_order = ActionButton.ActionButton(parent=action_list, text='Edit order ➜', color='lightskyblue', color_hover='blue')
+        del_order = ActionButton.ActionButton(parent=action_list, text='Delete order ➜', color='lightcoral', color_hover='red')
 
         # Events
-        ereignis_note = QLabel(parent=action_list, text='Events 📝')
-        add_ereignis = ActionButton.ActionButton(parent=action_list, text='Add event ➜', color='lightgreen', color_hover='green')
-        edit_ereignis = ActionButton.ActionButton(parent=action_list, text='Edit event ➜', color='lightskyblue', color_hover='blue')
-        del_ereignis = ActionButton.ActionButton(parent=action_list, text='Delete event ➜', color='lightcoral', color_hover='red')
+        event_note = QLabel(parent=action_list, text='Events 📝')
+        add_event = ActionButton.ActionButton(parent=action_list, text='Add event ➜', color='lightgreen', color_hover='green')
+        edit_event = ActionButton.ActionButton(parent=action_list, text='Edit event ➜', color='lightskyblue', color_hover='blue')
+        del_event = ActionButton.ActionButton(parent=action_list, text='Delete event ➜', color='lightcoral', color_hover='red')
 
         # Emails
         email_note = QLabel(parent=action_list, text='E-Mail ✉')
@@ -167,22 +167,22 @@ class WydbidUIMain(QWidget):
         action_list.layout().addWidget(del_customer, 3, 0, 1, 0, Qt.AlignCenter)
 
         # Appointment Layout Management
-        action_list.layout().addWidget(termin_note, 5, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(add_termin, 6, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(edit_termin, 7, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(del_termin, 8, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(appointment_note, 5, 0, 1, 0, Qt.AlignLeft)
+        action_list.layout().addWidget(add_appointment, 6, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(edit_appointment, 7, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(del_appointment, 8, 0, 1, 0, Qt.AlignCenter)
 
         # Order Layout Management
-        action_list.layout().addWidget(auftrag_note, 10, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(add_auftrag, 11, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(edit_auftrag, 12, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(del_auftrag, 13, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(order_note, 10, 0, 1, 0, Qt.AlignLeft)
+        action_list.layout().addWidget(add_order, 11, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(edit_order, 12, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(del_order, 13, 0, 1, 0, Qt.AlignCenter)
 
         # Event Layout Management
-        action_list.layout().addWidget(ereignis_note, 15, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(add_ereignis, 16, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(edit_ereignis, 17, 0, 1, 0, Qt.AlignCenter)
-        action_list.layout().addWidget(del_ereignis, 18, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(event_note, 15, 0, 1, 0, Qt.AlignLeft)
+        action_list.layout().addWidget(add_event, 16, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(edit_event, 17, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(del_event, 18, 0, 1, 0, Qt.AlignCenter)
 
         # E-Mail Layout Management
         action_list.layout().addWidget(email_note, 19, 0, 1, 0, Qt.AlignLeft)
@@ -207,30 +207,30 @@ class WydbidUIMain(QWidget):
         self.searchbar.setFixedHeight(40)
         self.searchbar.setPlaceholderText('Filter by name')
 
-        self.kundenliste = QTableWidget(parent=customerlist)
-        self.kundenliste.verticalHeader().setVisible(False)
+        self.customerlist = QTableWidget(parent=customerlist)
+        self.customerlist.verticalHeader().setVisible(False)
 
-        self.kundenliste.setColumnCount(8)
-        self.kundenliste.setHorizontalHeaderLabels(['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
+        self.customerlist.setColumnCount(8)
+        self.customerlist.setHorizontalHeaderLabels(['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
 
-        WydbidUIMainLogic.appendCustomers(customerlist=self.kundenliste)
+        WydbidUIMainLogic.appendCustomers(customerlist=self.customerlist)
 
-        self.kundenliste.setSortingEnabled(True)
-        self.kundenliste.setFocusPolicy(Qt.NoFocus)
-        self.kundenliste.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
-        self.kundenliste.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.customerlist.setSortingEnabled(True)
+        self.customerlist.setFocusPolicy(Qt.NoFocus)
+        self.customerlist.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
+        self.customerlist.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
         self.searchbar.textChanged.connect(
-            lambda: WydbidUIMainLogic.searchForName(search=self.searchbar, list=self.kundenliste)
+            lambda: WydbidUIMainLogic.searchForName(search=self.searchbar, list=self.customerlist)
         )
 
         # Add customer list and search bar to main layout
         lyt.addWidget(self.searchbar, Qt.AlignCenter)
-        lyt.addWidget(self.kundenliste, Qt.AlignCenter)
+        lyt.addWidget(self.customerlist, Qt.AlignCenter)
 
         reload = QPushButton('Reload')
         reload.setFixedWidth(120)
-        reload.clicked.connect(lambda: WydbidUIMainLogic.reloadCustomers(customerlist=self.kundenliste))
+        reload.clicked.connect(lambda: WydbidUIMainLogic.reloadCustomers(customerlist=self.customerlist))
 
         # Add reload button to bottom layout
         hlyt.addWidget(reload)

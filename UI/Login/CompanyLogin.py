@@ -21,7 +21,7 @@ class CompanyLogin(QWidget):
         self.setGeometry(0, 0, width, height)
 
         self.cf = CreateCompany.CreateCompany()
-        self.del_firma = DelCompany.DelCompany()
+        self.del_company = DelCompany.DelCompany()
         self.cfp = ChangeCompanyPassword.ChangeCompanyPassword()
 
         self.setupUI()
@@ -39,10 +39,10 @@ class CompanyLogin(QWidget):
             pass
 
     def addItemsToCompany(self):
-        CompanyLoginLogic.addItems(self.firma)
+        CompanyLoginLogic.addItems(self.company)
 
     def login(self):
-        CompanyLoginLogic.login(self, self.firma, self.passwort.text())
+        CompanyLoginLogic.login(self, self.company, self.password.text())
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop| Qt.AlignHCenter)
@@ -50,14 +50,14 @@ class CompanyLogin(QWidget):
         title = QLabel(time.strftime('%d.%m.%y'))
         title.setFont(QFont('Montserrat', 30))
 
-        firmen_note = QLabel(parent=self, text='Company: ')
-        self.firma = QComboBox(parent=self)
+        company_note = QLabel(parent=self, text='Company: ')
+        self.company = QComboBox(parent=self)
         self.addItemsToCompany()
 
-        passwort_note = QLabel(parent=self, text='Password: ')
-        self.passwort = QLineEdit(parent=self)
-        self.passwort.setEchoMode(QLineEdit.Password)
-        self.passwort.returnPressed.connect(self.login)
+        password_note = QLabel(parent=self, text='Password: ')
+        self.password = QLineEdit(parent=self)
+        self.password.setEchoMode(QLineEdit.Password)
+        self.password.returnPressed.connect(self.login)
 
         submit = QPushButton(parent=self, text='Confirm')
         submit.clicked.connect(self.login)
@@ -70,11 +70,11 @@ class CompanyLogin(QWidget):
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 
-        self.layout.addWidget(firmen_note, 2, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.firma, 2, 1, Qt.AlignRight)
+        self.layout.addWidget(company_note, 2, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.company, 2, 1, Qt.AlignRight)
 
-        self.layout.addWidget(passwort_note, 3, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.passwort, 3, 1, Qt.AlignRight)
+        self.layout.addWidget(password_note, 3, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.password, 3, 1, Qt.AlignRight)
 
         self.layout.addWidget(submit, 4, 0, 1, 0, Qt.AlignCenter)
 
@@ -83,8 +83,8 @@ class CompanyLogin(QWidget):
         self.cf.show()
 
     def startDelCompany(self):
-        self.del_firma.clear()
-        self.del_firma.show()
+        self.del_company.clear()
+        self.del_company.show()
 
     def startChangeCompanyPassword(self):
         self.cfp.show()

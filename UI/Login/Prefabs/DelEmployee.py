@@ -19,11 +19,11 @@ class DelEmployee(QWidget):
 
     def clear(self):
         self.username.setText('')
-        self.passwort.setText('')
+        self.password.setText('')
 
     def delEmployee(self):
         DelEmployeeLogic.delEmployeeFinal(self.username.text(),
-                                          self.passwort.text(),
+                                          self.password.text(),
                                           self.widget)
 
     def setupUI(self):
@@ -36,10 +36,10 @@ class DelEmployee(QWidget):
         self.username = QLineEdit(parent=self)
         self.username.returnPressed.connect(self.delEmployee)
 
-        passwort_note = QLabel(parent=self, text='Password: ')
-        self.passwort = QLineEdit(parent=self)
-        self.passwort.setEchoMode(QLineEdit.Password)
-        self.passwort.returnPressed.connect(self.delEmployee)
+        password_note = QLabel(parent=self, text='Password: ')
+        self.password = QLineEdit(parent=self)
+        self.password.setEchoMode(QLineEdit.Password)
+        self.password.returnPressed.connect(self.delEmployee)
 
         submit = QPushButton(parent=self, text='Delete')
         submit.clicked.connect(self.delEmployee)
@@ -49,7 +49,7 @@ class DelEmployee(QWidget):
         self.layout.addWidget(username_note, 2, 0, Qt.AlignLeft)
         self.layout.addWidget(self.username, 2, 1, Qt.AlignRight)
 
-        self.layout.addWidget(passwort_note, 3, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.passwort, 3, 1, Qt.AlignRight)
+        self.layout.addWidget(password_note, 3, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.password, 3, 1, Qt.AlignRight)
 
         self.layout.addWidget(submit, 4, 0, 1, 0, Qt.AlignCenter)

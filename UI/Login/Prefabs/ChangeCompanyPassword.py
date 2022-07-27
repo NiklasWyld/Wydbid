@@ -18,14 +18,14 @@ class ChangeCompanyPassword(QWidget):
         self.setupUI()
 
     def clear(self):
-        self.passwort.setText('')
-        self.new_passwort.setText('')
+        self.password.setText('')
+        self.new_password.setText('')
 
     def changePassword(self):
-        ChangeCompanyPasswordLogic.changePasswordFinal(self.firma, self.passwort.text(), self.new_passwort.text(), self)
+        ChangeCompanyPasswordLogic.changePasswordFinal(self.company, self.password.text(), self.new_password.text(), self)
 
     def addItemsToCompany(self):
-        ChangeCompanyPasswordLogic.addItems(self.firma)
+        ChangeCompanyPasswordLogic.addItems(self.company)
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
@@ -33,32 +33,32 @@ class ChangeCompanyPassword(QWidget):
         title = QLabel('Change company password')
         title.setFont(QFont('Montserrat', 30))
 
-        firmen_note = QLabel(parent=self, text='Company: ')
-        self.firma = QComboBox(parent=self)
+        company_note = QLabel(parent=self, text='Company: ')
+        self.company = QComboBox(parent=self)
         self.addItemsToCompany()
 
-        passwort_note = QLabel(parent=self, text='Old password: ')
-        self.passwort = QLineEdit(parent=self)
-        self.passwort.setEchoMode(QLineEdit.Password)
-        self.passwort.returnPressed.connect(self.changePassword)
+        password_note = QLabel(parent=self, text='Old password: ')
+        self.password = QLineEdit(parent=self)
+        self.password.setEchoMode(QLineEdit.Password)
+        self.password.returnPressed.connect(self.changePassword)
 
-        new_passwort_note = QLabel(parent=self, text='New password: ')
-        self.new_passwort = QLineEdit(parent=self)
-        self.new_passwort.setEchoMode(QLineEdit.Password)
-        self.new_passwort.returnPressed.connect(self.changePassword)
+        new_password_note = QLabel(parent=self, text='New password: ')
+        self.new_password = QLineEdit(parent=self)
+        self.new_password.setEchoMode(QLineEdit.Password)
+        self.new_password.returnPressed.connect(self.changePassword)
 
         submit = QPushButton(parent=self, text='Change')
         submit.clicked.connect(self.changePassword)
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 
-        self.layout.addWidget(firmen_note, 2, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.firma, 2, 1, Qt.AlignRight)
+        self.layout.addWidget(company_note, 2, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.company, 2, 1, Qt.AlignRight)
 
-        self.layout.addWidget(passwort_note, 3, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.passwort, 3, 1, Qt.AlignRight)
+        self.layout.addWidget(password_note, 3, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.password, 3, 1, Qt.AlignRight)
 
-        self.layout.addWidget(new_passwort_note, 4, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.new_passwort, 4, 1, Qt.AlignRight)
+        self.layout.addWidget(new_password_note, 4, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.new_password, 4, 1, Qt.AlignRight)
 
         self.layout.addWidget(submit, 5, 0, 1, 0, Qt.AlignCenter)

@@ -41,7 +41,7 @@ class EmployeeLogin(QWidget):
 
     def startEmployeeLogin(self):
         EmployeeLoginLogic.login(self.username.text(),
-                                 self.passwort.text(),
+                                 self.password.text(),
                                  self)
 
     def setupUI(self):
@@ -54,10 +54,10 @@ class EmployeeLogin(QWidget):
         self.username = QLineEdit(parent=self)
         self.username.returnPressed.connect(self.startEmployeeLogin)
 
-        passwort_note = QLabel(parent=self, text='Password: ')
-        self.passwort = QLineEdit(parent=self)
-        self.passwort.setEchoMode(QLineEdit.Password)
-        self.passwort.returnPressed.connect(self.startEmployeeLogin)
+        password_note = QLabel(parent=self, text='Password: ')
+        self.password = QLineEdit(parent=self)
+        self.password.setEchoMode(QLineEdit.Password)
+        self.password.returnPressed.connect(self.startEmployeeLogin)
 
         submit = QPushButton(parent=self, text='Confirm')
         submit.clicked.connect(self.startEmployeeLogin)
@@ -73,14 +73,14 @@ class EmployeeLogin(QWidget):
         self.layout.addWidget(username_note, 2, 0, Qt.AlignLeft)
         self.layout.addWidget(self.username, 2, 1, Qt.AlignRight)
 
-        self.layout.addWidget(passwort_note, 3, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.passwort, 3, 1, Qt.AlignRight)
+        self.layout.addWidget(password_note, 3, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.password, 3, 1, Qt.AlignRight)
 
         self.layout.addWidget(submit, 4, 0, 1, 0, Qt.AlignCenter)
     
     def clear(self):
         self.username.setText('')
-        self.passwort.setText('')
+        self.password.setText('')
     
     def logoutCompany(self):
         EmployeeLoginLogic.logoutCompany(employee_login_widget=self)
@@ -103,27 +103,27 @@ class EmployeeLogin(QWidget):
         file = QMenu(parent=self.menubar, title='Wydbid')
         help = QMenu(parent=self.menubar, title='Help')
 
-        create_mitarbeiter = QAction('Create employee', self)
-        del_mitarbeiter = QAction('Delete employee', self)
-        change_mitarbeiter_passwort = QAction('Change employee password', self)
+        create_employee = QAction('Create employee', self)
+        del_employee = QAction('Delete employee', self)
+        change_employee_password = QAction('Change employee password', self)
         logout_company = QAction('Log out company', self)
         close = QAction('Exit', self)
 
         contact = QAction('Contact', self)
         report_bug = QAction('Report error', self)
 
-        create_mitarbeiter.triggered.connect(self.startCreateEmployee)
-        del_mitarbeiter.triggered.connect(self.startDelEmployee)
-        change_mitarbeiter_passwort.triggered.connect(self.startChangeEmployeePassword)
+        create_employee.triggered.connect(self.startCreateEmployee)
+        del_employee.triggered.connect(self.startDelEmployee)
+        change_employee_password.triggered.connect(self.startChangeEmployeePassword)
         logout_company.triggered.connect(self.logoutCompany)
         close.triggered.connect(self.closeApp)
 
         contact.triggered.connect(WydbidUIMainLogic.contact)
         report_bug.triggered.connect(WydbidUIMainLogic.contact)
 
-        file.addAction(create_mitarbeiter)
-        file.addAction(del_mitarbeiter)
-        file.addAction(change_mitarbeiter_passwort)
+        file.addAction(create_employee)
+        file.addAction(del_employee)
+        file.addAction(change_employee_password)
         file.addSeparator()
         file.addAction(logout_company)
         file.addSeparator()
