@@ -6,7 +6,7 @@ import Wydbid
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
-from UI.WydbidUI.Prefabs.Customer import CreateCustomer
+from UI.WydbidUI.ActionPrefabs import CustomerActions
 import screeninfo
 
 # ToDo: Update pictures in README.md
@@ -28,8 +28,8 @@ class WydbidUIMain(QWidget):
         # Tabwidget
         self.tabwidget = QTabWidget(parent=self)
 
-        # Widgets
-        self.ck = CreateCustomer.CreateCustomer()
+        # Action Widgets
+        self.customer_actions = CustomerActions.CustomerActions()
 
         self.setupUI()
         self.setupMenuBar()
@@ -194,8 +194,7 @@ class WydbidUIMain(QWidget):
 
         # ToDo: Event Management
 
-        # Customer Event Management
-        #add_customer.clicked.connect(self.startCreateCustomer)
+        customer_actions.clicked.connect(self.startCustomerActions)
 
     # Setup tab widgets
 
@@ -275,5 +274,5 @@ class WydbidUIMain(QWidget):
 
     # Event Management Methods
 
-    def startCreateCustomer(self):
-        self.ck.show()
+    def startCustomerActions(self):
+        self.customer_actions.show()
