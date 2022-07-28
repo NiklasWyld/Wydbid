@@ -10,8 +10,6 @@ from UI.WydbidUI.ActionPrefabs import CustomerActions
 import screeninfo
 
 # ToDo: Update pictures in README.md
-# ToDo: Tasks and News / New Tabs in Main / ...
-# ToDo: Translate into English
 
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):

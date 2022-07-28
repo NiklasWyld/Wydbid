@@ -1,10 +1,8 @@
 import os
 import pickle
-import sys
 from PyQt5.QtWidgets import QMessageBox, QWidget
 import Wydbid
 from Data import Employee
-
 
 def createEmployeeFinal(name: str, username: str, password: str, widget: QWidget):
     if os.path.exists(f'{Wydbid.company_location}Employees/{str(username)}.wbm'):

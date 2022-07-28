@@ -1,6 +1,6 @@
 import Customer
 
-class Termin:
+class Appointment:
     def __init__(self, id: int, title: str, date: str, customer: Customer):
         self.id = id
         self.title = title
