@@ -13,8 +13,6 @@ class CreateEmployee(QWidget):
         self.setWindowTitle('Wydbid - Create employee')
         self.setGeometry(0, 0, 600, 450)
 
-        self.widget = self
-
         self.setupUI()
 
     def clear(self):
@@ -26,7 +24,7 @@ class CreateEmployee(QWidget):
         CreateEmployeeLogic.createEmployeeFinal(self.name.text(),
                                                 self.username.text(),
                                                 self.password.text(),
-                                                self.widget)
+                                                self)
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
