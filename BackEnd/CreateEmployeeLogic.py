@@ -1,13 +1,19 @@
 from PyQt5.QtWidgets import QMessageBox, QWidget
+from sqlalchemy import create_engine, text
+from sqlalchemy.orm import declarative_base, sessionmaker
 import Wydbid
-from Data.DataCombi import session, engine, Employee
+from Data.DataCombi import Employee
 
 def createEmployeeFinal(name: str, username: str, password: str, widget: QWidget):
     if name == '' or username == '' or password == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')
         return
-    print(Wydbid.company_location)
+
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}')
+    base = declarative_base()
+    connection = engine.connect()
+    session = sessionmaker()
     my_session = session(bind=engine)
 
     # Check if employee already exists

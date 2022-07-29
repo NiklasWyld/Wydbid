@@ -2,10 +2,7 @@ from sqlalchemy import create_engine, Column, String, Integer
 from sqlalchemy.orm import declarative_base, sessionmaker
 import Wydbid
 
-engine = create_engine(f'sqlite:///{Wydbid.company_location}')
 base = declarative_base()
-connection = engine.connect()
-session = sessionmaker()
 
 # ToDo: Add all classes
 
@@ -43,5 +40,3 @@ class Employee(base):
         self.username = username
         self.name = name
         self.password = password
-
-base.metadata.create_all(connection)
