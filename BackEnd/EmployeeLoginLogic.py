@@ -1,11 +1,10 @@
-import os
-import pickle
 from PyQt5.QtWidgets import QWidget, QMessageBox
-import Wydbid
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from UI.Login import CompanyLogin, EmployeeLogin
 from UI.WydbidUI import WydbidUIMain
-from Data import Employee
-
+from Data.DataCombi import *
+import Wydbid
 
 def logoutCompany(employee_login_widget: EmployeeLogin):
     Wydbid.company = None
@@ -27,20 +26,27 @@ def login(username: str, password: str, widget: QWidget):
                             'All fields must be filled in!')
         return
 
-    if not os.path.exists(f'{Wydbid.company_location}Employees/{username}.wbm'):
-        QMessageBox.warning(Wydbid.app.parent(
-        ), 'Attention', 'A staff member with these usernames does not exist!')
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    employee = session.query(Employee).filter(Employee.username == username).first()
+
+    if not employee:
+        QMessageBox.warning(Wydbid.app.parent(), 'Attention',
+                            'Attention, the username or employee you entered does not exist.')
         return
 
-    employee_file = open(
-        f'{Wydbid.company_location}Employees/{username}.wbm', 'rb')
-    employee: Employee.Employee = pickle.load(employee_file)
-    if employee.password != password:
+    if not employee.password == password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'Attention, the password entered is incorrect!')
         return
 
     Wydbid.employee = employee
+
+    session.commit()
 
     widget.hide()
 

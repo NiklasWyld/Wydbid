@@ -1,50 +1,38 @@
-import os
-import pickle
-import shutil
-import sys
 from PyQt5.QtWidgets import QWidget, QMessageBox
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
 import Wydbid
-from Data import Employee
+from Data.DataCombi import *
 
-
-def delEmployeeFinal(username: str, password: str, widget: QWidget):
+def delEmployeeFinal(username: str, password: str, widget):
     if username == '' or password == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')
         return
 
-    # See if the file or employee exists
-    if not os.path.exists(f'{Wydbid.company_location}Employees/{username}.wbm'):
-        QMessageBox.warning(Wydbid.app.parent(
-        ), 'Attention', 'The user name or employee you entered does not exist.')
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    employee = session.query(Employee).filter(Employee.username == username).first()
+
+    if not employee:
+        QMessageBox.warning(Wydbid.app.parent(), 'Attention',
+                            'Attention, the username or employee you entered does not exist.')
         return
-
-    readable_file = open(
-        f'{Wydbid.company_location}Employees/{username}.wbm', 'rb')
-    file_path = f'{Wydbid.company_location}Employees/{username}.wbm'
-
-    employee: Employee.Employee = pickle.load(readable_file)
-    readable_file.close()
 
     if not password == employee.password:
         QMessageBox.warning(Wydbid.app.parent(), 'Attention',
                             'Attention, the password entered is incorrect!')
         return
 
-    os.remove(file_path)
+    session.delete(employee)
+    session.commit()
 
     QMessageBox.about(Wydbid.app.parent(), 'Completed',
                       'The employee has been deleted!')
 
-    m = QMessageBox.question(Wydbid.app.parent(),
-                             'Restart Wydbid',
-                             'Attention, you need to restart Wydbid to make the changes! Do you want to restart now?',
-                             QMessageBox.Yes,
-                             QMessageBox.No)
-
-    if m == QMessageBox.No:
-        widget.close()
-        return
-
-    elif m == QMessageBox.Yes:
-        Wydbid.app.exit(0)
+    widget.clear()
+    widget.hide()

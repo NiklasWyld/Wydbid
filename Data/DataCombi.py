@@ -1,16 +1,12 @@
-from Data import Appointment, Customer, Employee, Event, News, Order, Settings, Task
 from sqlalchemy import create_engine, Column, String, Integer
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.orm import declarative_base
 import Wydbid
-
-engine = create_engine(f'sqlite:///{Wydbid.company_location}')
-base = declarative_base()
-connection = engine.connect()
-session = sessionmaker()
 
 # ToDo: Add all classes
 
-class Customer(base, Customer):
+base = declarative_base()
+
+class Customer(base):
     __tablename__ = 'customers'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -33,9 +29,10 @@ class Customer(base, Customer):
         self.birthdate = birthdate
         self.information = information
 
-class Employee(base, Employee):
+class Employee(base):
     __tablename__ = 'employees'
 
+    id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String(), nullable=False)
     name = Column(String(), nullable=False)
     password = Column(String(), nullable=False)
@@ -44,5 +41,3 @@ class Employee(base, Employee):
         self.username = username
         self.name = name
         self.password = password
-
-base.metadata.create_all(connection)
