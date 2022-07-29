@@ -1,9 +1,12 @@
 from sqlalchemy import create_engine, Column, String, Integer
+from sqlalchemy.orm import declarative_base
 import Wydbid
 
 # ToDo: Add all classes
 
-class Customer():
+base = declarative_base()
+
+class Customer(base):
     __tablename__ = 'customers'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -26,7 +29,7 @@ class Customer():
         self.birthdate = birthdate
         self.information = information
 
-class Employee():
+class Employee(base):
     __tablename__ = 'employees'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
