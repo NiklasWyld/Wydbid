@@ -1,4 +1,3 @@
-from Data import Appointment, Customer, Employee, Event, News, Order, Settings, Task
 from sqlalchemy import create_engine, Column, String, Integer
 from sqlalchemy.orm import declarative_base, sessionmaker
 import Wydbid
@@ -10,7 +9,7 @@ session = sessionmaker()
 
 # ToDo: Add all classes
 
-class Customer(base, Customer):
+class Customer(base):
     __tablename__ = 'customers'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -33,10 +32,10 @@ class Customer(base, Customer):
         self.birthdate = birthdate
         self.information = information
 
-class Employee(base, Employee):
+class Employee(base):
     __tablename__ = 'employees'
 
-    username = Column(String(), nullable=False)
+    username = Column(String(), primary_key=True, nullable=False)
     name = Column(String(), nullable=False)
     password = Column(String(), nullable=False)
 
