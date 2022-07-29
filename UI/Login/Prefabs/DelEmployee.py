@@ -13,8 +13,6 @@ class DelEmployee(QWidget):
         self.setWindowTitle('Wydbid - Delete employee')
         self.setGeometry(0, 0, 600, 450)
 
-        self.widget = self
-
         self.setupUI()
 
     def clear(self):
@@ -24,7 +22,7 @@ class DelEmployee(QWidget):
     def delEmployee(self):
         DelEmployeeLogic.delEmployeeFinal(self.username.text(),
                                           self.password.text(),
-                                          self.widget)
+                                          self)
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)

@@ -13,8 +13,6 @@ class ChangeEmployeePassword(QWidget):
         self.setWindowTitle('Wydbid - Change employee password')
         self.setGeometry(0, 0, 600, 450)
 
-        self.widget = self
-
         self.setupUI()
 
     def clear(self):
@@ -25,7 +23,7 @@ class ChangeEmployeePassword(QWidget):
         ChangeEmployeePasswordLogic.changePasswordFinal(self.username.text(),
                                                         self.password.text(),
                                                         self.new_password.text(),
-                                                        self.widget)
+                                                        self)
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)

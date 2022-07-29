@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 import Wydbid
 from Data.DataCombi import *
 
-def delEmployeeFinal(username: str, password: str, widget: QWidget):
+def delEmployeeFinal(username: str, password: str, widget):
     if username == '' or password == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')
@@ -33,3 +33,6 @@ def delEmployeeFinal(username: str, password: str, widget: QWidget):
 
     QMessageBox.about(Wydbid.app.parent(), 'Completed',
                       'The employee has been deleted!')
+
+    widget.clear()
+    widget.hide()
