@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import QMessageBox, QWidget
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import declarative_base, sessionmaker
-import Wydbid
 from Data.DataCombi import *
+import Wydbid
 
 def createEmployeeFinal(name: str, username: str, password: str, widget):
     if name == '' or username == '' or password == '':

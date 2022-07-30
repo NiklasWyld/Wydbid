@@ -13,7 +13,6 @@ class CreateCustomer(QWidget):
         self.setWindowTitle('Wydbid - Create customer')
         self.setGeometry(0, 0, 600, 600)
 
-        CustomerLogic.setupCustomerFolder()
         self.setupUI()
 
     def setupUI(self):
@@ -21,11 +20,6 @@ class CreateCustomer(QWidget):
 
         title = QLabel('Create customer')
         title.setFont(QFont('Montserrat', 30))
-
-        id_note = QLabel(parent=self, text='Customer-ID: ')
-        self.id_tick = QCheckBox(parent=self, text='Asign Customer ID automatically')
-        self.id = QLineEdit(parent=self)
-        self.id.setFixedWidth(60)
 
         firstname_note = QLabel(parent=self, text='First name: ')
         self.firstname = QLineEdit(parent=self)
@@ -58,38 +52,33 @@ class CreateCustomer(QWidget):
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 
-        self.layout.addWidget(self.id_tick, 2, 1, Qt.AlignRight)
-        self.layout.addWidget(id_note, 3, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.id, 3, 1, Qt.AlignRight)
+        self.layout.addWidget(firstname_note, 2, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.firstname, 2, 1, Qt.AlignRight)
 
-        self.layout.addWidget(firstname_note, 4, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.firstname, 4, 1, Qt.AlignRight)
+        self.layout.addWidget(lastname_note, 3, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.lastname, 3, 1, Qt.AlignRight)
 
-        self.layout.addWidget(lastname_note, 5, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.lastname, 5, 1, Qt.AlignRight)
+        self.layout.addWidget(email_note, 4, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.email, 4, 1, Qt.AlignRight)
 
-        self.layout.addWidget(email_note, 6, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.email, 6, 1, Qt.AlignRight)
+        self.layout.addWidget(adress_note, 5, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.adress, 5, 1, Qt.AlignRight)
 
-        self.layout.addWidget(adress_note, 7, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.adress, 7, 1, Qt.AlignRight)
+        self.layout.addWidget(number_note, 6, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.number, 6, 1, Qt.AlignRight)
 
-        self.layout.addWidget(number_note, 8, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.number, 8, 1, Qt.AlignRight)
+        self.layout.addWidget(gender_note, 7, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.gender, 7, 1, Qt.AlignRight)
 
-        self.layout.addWidget(gender_note, 9, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.gender, 9, 1, Qt.AlignRight)
+        self.layout.addWidget(birthdate_note, 8, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.birthdate, 8, 1, Qt.AlignRight)
 
-        self.layout.addWidget(birthdate_note, 10, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.birthdate, 10, 1, Qt.AlignRight)
+        self.layout.addWidget(information_note, 9, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.information, 9, 1, Qt.AlignRight)
 
-        self.layout.addWidget(information_note, 11, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.information, 11, 1, Qt.AlignRight)
-
-        self.layout.addWidget(submit, 12, 0, 1, 0, Qt.AlignCenter)
+        self.layout.addWidget(submit, 10, 0, 1, 0, Qt.AlignCenter)
 
     def clear(self):
-        self.id.setText('')
         self.firstname.setText('')
         self.lastname.setText('')
         self.email.setText('')
