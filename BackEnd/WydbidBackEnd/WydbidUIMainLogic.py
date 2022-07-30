@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QWidget, QMessageBox, QTableWidget, QTableWidgetItem
 from CustomQt import MessageBox
 from UI.Login import CompanyLogin, EmployeeLogin
 import Wydbid
+from UI.WydbidUI.Prefabs.Customer import ViewCustomer
 
 def logoutCompany(widget: QWidget):
     Wydbid.company = None
@@ -43,7 +44,7 @@ def reloadCustomers(customerlist: QTableWidget):
     customerlist.setColumnCount(9)
     customerlist.setHorizontalHeaderLabels(
         ['Customer id', 'Firstname', 'Lastname', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
-    customerlist.setColumnWidth(0, 200)
+    customerlist.setColumnWidth(0, 100)
     customerlist.setColumnWidth(1, 200)
     customerlist.setColumnWidth(2, 200)
     customerlist.setColumnWidth(3, 200)
@@ -116,7 +117,7 @@ def appendCustomers(customerlist: QTableWidget):
     customerlist.clear()
     customerlist.setHorizontalHeaderLabels(
         ['Customer id', 'Firstname', 'Lastname', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
-    customerlist.setColumnWidth(0, 200)
+    customerlist.setColumnWidth(0, 100)
     customerlist.setColumnWidth(1, 200)
     customerlist.setColumnWidth(2, 200)
     customerlist.setColumnWidth(3, 200)
@@ -181,6 +182,21 @@ def appendCustomers(customerlist: QTableWidget):
         customerlist.setItem(i, 7, birthdate)
         customerlist.setItem(i, 8, view)
         i = i + 1
+
+def viewCustomer(customerlist, viewcustomer: ViewCustomer.ViewCustomer, item):
+    customerid = customerlist.item(item.row(), 0).text()
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    customer = session.query(Customer).filter(Customer.id == customerid).first()
+
+    viewcustomer.hide()
+    viewcustomer.clear()
+    viewcustomer.setCustomer(customer)
+    viewcustomer.show()
 
 def searchForFirstName(searchfirst: QLineEdit, searchlast: QLineEdit, list: QTableWidget):
     name = searchfirst.text().lower()

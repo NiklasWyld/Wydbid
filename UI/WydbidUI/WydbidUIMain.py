@@ -6,6 +6,7 @@ import Wydbid
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
+from UI.WydbidUI.Prefabs.Customer import ViewCustomer
 from UI.WydbidUI.ActionPrefabs import CustomerActions
 import screeninfo
 
@@ -22,6 +23,8 @@ class WydbidUIMain(QWidget):
 
         self.setLayout(QGridLayout())
         self.layout().setContentsMargins(30, 30, 30, 30)
+
+        self.vc = ViewCustomer.ViewCustomer()
 
         # Tabwidget
         self.tabwidget = QTabWidget(parent=self)
@@ -267,6 +270,10 @@ class WydbidUIMain(QWidget):
                                                         list=self.customerlist)
         )
 
+        self.customerlist.clicked.connect(
+            self.loadViewCustomer
+        )
+
         # Add customer list and search bar to main layout
         lyt.addWidget(self.searchbar_first, Qt.AlignCenter)
         lyt.addWidget(self.searchbar_last, Qt.AlignCenter)
@@ -284,6 +291,10 @@ class WydbidUIMain(QWidget):
 
         # Set layout of customer list tab widget
         customerlist.setLayout(lyt)
+
+    def loadViewCustomer(self, item):
+        if item.data() == '🔎':
+            WydbidUIMainLogic.viewCustomer(self.customerlist, self.vc, item)
 
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)
