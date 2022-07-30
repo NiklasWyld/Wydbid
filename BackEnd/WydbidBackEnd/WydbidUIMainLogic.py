@@ -33,15 +33,16 @@ def logoutEmployee(widget: QWidget):
             i.showMaximized()
 
 def reloadCustomers(customerlist: QTableWidget):
+    global d_gender
     customerlist.setSortingEnabled(False)
     customerlist.clear()
     customerlist.clearContents()
     customerlist.setColumnCount(0)
     customerlist.setRowCount(0)
 
-    customerlist.setColumnCount(8)
+    customerlist.setColumnCount(9)
     customerlist.setHorizontalHeaderLabels(
-        ['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
+        ['Customer id', 'Firstname', 'Lastname', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
     customerlist.setColumnWidth(0, 200)
     customerlist.setColumnWidth(1, 200)
     customerlist.setColumnWidth(2, 200)
@@ -49,76 +50,7 @@ def reloadCustomers(customerlist: QTableWidget):
     customerlist.setColumnWidth(4, 200)
     customerlist.setColumnWidth(5, 200)
     customerlist.setColumnWidth(6, 200)
-
-
-    customers = []
-    files = os.listdir(f'{Wydbid.company_location}Customers/')
-
-    for file in files:
-        customer: Customer.Customer = pickle.load(
-            open(f'{Wydbid.company_location}Customers/{file}/{file}.wbk', 'rb'))
-        customers.append(customer)
-
-    customers.sort(key=lambda x: x.lastname, reverse=False)
-
-    customerlist.setRowCount(len(customers))
-
-    i = 0
-
-    for customer in customers:
-        id = QTableWidgetItem()
-        id.setData(Qt.DisplayRole, customer.id)
-
-        customerlist.setItem(i, 1, QTableWidgetItem(
-            f'{customer.firstname} {customer.lastname}'))
-
-        email = QTableWidgetItem()
-        email.setData(Qt.DisplayRole, customer.email)
-
-        adress = QTableWidgetItem()
-        adress.setData(Qt.DisplayRole, customer.adress)
-
-        number = QTableWidgetItem()
-        number.setData(Qt.DisplayRole, customer.number)
-
-        gender = QTableWidgetItem()
-        if customer.gender == 'men':
-            d_gender = 'Male'
-        elif customer.gender == 'women':
-            d_gender = 'Female'
-        gender.setData(Qt.DisplayRole, d_gender)
-
-        birthdate = QTableWidgetItem()
-        birthdate.setData(Qt.DisplayRole, customer.birthdate)
-
-        view = QTableWidgetItem()
-        view.setData(Qt.DisplayRole, '🔎')
-        view.setTextAlignment(Qt.AlignCenter)
-        customerlist.setColumnWidth(7, 40)
-
-        customerlist.setItem(i, 0, id)
-        customerlist.setItem(i, 2, email)
-        customerlist.setItem(i, 3, adress)
-        customerlist.setItem(i, 4, number)
-        customerlist.setItem(i, 5, gender)
-        customerlist.setItem(i, 6, birthdate)
-        customerlist.setItem(i, 7, view)
-        i = i + 1
-
-    customerlist.setSortingEnabled(True)
-
-def appendCustomers(customerlist: QTableWidget):
-    global d_gender
-    customerlist.clear()
-    customerlist.setHorizontalHeaderLabels(
-        ['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
-    customerlist.setColumnWidth(0, 200)
-    customerlist.setColumnWidth(1, 200)
-    customerlist.setColumnWidth(2, 200)
-    customerlist.setColumnWidth(3, 200)
-    customerlist.setColumnWidth(4, 200)
-    customerlist.setColumnWidth(5, 200)
-    customerlist.setColumnWidth(6, 200)
+    customerlist.setColumnWidth(7, 200)
 
     engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
     _session = sessionmaker()
@@ -139,7 +71,10 @@ def appendCustomers(customerlist: QTableWidget):
         id.setData(Qt.DisplayRole, customer.id)
 
         customerlist.setItem(i, 1, QTableWidgetItem(
-            f'{customer.firstname} {customer.lastname}'))
+            f'{customer.firstname}'))
+
+        customerlist.setItem(i, 2, QTableWidgetItem(
+            f'{customer.lastname}'))
 
         email = QTableWidgetItem()
         email.setData(Qt.DisplayRole, customer.email)
@@ -166,12 +101,85 @@ def appendCustomers(customerlist: QTableWidget):
         customerlist.setColumnWidth(7, 40)
 
         customerlist.setItem(i, 0, id)
-        customerlist.setItem(i, 2, email)
-        customerlist.setItem(i, 3, adress)
-        customerlist.setItem(i, 4, number)
-        customerlist.setItem(i, 5, gender)
-        customerlist.setItem(i, 6, birthdate)
-        customerlist.setItem(i, 7, view)
+        customerlist.setItem(i, 3, email)
+        customerlist.setItem(i, 4, adress)
+        customerlist.setItem(i, 5, number)
+        customerlist.setItem(i, 6, gender)
+        customerlist.setItem(i, 7, birthdate)
+        customerlist.setItem(i, 8, view)
+        i = i + 1
+
+    customerlist.setSortingEnabled(True)
+
+def appendCustomers(customerlist: QTableWidget):
+    global d_gender
+    customerlist.clear()
+    customerlist.setHorizontalHeaderLabels(
+        ['Customer id', 'Firstname', 'Lastname', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
+    customerlist.setColumnWidth(0, 200)
+    customerlist.setColumnWidth(1, 200)
+    customerlist.setColumnWidth(2, 200)
+    customerlist.setColumnWidth(3, 200)
+    customerlist.setColumnWidth(4, 200)
+    customerlist.setColumnWidth(5, 200)
+    customerlist.setColumnWidth(6, 200)
+    customerlist.setColumnWidth(7, 200)
+
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    customers = session.query(Customer).all()
+
+    customers.sort(key=lambda x: x.id, reverse=False)
+
+    customerlist.setRowCount(len(customers))
+
+    i = 0
+
+    for customer in customers:
+        id = QTableWidgetItem()
+        id.setData(Qt.DisplayRole, customer.id)
+
+        customerlist.setItem(i, 1, QTableWidgetItem(
+            f'{customer.firstname}'))
+
+        customerlist.setItem(i, 2, QTableWidgetItem(
+            f'{customer.lastname}'))
+
+        email = QTableWidgetItem()
+        email.setData(Qt.DisplayRole, customer.email)
+
+        adress = QTableWidgetItem()
+        adress.setData(Qt.DisplayRole, customer.adress)
+
+        number = QTableWidgetItem()
+        number.setData(Qt.DisplayRole, customer.number)
+
+        gender = QTableWidgetItem()
+        if customer.gender == 'men':
+            d_gender = 'Male'
+        elif customer.gender == 'women':
+            d_gender = 'Female'
+        gender.setData(Qt.DisplayRole, d_gender)
+
+        birthdate = QTableWidgetItem()
+        birthdate.setData(Qt.DisplayRole, customer.birthdate)
+
+        view = QTableWidgetItem()
+        view.setData(Qt.DisplayRole, '🔎')
+        view.setTextAlignment(Qt.AlignCenter)
+        customerlist.setColumnWidth(7, 40)
+
+        customerlist.setItem(i, 0, id)
+        customerlist.setItem(i, 3, email)
+        customerlist.setItem(i, 4, adress)
+        customerlist.setItem(i, 5, number)
+        customerlist.setItem(i, 6, gender)
+        customerlist.setItem(i, 7, birthdate)
+        customerlist.setItem(i, 8, view)
         i = i + 1
 
 def searchForName(search: QLineEdit, list: QTableWidget):

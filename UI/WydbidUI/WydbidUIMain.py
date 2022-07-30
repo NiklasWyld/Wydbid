@@ -242,8 +242,9 @@ class WydbidUIMain(QWidget):
         self.customerlist = QTableWidget(parent=customerlist)
         self.customerlist.verticalHeader().setVisible(False)
 
-        self.customerlist.setColumnCount(8)
-        self.customerlist.setHorizontalHeaderLabels(['Customer id', 'Name', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
+        self.customerlist.setColumnCount(9)
+        self.customerlist.setHorizontalHeaderLabels(
+        ['Customer id', 'Firstname', 'Lastname', 'E-mail address', 'Adress', 'Number', 'Gender', 'Birth date', ''])
 
         WydbidUIMainLogic.appendCustomers(customerlist=self.customerlist)
 
