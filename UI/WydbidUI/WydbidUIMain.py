@@ -235,9 +235,13 @@ class WydbidUIMain(QWidget):
         lyt = QVBoxLayout()
         hlyt = QHBoxLayout()
 
-        self.searchbar = QLineEdit(parent=customerlist)
-        self.searchbar.setFixedHeight(40)
-        self.searchbar.setPlaceholderText('Filter by name')
+        self.searchbar_first = QLineEdit(parent=customerlist)
+        self.searchbar_first.setFixedHeight(40)
+        self.searchbar_first.setPlaceholderText('Filter by first name')
+
+        self.searchbar_last = QLineEdit(parent=customerlist)
+        self.searchbar_last.setFixedHeight(40)
+        self.searchbar_last.setPlaceholderText('Filter by last name')
 
         self.customerlist = QTableWidget(parent=customerlist)
         self.customerlist.verticalHeader().setVisible(False)
@@ -253,12 +257,19 @@ class WydbidUIMain(QWidget):
         self.customerlist.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
         self.customerlist.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
-        self.searchbar.textChanged.connect(
-            lambda: WydbidUIMainLogic.searchForName(search=self.searchbar, list=self.customerlist)
+        self.searchbar_first.textChanged.connect(
+            lambda: WydbidUIMainLogic.searchForFirstName(searchfirst=self.searchbar_first, searchlast=self.searchbar_last,
+                                                         list=self.customerlist)
+        )
+
+        self.searchbar_last.textChanged.connect(
+            lambda: WydbidUIMainLogic.searchForLastName(searchfirst=self.searchbar_first, searchlast=self.searchbar_last,
+                                                        list=self.customerlist)
         )
 
         # Add customer list and search bar to main layout
-        lyt.addWidget(self.searchbar, Qt.AlignCenter)
+        lyt.addWidget(self.searchbar_first, Qt.AlignCenter)
+        lyt.addWidget(self.searchbar_last, Qt.AlignCenter)
         lyt.addWidget(self.customerlist, Qt.AlignCenter)
 
         reload = QPushButton('Reload')

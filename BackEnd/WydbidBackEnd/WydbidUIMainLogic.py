@@ -182,14 +182,23 @@ def appendCustomers(customerlist: QTableWidget):
         customerlist.setItem(i, 8, view)
         i = i + 1
 
-def searchForName(search: QLineEdit, list: QTableWidget):
-    name = search.text().lower()
+def searchForFirstName(searchfirst: QLineEdit, searchlast: QLineEdit, list: QTableWidget):
+    name = searchfirst.text().lower()
     for row in range(list.rowCount()):
         item = list.item(row, 1)
 
         # if the search is not in the item's text do not hide the row
         list.setRowHidden(row, name not in item.text().lower())
+    searchlast.setText('')
 
+def searchForLastName(searchfirst: QLineEdit, searchlast: QLineEdit, list: QTableWidget):
+    name = searchlast.text().lower()
+    for row in range(list.rowCount()):
+        item = list.item(row, 2)
+
+        # if the search is not in the item's text do not hide the row
+        list.setRowHidden(row, name not in item.text().lower())
+    searchfirst.setText('')
 
 def contact():
     p = MessageBox.MessageBox(parent=Wydbid.app.parent(),
