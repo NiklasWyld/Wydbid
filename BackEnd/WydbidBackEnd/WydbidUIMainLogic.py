@@ -1,13 +1,12 @@
 import os
 import pickle
 from PyQt5.QtCore import Qt, QModelIndex
-from Data import Customer
+from sqlalchemy.orm import sessionmaker
+from Data.DataCombi import *
 from PyQt5.QtWidgets import QWidget, QMessageBox, QTableWidget, QTableWidgetItem, QLineEdit
-import Wydbid
 from CustomQt import MessageBox
 from UI.Login import CompanyLogin, EmployeeLogin
-from UI.WydbidUI.Prefabs.Customer import CreateCustomer
-
+import Wydbid
 
 def logoutCompany(widget: QWidget):
     Wydbid.company = None
@@ -121,15 +120,15 @@ def appendCustomers(customerlist: QTableWidget):
     customerlist.setColumnWidth(5, 200)
     customerlist.setColumnWidth(6, 200)
 
-    customers = []
-    files = os.listdir(f'{Wydbid.company_location}Customers/')
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
 
-    for file in files:
-        customer: Customer.Customer = pickle.load(
-            open(f'{Wydbid.company_location}Customers/{file}/{file}.wbk', 'rb'))
-        customers.append(customer)
+    base.metadata.create_all(engine)
 
-    customers.sort(key=lambda x: x.lastname, reverse=False)
+    customers = session.query(Customer).all()
+
+    customers.sort(key=lambda x: x.id, reverse=False)
 
     customerlist.setRowCount(len(customers))
 
@@ -174,7 +173,6 @@ def appendCustomers(customerlist: QTableWidget):
         customerlist.setItem(i, 6, birthdate)
         customerlist.setItem(i, 7, view)
         i = i + 1
-
 
 def searchForName(search: QLineEdit, list: QTableWidget):
     name = search.text().lower()
