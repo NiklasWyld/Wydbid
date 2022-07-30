@@ -98,7 +98,7 @@ def reloadCustomers(customerlist: QTableWidget):
         view = QTableWidgetItem()
         view.setData(Qt.DisplayRole, '🔎')
         view.setTextAlignment(Qt.AlignCenter)
-        customerlist.setColumnWidth(7, 40)
+        customerlist.setColumnWidth(8, 40)
 
         customerlist.setItem(i, 0, id)
         customerlist.setItem(i, 3, email)
@@ -171,7 +171,7 @@ def appendCustomers(customerlist: QTableWidget):
         view = QTableWidgetItem()
         view.setData(Qt.DisplayRole, '🔎')
         view.setTextAlignment(Qt.AlignCenter)
-        customerlist.setColumnWidth(7, 40)
+        customerlist.setColumnWidth(8, 40)
 
         customerlist.setItem(i, 0, id)
         customerlist.setItem(i, 3, email)
