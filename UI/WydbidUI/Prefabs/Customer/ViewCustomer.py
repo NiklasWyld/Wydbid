@@ -20,32 +20,41 @@ class ViewCustomer(QWidget):
         title = QLabel('View customer')
         title.setFont(QFont('Montserrat', 30))
 
-        id_note = QLabel(parent=self, text='ID')
+        id_note = QLabel(parent=self, text='ID: ')
         self.id = QLineEdit(parent=self)
+        self.id.setFixedWidth(300)
 
         firstname_note = QLabel(parent=self, text='First name: ')
         self.firstname = QLineEdit(parent=self)
+        self.firstname.setFixedWidth(300)
 
         lastname_note = QLabel(parent=self, text='Last name: ')
         self.lastname = QLineEdit(parent=self)
+        self.lastname.setFixedWidth(300)
 
         email_note = QLabel(parent=self, text='E-mail address: ')
         self.email = QLineEdit(parent=self)
+        self.email.setFixedWidth(300)
 
         adress_note = QLabel(parent=self, text='Address: ')
         self.adress = QLineEdit(parent=self)
+        self.adress.setFixedWidth(300)
 
         number_note = QLabel(parent=self, text='Telephone number: ')
         self.number = QLineEdit(parent=self)
+        self.number.setFixedWidth(300)
 
         gender_note = QLabel(parent=self, text='Gender: ')
         self.gender = QLineEdit(parent=self)
+        self.gender.setFixedWidth(300)
 
         birthdate_note = QLabel(parent=self, text='Birth date: ')
         self.birthdate = QLineEdit(parent=self)
+        self.birthdate.setFixedWidth(300)
 
         information_note = QLabel(parent=self, text='Information: ')
         self.information = QTextEdit(parent=self)
+        self.information.setFixedWidth(300)
 
         self.layout.addWidget(title, 0, 0, 1, 0, Qt.AlignCenter)
 
@@ -77,13 +86,18 @@ class ViewCustomer(QWidget):
         self.layout.addWidget(self.information, 9, 1, Qt.AlignRight)
 
     def setCustomer(self, customer: Customer):
+        if customer.gender == 'men':
+            d_gender = 'Male'
+        else:
+            d_gender = 'Female'
+
         self.id.setText(str(customer.id))
         self.firstname.setText(customer.firstname)
         self.lastname.setText(customer.lastname)
         self.email.setText(customer.email)
         self.adress.setText(customer.adress)
         self.number.setText(customer.number)
-        self.gender.setText(customer.gender)
+        self.gender.setText(d_gender)
         self.birthdate.setText(customer.birthdate)
         self.information.setText(customer.information)
 
