@@ -7,7 +7,7 @@ from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer
-from UI.WydbidUI.ActionPrefabs import CustomerActions
+from UI.WydbidUI.ActionPrefabs import CustomerActions, NewsActions
 import screeninfo
 
 # ToDo: Update pictures in README.md
@@ -30,6 +30,7 @@ class WydbidUIMain(QWidget):
         self.tabwidget = QTabWidget(parent=self)
 
         # Action Widgets
+        self.news_actions = NewsActions.NewsActions()
         self.customer_actions = CustomerActions.CustomerActions()
 
         self.setupUI()
@@ -133,7 +134,7 @@ class WydbidUIMain(QWidget):
 
         self.menubar.resize(self.width(), 20)
 
-    def setupActionBox(self, action_list: QComboBox):
+    def setupActionBox(self, action_list: QGroupBox):
         action_list.setLayout(QGridLayout())
         action_list.layout().setAlignment(Qt.AlignTop| Qt.AlignHCenter)
 
@@ -195,6 +196,7 @@ class WydbidUIMain(QWidget):
 
         # ToDo: Event Management
 
+        news_actions.clicked.connect(self.startNewsActions)
         customer_actions.clicked.connect(self.startCustomerActions)
 
     # Setup tab widgets
@@ -324,6 +326,9 @@ class WydbidUIMain(QWidget):
         Wydbid.app.exit(0)
 
     # Event Management Methods
+
+    def startNewsActions(self):
+        self.news_actions.show()
 
     def startCustomerActions(self):
         self.customer_actions.show()
