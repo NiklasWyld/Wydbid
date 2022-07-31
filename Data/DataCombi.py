@@ -41,3 +41,14 @@ class Employee(base):
         self.username = username
         self.name = name
         self.password = password
+
+class News(base):
+    __tablename__ = 'news'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    title = Column(String(), nullable=False)
+    description = Column(String(), nullable=False)
+
+    def __init__(self, title: str, description: str):
+        self.title = title
+        self.description = description
