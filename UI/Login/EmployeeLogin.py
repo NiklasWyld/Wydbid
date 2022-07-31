@@ -1,10 +1,9 @@
-import sys
 import time
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import Wydbid
-from BackEnd import EmployeeLoginLogic
+from BackEnd.Login import EmployeeLoginLogic
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from UI.Login.Prefabs import CreateEmployee, DelEmployee, ChangeEmployeePassword
 import screeninfo

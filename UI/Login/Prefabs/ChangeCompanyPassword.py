@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from BackEnd import ChangeCompanyPasswordLogic
+from BackEnd.Login import ChangeCompanyPasswordLogic
+
 
 class ChangeCompanyPassword(QWidget):
     def __init__(self, *args, **kwargs):

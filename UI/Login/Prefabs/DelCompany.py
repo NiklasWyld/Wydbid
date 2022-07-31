@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from BackEnd import CreateCompanyLogic, CompanyLoginLogic, DelCompanyLogic
+from BackEnd.Login import DelCompanyLogic
 
 
 class DelCompany(QWidget):
