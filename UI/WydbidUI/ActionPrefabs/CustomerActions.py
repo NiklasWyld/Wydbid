@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from CustomQt import ActionButton
-from UI.WydbidUI.Prefabs.Customer import CreateCustomer
+from UI.WydbidUI.Prefabs.Customer import CreateCustomer, DelCustomer
 
 
 class CustomerActions(QDialog):
@@ -16,6 +16,7 @@ class CustomerActions(QDialog):
 
         # Widgets
         self.ck = CreateCustomer.CreateCustomer()
+        self.dc = DelCustomer.DelCustomer()
 
         self.setupUI()
         self.setLayout(self.layout)
@@ -33,7 +34,12 @@ class CustomerActions(QDialog):
         self.layout.addWidget(del_customer, 3, 0, 1, 0, Qt.AlignCenter)
 
         add_customer.clicked.connect(self.startCreateCustomer)
+        del_customer.clicked.connect(self.startDelCustomer)
 
     def startCreateCustomer(self):
         self.ck.show()
+        self.hide()
+
+    def startDelCustomer(self):
+        self.dc.show()
         self.hide()

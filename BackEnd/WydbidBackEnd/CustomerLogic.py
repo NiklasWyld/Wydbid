@@ -31,3 +31,42 @@ def createCustomer(create_customer):
 
     create_customer.clear()
     create_customer.hide()
+
+def delCustomer(widget, id):
+    try:
+        int(id)
+    except:
+        QMessageBox.warning(Wydbid.app.parent(), 'Warning', 'A number must be entered in the ID field!')
+        widget.clear()
+        return
+
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    customer = session.query(Customer).filter(Customer.id == int(id)).first()
+
+    if not customer:
+        QMessageBox.warning(Wydbid.app.parent(), 'Attention',
+                            'Attention, the customer you entered does not exist.')
+        return
+
+    reply = QMessageBox.question(Wydbid.app.parent(), 'Are you sure?',
+                                 f'Are you sure you want to delete {customer.firstname} {customer.lastname}?',
+                                 QMessageBox.Yes, QMessageBox.No)
+
+    if reply == QMessageBox.Yes:
+        session.delete(customer)
+        session.commit()
+
+        QMessageBox.about(Wydbid.app.parent(), 'Completed',
+                          'The customer has been deleted!')
+    else:
+        QMessageBox.about(Wydbid.app.parent(), 'Completed',
+                          'The customer has not been deleted!')
+        session.commit()
+
+    widget.clear()
+    widget.hide()

@@ -3,7 +3,6 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from BackEnd.Login import DelEmployeeLogic
 
-
 class DelEmployee(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
