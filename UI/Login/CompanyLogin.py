@@ -5,7 +5,7 @@ from PyQt5.QtCore import *
 import Wydbid
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from UI.Login.Prefabs import CreateCompany, DelCompany, ChangeCompanyPassword
-from BackEnd import CompanyLoginLogic
+from BackEnd.Login import CompanyLoginLogic
 import screeninfo
 
 class CompanyLogin(QWidget):
