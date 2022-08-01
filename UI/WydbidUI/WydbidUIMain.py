@@ -7,6 +7,7 @@ from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer
+from UI.WydbidUI.Prefabs.News import ShowAllNews
 from UI.WydbidUI.ActionPrefabs import CustomerActions, NewsActions
 import screeninfo
 
@@ -25,6 +26,7 @@ class WydbidUIMain(QWidget):
         self.layout().setContentsMargins(30, 30, 30, 30)
 
         self.vc = ViewCustomer.ViewCustomer()
+        self.san = ShowAllNews.ShowAllNews()
 
         # Tabwidget
         self.tabwidget = QTabWidget(parent=self)
@@ -224,6 +226,7 @@ class WydbidUIMain(QWidget):
                             'With more lines')
 
         showall = QPushButton(parent=newswidget, text='Show all')
+        showall.clicked.connect(self.startViewAllNews)
         showall.setFixedWidth(120)
 
         lyt.addWidget(title, Qt.AlignCenter)
@@ -321,6 +324,10 @@ class WydbidUIMain(QWidget):
 
     def updateClock(self):
         self.time_label.setText(datetime.now().strftime("%H:%M:%S"))
+
+    def startViewAllNews(self):
+        self.san.appendNews()
+        self.san.show()
 
     def closeApp(self):
         Wydbid.app.exit(0)

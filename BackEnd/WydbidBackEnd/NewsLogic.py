@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from sqlalchemy.orm import sessionmaker
 from Data.DataCombi import *
@@ -28,3 +29,24 @@ def createNewsFinal(widget):
 
     widget.clear()
     widget.hide()
+
+def appendNews(newslist: QListWidget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    newslist.clear()
+
+    news = session.query(News).all()
+
+    for _news in news:
+        item = QListWidgetItem(parent=newslist)
+
+        item.setText(_news.title)
+        item.setData(Qt.UserRole, _news)
+
+        newslist.addItem(item)
+
+    session.commit()
