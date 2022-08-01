@@ -15,6 +15,10 @@ class CreateNews(QWidget):
 
         self.setupUI()
 
+    def clear(self):
+        self.title.setText('')
+        self.description.setText('')
+
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
@@ -27,7 +31,10 @@ class CreateNews(QWidget):
         description_note = QLabel(parent=self, text='Description: ')
         self.description = QTextEdit(parent=self)
 
-        submit = QPushButton(parent=self, text='Create')
+        create = QPushButton(parent=self, text='Create')
+        create.clicked.connect(
+            lambda: NewsLogic.createNewsFinal(self)
+        )
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 
@@ -37,4 +44,4 @@ class CreateNews(QWidget):
         self.layout.addWidget(description_note, 3, 0, Qt.AlignLeft)
         self.layout.addWidget(self.description, 3, 1, Qt.AlignRight)
 
-        self.layout.addWidget(submit, 4, 0, 1, 0, Qt.AlignCenter)
+        self.layout.addWidget(create, 4, 0, 1, 0, Qt.AlignCenter)
