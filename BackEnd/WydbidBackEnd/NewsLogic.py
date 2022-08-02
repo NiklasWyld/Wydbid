@@ -45,8 +45,19 @@ def appendNews(newslist: QListWidget):
         item = QListWidgetItem(parent=newslist)
 
         item.setText(_news.title)
-        item.setData(Qt.UserRole, _news)
+        item.setData(Qt.UserRole, _news.id)
 
         newslist.addItem(item)
 
     session.commit()
+
+def getNews(news):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    _news = session.query(News).filter(News.id == news).first()
+
+    return _news

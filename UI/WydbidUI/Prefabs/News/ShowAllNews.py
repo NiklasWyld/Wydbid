@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import Qt
+
+import Wydbid
 from BackEnd.WydbidBackEnd import NewsLogic
 
 class ShowAllNews(QWidget):
@@ -44,9 +46,12 @@ class ShowAllNews(QWidget):
         self.layout.addWidget(ok, 3, 0, Qt.AlignLeft)
         self.layout.addWidget(reload, 3, 1, Qt.AlignRight)
 
-    def setNewsToMainUI(self, item):
+    def setNewsToMainUI(self, item: QListWidgetItem):
         news = item.data(Qt.UserRole)
-        #print(news.id)
+        final_news = NewsLogic.getNews(news)
+
+        self.hide()
+        Wydbid.wydbidui.setNews(final_news)
 
     def appendNews(self):
         NewsLogic.appendNews(self.news_list)

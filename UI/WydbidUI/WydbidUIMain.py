@@ -211,26 +211,26 @@ class WydbidUIMain(QWidget):
         lyt = QVBoxLayout()
         hlyt = QHBoxLayout()
 
-        title = QLabel(parent=newswidget)
-        title.setAlignment(Qt.AlignCenter)
-        title.setFont(QFont('Arial', 20))
-        title.setFixedHeight(40)
+        self.news_title = QLabel(parent=newswidget)
+        self.news_title.setAlignment(Qt.AlignCenter)
+        self.news_title.setFont(QFont('Arial', 20))
+        self.news_title.setFixedHeight(40)
 
-        description = QTextEdit(parent=newswidget)
-        description.setEnabled(False)
+        self.news_description = QTextEdit(parent=newswidget)
+        self.news_description.setEnabled(False)
 
         # Only test news
-        title.setText('First news in Wydbid')
+        self.news_title.setText('First news in Wydbid')
 
-        description.setText('Test News in Wydbid\n'
+        self.news_description.setText('Test News in Wydbid\n'
                             'With more lines')
 
         showall = QPushButton(parent=newswidget, text='Show all')
         showall.clicked.connect(self.startViewAllNews)
         showall.setFixedWidth(120)
 
-        lyt.addWidget(title, Qt.AlignCenter)
-        lyt.addWidget(description, Qt.AlignCenter)
+        lyt.addWidget(self.news_title, Qt.AlignCenter)
+        lyt.addWidget(self.news_description, Qt.AlignCenter)
 
         hlyt.addWidget(showall)
 
@@ -328,6 +328,10 @@ class WydbidUIMain(QWidget):
     def startViewAllNews(self):
         self.san.appendNews()
         self.san.show()
+
+    def setNews(self, news):
+        self.news_title.setText(news.title)
+        self.news_description.setText(news.description)
 
     def closeApp(self):
         Wydbid.app.exit(0)
