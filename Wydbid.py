@@ -1,10 +1,13 @@
 import shutil
 import sys
 import os
+
+from PyQt5 import QtTest
+from PyQt5.QtCore import QTimer, Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 from CustomQt import MessageBox
-from UI.Login import CompanyLogin
+from UI.Login import CompanyLogin, LoadingScreen
 from UI.WydbidUI.Prefabs import Settings
 from BackEnd.WydbidBackEnd import SettingsLogic
 
@@ -13,6 +16,7 @@ location = './WydbidData/'
 company_location = ''
 company = None
 employee = None
+wydbid_version = 'Beta 1.0'
 
 app = QApplication(sys.argv)
 
@@ -70,7 +74,23 @@ def buildLocation():
     # ...
 
 
+def updateLoadingScreen(loading_screen):
+    if company_login.isVisible():
+        loading_screen.hide()
+
+
+def handleLoadingScreen(loading_screen):
+    timer = QTimer(loading_screen)
+    timer.timeout.connect(lambda: updateLoadingScreen(loading_screen))
+    timer.start(3000)
+
+
 if __name__ == '__main__':
+    loading_screen = LoadingScreen.LoadingScreen()
+    loading_screen.show()
+    handleLoadingScreen(loading_screen)
+
+
     buildLocation()
 
     # Set icon for all widgets
@@ -82,6 +102,10 @@ if __name__ == '__main__':
     SettingsLogic.loadSettings()
 
     company_login = CompanyLogin.CompanyLogin()
+    QtTest.QTest.qWait(1500)
     company_login.showMaximized()
+    loading_screen.setWindowState(Qt.WindowActive)
+    loading_screen.activateWindow()
+
 
     sys.exit(app.exec_())
