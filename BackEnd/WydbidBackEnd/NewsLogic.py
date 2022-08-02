@@ -58,6 +58,7 @@ def getNews(news):
 
     base.metadata.create_all(engine)
 
+    # Get news from id in data
     _news = session.query(News).filter(News.id == news).first()
 
     return _news
