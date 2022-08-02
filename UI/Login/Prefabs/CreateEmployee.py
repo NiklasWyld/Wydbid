@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from BackEnd import CreateEmployeeLogic
+from BackEnd.Login import CreateEmployeeLogic
+
 
 class CreateEmployee(QWidget):
     def __init__(self, *args, **kwargs):
@@ -13,20 +14,18 @@ class CreateEmployee(QWidget):
         self.setWindowTitle('Wydbid - Create employee')
         self.setGeometry(0, 0, 600, 450)
 
-        self.widget = self
-
         self.setupUI()
 
     def clear(self):
         self.name.setText('')
         self.username.setText('')
-        self.passwort.setText('')
+        self.password.setText('')
 
     def createEmployee(self):
         CreateEmployeeLogic.createEmployeeFinal(self.name.text(),
                                                 self.username.text(),
-                                                self.passwort.text(),
-                                                self.widget)
+                                                self.password.text(),
+                                                self)
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
@@ -42,10 +41,10 @@ class CreateEmployee(QWidget):
         self.username = QLineEdit()
         self.username.returnPressed.connect(self.createEmployee)
 
-        passwort_note = QLabel('Password: ')
-        self.passwort = QLineEdit()
-        self.passwort.setEchoMode(QLineEdit.Password)
-        self.passwort.returnPressed.connect(self.createEmployee)
+        password_note = QLabel('Password: ')
+        self.password = QLineEdit()
+        self.password.setEchoMode(QLineEdit.Password)
+        self.password.returnPressed.connect(self.createEmployee)
 
         self.submit = QPushButton('Create')
         self.submit.clicked.connect(self.createEmployee)
@@ -58,7 +57,7 @@ class CreateEmployee(QWidget):
         self.layout.addWidget(username_note, 2, 0, Qt.AlignLeft)
         self.layout.addWidget(self.username, 2, 1, Qt.AlignRight)
 
-        self.layout.addWidget(passwort_note, 3, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.passwort, 3, 1, Qt.AlignRight)
+        self.layout.addWidget(password_note, 3, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.password, 3, 1, Qt.AlignRight)
 
         self.layout.addWidget(self.submit, 4, 0, 1, 0,  Qt.AlignCenter)

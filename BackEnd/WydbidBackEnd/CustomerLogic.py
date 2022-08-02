@@ -1,82 +1,139 @@
-import pickle
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import *
+from sqlalchemy.orm import sessionmaker
+from Data.DataCombi import *
 import Wydbid
-import os
-from Data import Customer
-
-
-def setupCustomerFolder():
-    kunden_path = f'{Wydbid.firmen_location}Customers'
-
-    if os.path.exists(kunden_path):
-        return
-    else:
-        os.mkdir(kunden_path)
 
 # ToDo: Add if not / .strip() to prove strings
-# ToDo: Fix reload
 
-
-def handleNextId():
-    id_list = os.listdir(f'{Wydbid.firmen_location}Customers/')
-    if not id_list:
-        return str(1)
-
-    id_list = [int(x) for x in id_list]
-
-    id_list.sort()
-
-    _number = 0
-
-    for id in id_list:
-        if _number + 1 == id:
-            _number = _number + 1
-        else:
-            return str(_number + 1)
-
-    return str(id_list[-1] + 1)
-
-
-def createCustomer(create_kunde):
-    if create_kunde.id_tick.isChecked():
-        new_id = handleNextId()
-    else:
-        new_id = create_kunde.id.text()
-
-    try:
-        int(new_id)
-    except:
-        QMessageBox.warning(Wydbid.app.parent(), 'Warning',
-                            'The customer number must be a number.')
-        return
-
-    if not new_id.strip() or not create_kunde.firstname.text().strip() or not create_kunde.lastname.text().strip():
+def createCustomer(create_customer):
+    if not create_customer.firstname.text().strip() or not create_customer.lastname.text().strip():
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'The mandatory fields must be filled in!')
         return
 
-    kunde_new = Customer.Customer(id=int(new_id), firstname=create_kunde.firstname.text(), lastname=create_kunde.lastname.text(),
-                                  email=create_kunde.email.text(), adress=create_kunde.adress.text(),
-                                  number=create_kunde.number.text(), gender=create_kunde.gender.currentData(),
-                                  birthdate=create_kunde.birthdate.text(),
-                                  information=create_kunde.information.toPlainText())
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    session = sessionmaker()
+    my_session = session(bind=engine)
 
-    kunde_loc_name = new_id
+    base.metadata.create_all(engine)
 
-    location = f'{Wydbid.firmen_location}Customers/{kunde_loc_name}/'
+    customer_new = Customer(firstname=create_customer.firstname.text(), lastname=create_customer.lastname.text(),
+                                  email=create_customer.email.text(), adress=create_customer.adress.text(),
+                                  number=create_customer.number.text(), gender=create_customer.gender.currentData(),
+                                  birthdate=create_customer.birthdate.text(),
+                                  information=create_customer.information.toPlainText())
 
-    if os.path.exists(location):
-        QMessageBox.warning(Wydbid.app.parent(), 'Attention',
-                            'A customer with this customer number already exists!')
-        return
-
-    os.makedirs(location)
-    k_file = open(f'{location}{kunde_loc_name}.wbk', 'wb')
-
-    pickle.dump(kunde_new, k_file, pickle.HIGHEST_PROTOCOL)
+    my_session.add(customer_new)
+    my_session.commit()
 
     QMessageBox.about(Wydbid.app.parent(), 'Completed',
-                      f'{kunde_new. firstname} {kunde_new.lastname} was created.')
+                      f'{customer_new.firstname} {customer_new.lastname} was created under the id {str(customer_new.id)}.')
 
-    create_kunde.clear()
-    create_kunde.hide()
+    create_customer.clear()
+    create_customer.hide()
+
+def setCustomerForEditFinal(widget, id):
+    try:
+        int(id)
+    except:
+        QMessageBox.warning(Wydbid.app.parent(
+        ), 'Warning', 'A number must be entered in the ID field!')
+        widget.hide()
+        return
+
+    id = int(id)
+
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    session = sessionmaker()
+    my_session = session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    customer = my_session.query(Customer).filter(Customer.id == id).first()
+
+    if not customer:
+        QMessageBox.warning(Wydbid.app.parent(), 'Attention',
+                            'Attention, the customer you entered does not exist.')
+        widget.hide()
+        return
+
+    my_session.commit()
+
+    widget.setCustomerFinal(customer)
+
+def setCustomerForEdit(widget):
+    id, ok_pressed = QInputDialog.getText(widget, 'Get customer', 'Enter the ID of the customer you want to edit: ',
+                                          QLineEdit.Normal, '')
+
+    if id and ok_pressed != '':
+        setCustomerForEditFinal(widget, id)
+    else:
+        widget.hide()
+
+def editCustomer(customer_id, edit_customer):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    session.query(Customer).filter(Customer.id == customer_id).update(
+        {
+            Customer.firstname: edit_customer.firstname.text(),
+            Customer.lastname: edit_customer.lastname.text(),
+            Customer.email: edit_customer.email.text(),
+            Customer.adress: edit_customer.adress.text(),
+            Customer.number: edit_customer.number.text(),
+            Customer.gender: edit_customer.gender.currentData(),
+            Customer.birthdate: edit_customer.birthdate.text(),
+            Customer.information: edit_customer.information.toPlainText()
+        }
+    )
+
+    session.commit()
+
+    QMessageBox.about(Wydbid.app.parent(), 'Process completed',
+                      f'{edit_customer.firstname.text()} {edit_customer.lastname.text()} has been successfully updated.')
+
+    edit_customer.clear()
+    edit_customer.hide()
+
+
+def delCustomer(widget, id):
+    try:
+        int(id)
+    except:
+        QMessageBox.warning(Wydbid.app.parent(), 'Warning', 'A number must be entered in the ID field!')
+        widget.clear()
+        return
+
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    customer = session.query(Customer).filter(Customer.id == int(id)).first()
+
+    if not customer:
+        QMessageBox.warning(Wydbid.app.parent(), 'Attention',
+                            'Attention, the customer you entered does not exist.')
+        return
+
+    reply = QMessageBox.question(Wydbid.app.parent(), 'Are you sure?',
+                                 f'Are you sure you want to delete {customer.firstname} {customer.lastname}?',
+                                 QMessageBox.Yes, QMessageBox.No)
+
+    if reply == QMessageBox.Yes:
+        session.delete(customer)
+        session.commit()
+
+        QMessageBox.about(Wydbid.app.parent(), 'Completed',
+                          'The customer has been deleted!')
+    else:
+        QMessageBox.about(Wydbid.app.parent(), 'Completed',
+                          'The customer has not been deleted!')
+        session.commit()
+
+    widget.clear()
+    widget.hide()

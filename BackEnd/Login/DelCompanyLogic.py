@@ -1,11 +1,13 @@
 import os
 import pickle
+import sys
 from PyQt5.QtWidgets import QComboBox, QMessageBox, QWidget
 from Data import Company
+import shutil
 import Wydbid
 
 
-def addItems(firma_liste: QComboBox):
+def addItems(companylist: QComboBox):
     l = f'{Wydbid.location}Companies/'
     files = []
 
@@ -23,35 +25,22 @@ def addItems(firma_liste: QComboBox):
             return
 
         try:
-            firma: Company.Company = pickle.load(n)
+            company: Company.Company = pickle.load(n)
         except:
             QMessageBox.about(Wydbid.app.parent(), 'Warning',
                               'Something went wrong!')
             return
 
-        firma_liste.addItem(firma.name, [firma, n_file])
+        companylist.addItem(company.name, [company, n_file])
 
 
-def changePasswordFinal(firma_box: QComboBox, old_passwort: str, new_passwort: str, widget: QWidget):
-    if old_passwort == '' or new_passwort == '':
-        QMessageBox.warning(Wydbid.app.parent(), 'Warning',
-                            'All fields must be filled in!')
-        return
-
-    firma: Company.Company = firma_box.currentData()[0]
-
-    if not old_passwort == firma.password:
-        QMessageBox.warning(Wydbid.app.parent(), 'Attention',
-                            'The password you entered is incorrect!')
-        return
-
-    firma.password = new_passwort
-    writer = open(firma_box.currentData()[1], 'wb')
-    pickle.dump(firma, writer, pickle.HIGHEST_PROTOCOL)
-    writer.close()
-
-    QMessageBox.about(Wydbid.app.parent(), 'Process completed',
-                      f'The password of {firma.name} was successfully changed.')
+def delCompanyFinal(file: str, widget: QWidget):
+    folder = file.split('/')[-2]
+    folder = f'{Wydbid.location}Companies/{folder}/'
+    os.remove(file)
+    shutil.rmtree(folder, ignore_errors=True)
+    QMessageBox.about(Wydbid.app.parent(), 'Completed',
+                      'The company has been deleted!')
 
     m = QMessageBox.question(Wydbid.app.parent(),
                              'Restart Wydbid',
@@ -65,3 +54,18 @@ def changePasswordFinal(firma_box: QComboBox, old_passwort: str, new_passwort: s
 
     elif m == QMessageBox.Yes:
         Wydbid.app.exit(0)
+
+
+def getCompany(companybox: QComboBox, password: str, widget: QWidget):
+    company: Company.Company = companybox.currentData()[0]
+
+    if password == '':
+        QMessageBox.warning(Wydbid.app.parent(), 'Warning',
+                            'All fields must be filled in!')
+        return
+
+    if password != company.password:
+        QMessageBox.warning(Wydbid.app.parent(), 'Attention',
+                            'Attention, the password entered is incorrect!')
+        return
+    delCompanyFinal(companybox.currentData()[1], widget)

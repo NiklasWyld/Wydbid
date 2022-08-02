@@ -1,85 +1,65 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from BackEnd.WydbidBackEnd import CustomerLogic
-from Data.DataCombi import Customer
+from Data.DataCombi import *
+import Wydbid
 
-class EditCustomer(QWidget):
+class ViewCustomer(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
 
         self.layout = QGridLayout()
 
         self.setLayout(self.layout)
-        self.setWindowTitle('Wydbid - Edit customer')
+        self.setWindowTitle('Wydbid - View customer')
         self.setGeometry(0, 0, 600, 600)
-
-        self.customer_id = 0
 
         self.setupUI()
 
-    def setCustomer(self):
-        CustomerLogic.setCustomerForEdit(self)
-
-    def setCustomerFinal(self, customer: Customer):
-        self.customer_id = customer.id
-
-        self.firstname.setText(customer.firstname)
-        self.lastname.setText(customer.lastname)
-        self.email.setText(customer.email)
-        self.adress.setText(customer.adress)
-        self.number.setText(customer.number)
-        if customer.gender == 'men': self.gender.setCurrentIndex(0)
-        else: self.gender.setCurrentIndex(1)
-        self.birthdate.setText(customer.birthdate)
-        self.information.setText(customer.information)
-
-    def clear(self):
-        self.firstname.setText('')
-        self.lastname.setText('')
-        self.email.setText('')
-        self.adress.setText('')
-        self.number.setText('')
-        self.gender.setCurrentIndex(0)
-        self.birthdate.setText('')
-        self.information.setText('')
-
     def setupUI(self):
-        self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
-
-        title = QLabel('Edit customer')
+        title = QLabel('View customer')
         title.setFont(QFont('Montserrat', 30))
+
+        id_note = QLabel(parent=self, text='ID: ')
+        self.id = QLineEdit(parent=self)
+        self.id.setFixedWidth(300)
 
         firstname_note = QLabel(parent=self, text='First name: ')
         self.firstname = QLineEdit(parent=self)
+        self.firstname.setFixedWidth(300)
 
         lastname_note = QLabel(parent=self, text='Last name: ')
         self.lastname = QLineEdit(parent=self)
+        self.lastname.setFixedWidth(300)
 
         email_note = QLabel(parent=self, text='E-mail address: ')
         self.email = QLineEdit(parent=self)
+        self.email.setFixedWidth(300)
 
         adress_note = QLabel(parent=self, text='Address: ')
         self.adress = QLineEdit(parent=self)
+        self.adress.setFixedWidth(300)
 
         number_note = QLabel(parent=self, text='Telephone number: ')
         self.number = QLineEdit(parent=self)
+        self.number.setFixedWidth(300)
 
         gender_note = QLabel(parent=self, text='Gender: ')
-        self.gender = QComboBox(parent=self)
-        self.gender.addItem('Male', 'men')
-        self.gender.addItem('Female', 'women')
+        self.gender = QLineEdit(parent=self)
+        self.gender.setFixedWidth(300)
 
         birthdate_note = QLabel(parent=self, text='Birth date: ')
         self.birthdate = QLineEdit(parent=self)
+        self.birthdate.setFixedWidth(300)
 
         information_note = QLabel(parent=self, text='Information: ')
         self.information = QTextEdit(parent=self)
+        self.information.setFixedWidth(300)
 
-        submit = QPushButton(parent=self, text='Edit')
-        submit.clicked.connect(lambda: CustomerLogic.editCustomer(self.customer_id, self))
+        self.layout.addWidget(title, 0, 0, 1, 0, Qt.AlignCenter)
 
-        self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
+        self.layout.addWidget(id_note, 1, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.id, 1, 1, Qt.AlignRight)
 
         self.layout.addWidget(firstname_note, 2, 0, Qt.AlignLeft)
         self.layout.addWidget(self.firstname, 2, 1, Qt.AlignRight)
@@ -105,5 +85,39 @@ class EditCustomer(QWidget):
         self.layout.addWidget(information_note, 9, 0, Qt.AlignLeft)
         self.layout.addWidget(self.information, 9, 1, Qt.AlignRight)
 
-        self.layout.addWidget(submit, 10, 0, 1, 0, Qt.AlignCenter)
+    def setCustomer(self, customer: Customer):
+        if customer.gender == 'men':
+            d_gender = 'Male'
+        else:
+            d_gender = 'Female'
 
+        self.id.setText(str(customer.id))
+        self.firstname.setText(customer.firstname)
+        self.lastname.setText(customer.lastname)
+        self.email.setText(customer.email)
+        self.adress.setText(customer.adress)
+        self.number.setText(customer.number)
+        self.gender.setText(d_gender)
+        self.birthdate.setText(customer.birthdate)
+        self.information.setText(customer.information)
+
+        self.id.setEnabled(False)
+        self.firstname.setEnabled(False)
+        self.lastname.setEnabled(False)
+        self.email.setEnabled(False)
+        self.adress.setEnabled(False)
+        self.number.setEnabled(False)
+        self.gender.setEnabled(False)
+        self.birthdate.setEnabled(False)
+        self.information.setEnabled(False)
+
+    def clear(self):
+        self.id.setText('')
+        self.firstname.setText('')
+        self.lastname.setText('')
+        self.email.setText('')
+        self.adress.setText('')
+        self.number.setText('')
+        self.gender.setText('')
+        self.birthdate.setText('')
+        self.information.setText('')
