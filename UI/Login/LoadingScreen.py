@@ -14,6 +14,7 @@ class LoadingScreen(QWidget):
         self.setupUI()
 
     def setupUI(self):
+        # Remove window bar
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setStyleSheet('')
 
