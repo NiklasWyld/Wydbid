@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from CustomQt import ActionButton
-from UI.WydbidUI.Prefabs.News import CreateNews
+from UI.WydbidUI.Prefabs.News import CreateNews, DelNews
 
 class NewsActions(QDialog):
     def __init__(self):
@@ -15,6 +15,8 @@ class NewsActions(QDialog):
 
         # Widgets
         self.cn = CreateNews.CreateNews()
+
+        self.dn = DelNews.DelNews()
 
         self.setupUI()
         self.setLayout(self.layout)
@@ -33,6 +35,13 @@ class NewsActions(QDialog):
 
         add_news.clicked.connect(self.startCreateNews)
 
+        del_news.clicked.connect(self.startDelNews)
+
     def startCreateNews(self):
         self.cn.show()
+        self.hide()
+
+    def startDelNews(self):
+        self.dn.show()
+        self.dn.appendNews()
         self.hide()

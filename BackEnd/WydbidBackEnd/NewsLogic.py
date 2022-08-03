@@ -62,3 +62,23 @@ def getNews(news):
     _news = session.query(News).filter(News.id == news).first()
 
     return _news
+
+def delNews(news_list: QListWidget, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    news_id = news_list.selectedItems()[0].data(Qt.UserRole)
+
+    news = session.query(News).filter(News.id == news_id).first()
+
+    session.delete(news)
+    session.commit()
+
+    QMessageBox.about(Wydbid.app.parent(), 'Completed',
+                      'The news has been deleted!')
+
+    widget.hide()
+    Wydbid.wydbidui.setLatestNews()
