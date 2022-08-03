@@ -205,7 +205,6 @@ class WydbidUIMain(QWidget):
 
     def setupNewsWidget(self, newswidget: QWidget):
         # ToDo: Load newest News
-        # ToDo: Add news list / new load to this widget
 
         # Layout declarations
         lyt = QVBoxLayout()
@@ -219,11 +218,7 @@ class WydbidUIMain(QWidget):
         self.news_description = QTextEdit(parent=newswidget)
         self.news_description.setEnabled(False)
 
-        # Only test news
-        self.news_title.setText('First news in Wydbid')
-
-        self.news_description.setText('Test News in Wydbid\n'
-                            'With more lines')
+        self.setLatestNews()
 
         showall = QPushButton(parent=newswidget, text='Show all')
         showall.clicked.connect(self.startViewAllNews)
@@ -330,6 +325,14 @@ class WydbidUIMain(QWidget):
         self.san.show()
 
     def setNews(self, news):
+        self.news_title.setText(news.title)
+        self.news_description.setText(news.description)
+
+    def setLatestNews(self):
+        news = WydbidUIMainLogic.getLatestNews(self)
+        if not news:
+            return
+
         self.news_title.setText(news.title)
         self.news_description.setText(news.description)
 
