@@ -1,7 +1,6 @@
 import shutil
 import sys
 import os
-
 from PyQt5 import QtTest
 from PyQt5.QtCore import QTimer, Qt
 from PyQt5.QtGui import QIcon
