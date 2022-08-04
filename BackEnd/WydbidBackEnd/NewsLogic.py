@@ -30,6 +30,8 @@ def createNewsFinal(widget):
     widget.clear()
     widget.hide()
 
+    Wydbid.wydbidui.setLatestNews()
+
 def appendNews(newslist: QListWidget):
     engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
     _session = sessionmaker()
@@ -70,6 +72,11 @@ def delNews(news_list: QListWidget, widget):
 
     base.metadata.create_all(engine)
 
+    if not news_list.selectedItems():
+        QMessageBox.warning(widget, 'Warning',
+                            'No news selected!')
+        return
+
     news_id = news_list.selectedItems()[0].data(Qt.UserRole)
 
     news = session.query(News).filter(News.id == news_id).first()
@@ -81,4 +88,41 @@ def delNews(news_list: QListWidget, widget):
                       'The news has been deleted!')
 
     widget.hide()
+    Wydbid.wydbidui.setLatestNews()
+
+def setNewsForEdit(news_id, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    news = session.query(News).filter(News.id == news_id).first()
+
+    widget.setNewsFinal(news)
+
+    session.commit()
+
+def editNews(news_id, title, description, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    session.query(News).filter(News.id == news_id).update(
+        {
+            News.title: title,
+            News.description: description
+        }
+    )
+
+    session.commit()
+
+    QMessageBox.about(Wydbid.app.parent(), 'Process completed',
+                      f'{title} has been successfully updated.')
+
+    widget.clear()
+    widget.hide()
+
     Wydbid.wydbidui.setLatestNews()
