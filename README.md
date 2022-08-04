@@ -15,17 +15,17 @@ No beta version yet 🔮
 #### Dark Theme
 
 <p align="center">
-  <img style="width: 320px" src="./Assets/Images/Firma_Dunkel.png">
-  <img style="width: 320px" src="./Assets/Images/Mitarbeiter_Dunkel.png">
-  <img style="width: 320px" src="./Assets/Images/Main_Dunkel.png">
+  <img style="width: 320px" src="./Assets/Images/Company_Dark.png">
+  <img style="width: 320px" src="./Assets/Images/Employee_Dark.png">
+  <img style="width: 320px" src="./Assets/Images/Main_Dark.png">
 </p>
 
 #### Light Theme
 
 <p align="center">
-  <img style="width: 320px" src="./Assets/Images/Firma_Hell.png">
-  <img style="width: 320px" src="./Assets/Images/Mitarbeiter_Hell.png">
-  <img style="width: 320px" src="./Assets/Images/Main_Hell.png">
+  <img style="width: 320px" src="./Assets/Images/Company_Light.png">
+  <img style="width: 320px" src="./Assets/Images/Employee_Light.png">
+  <img style="width: 320px" src="./Assets/Images/Main_Light.png">
 </p>
 
 ### Startup guide

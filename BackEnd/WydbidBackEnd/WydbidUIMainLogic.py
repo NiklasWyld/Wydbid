@@ -216,6 +216,23 @@ def searchForLastName(searchfirst: QLineEdit, searchlast: QLineEdit, list: QTabl
         list.setRowHidden(row, name not in item.text().lower())
     searchfirst.setText('')
 
+def getLatestNews(wydbidui):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    news = session.query(News).all()
+
+    if not news:
+        return None
+
+    news.sort(key=lambda x: x.id, reverse=False)
+    news = news[-1]
+
+    return news
+
 def contact():
     p = MessageBox.MessageBox(parent=Wydbid.app.parent(),
                               title='Contact',

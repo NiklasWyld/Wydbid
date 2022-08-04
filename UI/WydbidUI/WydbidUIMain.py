@@ -7,7 +7,8 @@ from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer
-from UI.WydbidUI.ActionPrefabs import CustomerActions
+from UI.WydbidUI.Prefabs.News import ShowAllNews
+from UI.WydbidUI.ActionPrefabs import CustomerActions, NewsActions
 import screeninfo
 
 # ToDo: Update pictures in README.md
@@ -25,11 +26,13 @@ class WydbidUIMain(QWidget):
         self.layout().setContentsMargins(30, 30, 30, 30)
 
         self.vc = ViewCustomer.ViewCustomer()
+        self.san = ShowAllNews.ShowAllNews()
 
         # Tabwidget
         self.tabwidget = QTabWidget(parent=self)
 
         # Action Widgets
+        self.news_actions = NewsActions.NewsActions()
         self.customer_actions = CustomerActions.CustomerActions()
 
         self.setupUI()
@@ -133,7 +136,7 @@ class WydbidUIMain(QWidget):
 
         self.menubar.resize(self.width(), 20)
 
-    def setupActionBox(self, action_list: QComboBox):
+    def setupActionBox(self, action_list: QGroupBox):
         action_list.setLayout(QGridLayout())
         action_list.layout().setAlignment(Qt.AlignTop| Qt.AlignHCenter)
 
@@ -195,37 +198,34 @@ class WydbidUIMain(QWidget):
 
         # ToDo: Event Management
 
+        news_actions.clicked.connect(self.startNewsActions)
         customer_actions.clicked.connect(self.startCustomerActions)
 
     # Setup tab widgets
 
     def setupNewsWidget(self, newswidget: QWidget):
         # ToDo: Load newest News
-        # ToDo: Add news list / new load to this widget
 
         # Layout declarations
         lyt = QVBoxLayout()
         hlyt = QHBoxLayout()
 
-        title = QLabel(parent=newswidget)
-        title.setAlignment(Qt.AlignCenter)
-        title.setFont(QFont('Arial', 20))
-        title.setFixedHeight(40)
+        self.news_title = QLabel(parent=newswidget)
+        self.news_title.setAlignment(Qt.AlignCenter)
+        self.news_title.setFont(QFont('Arial', 20))
+        self.news_title.setFixedHeight(40)
 
-        description = QTextEdit(parent=newswidget)
-        description.setEnabled(False)
+        self.news_description = QTextEdit(parent=newswidget)
+        self.news_description.setEnabled(False)
 
-        # Only test news
-        title.setText('First news in Wydbid')
-
-        description.setText('Test News in Wydbid\n'
-                            'With more lines')
+        self.setLatestNews()
 
         showall = QPushButton(parent=newswidget, text='Show all')
+        showall.clicked.connect(self.startViewAllNews)
         showall.setFixedWidth(120)
 
-        lyt.addWidget(title, Qt.AlignCenter)
-        lyt.addWidget(description, Qt.AlignCenter)
+        lyt.addWidget(self.news_title, Qt.AlignCenter)
+        lyt.addWidget(self.news_description, Qt.AlignCenter)
 
         hlyt.addWidget(showall)
 
@@ -320,10 +320,29 @@ class WydbidUIMain(QWidget):
     def updateClock(self):
         self.time_label.setText(datetime.now().strftime("%H:%M:%S"))
 
+    def startViewAllNews(self):
+        self.san.appendNews()
+        self.san.show()
+
+    def setNews(self, news):
+        self.news_title.setText(news.title)
+        self.news_description.setText(news.description)
+
+    def setLatestNews(self):
+        news = WydbidUIMainLogic.getLatestNews(self)
+        if not news:
+            return
+
+        self.news_title.setText(news.title)
+        self.news_description.setText(news.description)
+
     def closeApp(self):
         Wydbid.app.exit(0)
 
     # Event Management Methods
+
+    def startNewsActions(self):
+        self.news_actions.show()
 
     def startCustomerActions(self):
         self.customer_actions.show()
