@@ -11,8 +11,6 @@ from UI.WydbidUI.Prefabs.News import ShowAllNews
 from UI.WydbidUI.ActionPrefabs import CustomerActions, NewsActions
 import screeninfo
 
-# ToDo: Update pictures in README.md
-
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -189,8 +187,8 @@ class WydbidUIMain(QWidget):
         action_list.layout().addWidget(event_actions, 9, 0, 1, 0, Qt.AlignCenter)
 
         # Task Layout Management
-        action_list.layout().addWidget(task_note, 8, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(task_actions, 9, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(task_note, 10, 0, 1, 0, Qt.AlignLeft)
+        action_list.layout().addWidget(task_actions, 11, 0, 1, 0, Qt.AlignCenter)
 
         # E-Mail Layout Management
         action_list.layout().addWidget(email_note, 12, 0, 1, 0, Qt.AlignLeft)
