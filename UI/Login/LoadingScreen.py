@@ -42,6 +42,10 @@ class LoadingScreen(QWidget):
         self.version_info.setAlignment(Qt.AlignCenter)
         self.version_info.setFont(QFont('Arial', 16))
 
+        self.progresss_bar = QProgressBar(self)
+        self.progresss_bar.setGeometry(0, 290, 600, 10)
+        self.progresss_bar.setTextVisible(False)
+        self.progresss_bar.setStyleSheet('QProgressBar {background-color : transparent; border : 1px} QProgressBar::chunk {background-color: white;}')
 
     def center(self):
         qr = self.frameGeometry()

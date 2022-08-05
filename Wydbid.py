@@ -74,22 +74,19 @@ def buildLocation():
     # ...
 
 
-def updateLoadingScreen(loading_screen):
-    if company_login.isVisible():
-        loading_screen.hide()
 
 
-def handleLoadingScreen(loading_screen):
-    timer = QTimer(loading_screen)
-    timer.timeout.connect(lambda: updateLoadingScreen(loading_screen))
-    timer.start(3000)
+def handleLoadingScreen(loading_screen, company_login):
+    for procent in range(101):
+        loading_screen.progresss_bar.setValue(procent + 1)
+        QtTest.QTest.qWait(20)
 
+    loading_screen.hide()
+    company_login.showMaximized()
 
 if __name__ == '__main__':
     loading_screen = LoadingScreen.LoadingScreen()
     loading_screen.show()
-    handleLoadingScreen(loading_screen)
-
 
     buildLocation()
 
@@ -102,8 +99,8 @@ if __name__ == '__main__':
     SettingsLogic.loadSettings()
 
     company_login = CompanyLogin.CompanyLogin()
-    QtTest.QTest.qWait(1500)
-    company_login.showMaximized()
+
+    handleLoadingScreen(loading_screen, company_login)
     loading_screen.setWindowState(Qt.WindowActive)
     loading_screen.activateWindow()
 
