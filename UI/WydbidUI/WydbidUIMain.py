@@ -67,6 +67,7 @@ class WydbidUIMain(QWidget):
         self.setupCustomerList(customerlist=customer_widget)
 
         appointment_widget = QWidget()
+        self.setupAppointments(appointment_widget)
 
         order_widget = QWidget()
 
@@ -298,6 +299,9 @@ class WydbidUIMain(QWidget):
     def loadViewCustomer(self, item):
         if item.data() == '🔎':
             WydbidUIMainLogic.viewCustomer(self.customerlist, self.vc, item)
+
+    def setupAppointments(self, appointments: QWidget):
+        pass
 
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)

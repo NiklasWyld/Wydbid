@@ -12,8 +12,6 @@ from sqlalchemy.orm import sessionmaker
 from UI.WydbidUI.Prefabs import Settings
 from BackEnd.WydbidBackEnd import SettingsLogic, WydbidUIMainLogic
 
-# ToDo: Write wydbid start fail linux fix in readme: sudo ln -s /usr/lib/x86_64-linux-gnu/libxcb-util.so.1
-
 location = './WydbidData/'
 # Must be set at login
 company_location = ''
