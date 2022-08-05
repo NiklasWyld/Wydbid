@@ -8,8 +8,10 @@ from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer
 from UI.WydbidUI.Prefabs.News import ShowAllNews
-from UI.WydbidUI.ActionPrefabs import CustomerActions, NewsActions
 import screeninfo
+
+# ToDo: Update Pictures in Readme
+# ToDo: New slogan: There is nothing, oh wait, there is, Wydbid!
 
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
@@ -31,10 +33,6 @@ class WydbidUIMain(QWidget):
         # Tabwidget
         self.tabwidget = QTabWidget(parent=self)
 
-        # Action Widgets
-        self.news_actions = NewsActions.NewsActions()
-        self.customer_actions = CustomerActions.CustomerActions()
-
         self.setupUI()
         self.setupMenuBar()
 
@@ -55,10 +53,6 @@ class WydbidUIMain(QWidget):
         date_time = QGroupBox(parent=self, title='Date and time')
         date_time.setFixedHeight(150)
         self.setupDateTime(date_time)
-
-        action_list = QGroupBox(parent=self, title='Actions')
-        action_list.setFixedWidth(200)
-        self.setupActionBox(action_list)
 
         news_widget = QWidget()
         self.setupNewsWidget(newswidget=news_widget)
@@ -86,8 +80,7 @@ class WydbidUIMain(QWidget):
         self.tabwidget.addTab(email_widget, 'Emails')
 
         self.layout().addWidget(date_time, 0, 0, 1, 0)
-        self.layout().addWidget(action_list, 1, 0)
-        self.layout().addWidget(self.tabwidget, 1, 1)
+        self.layout().addWidget(self.tabwidget, 1, 0)
 
     def setupMenuBar(self):
         self.menubar = QMenuBar(parent=self)
@@ -139,71 +132,6 @@ class WydbidUIMain(QWidget):
         super().resizeEvent(QResizeEvent)
 
         self.menubar.resize(self.width(), 20)
-
-    def setupActionBox(self, action_list: QGroupBox):
-        action_list.setLayout(QGridLayout())
-        action_list.layout().setAlignment(Qt.AlignTop| Qt.AlignHCenter)
-
-        # News
-        news_note = QLabel(parent=action_list, text='News 📰')
-        news_actions = ActionButton.ActionButton(parent=action_list, text='News Actions ➜', color='darkcyan', color_hover='teal')
-
-        # Customers
-        customer_note = QLabel(parent=action_list, text='Customers 👨')
-        customer_actions = ActionButton.ActionButton(parent=action_list, text='Customer Actions ➜', color='lightskyblue', color_hover='blue')
-
-        # Appointments
-        appointment_note = QLabel(parent=action_list, text='Appointments 📅')
-        appointment_actions = ActionButton.ActionButton(parent=action_list, text='Appointment Actions ➜', color='lightgreen', color_hover='green')
-
-        # Orders
-        order_note = QLabel(parent=action_list, text='Orders 📦')
-        order_actions = ActionButton.ActionButton(parent=action_list, text='Order Actions ➜', color='lightcoral', color_hover='red')
-
-        # Events
-        event_note = QLabel(parent=action_list, text='Events 📝')
-        event_actions = ActionButton.ActionButton(parent=action_list, text='Event Actions ➜', color='lightsalmon', color_hover='orange')
-
-        # Tasks
-        task_note = QLabel(parent=action_list, text='Tasks ✔️')
-        task_actions = ActionButton.ActionButton(parent=action_list, text='Task Actions ➜', color='violet', color_hover='mediumorchid')
-
-        # Emails
-        email_note = QLabel(parent=action_list, text='E-Mail ✉')
-        email_actions = ActionButton.ActionButton(parent=action_list, text='E-Mail Actions ➜', color='darkslateblue', color_hover='purple')
-
-        # News Layout Management
-        action_list.layout().addWidget(news_note, 0, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(news_actions, 1, 0, 1, 0, Qt.AlignCenter)
-
-        # Customer Layout Management
-        action_list.layout().addWidget(customer_note, 2, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(customer_actions, 3, 0, 1, 0, Qt.AlignCenter)
-
-        # Appointment Layout Management
-        action_list.layout().addWidget(appointment_note, 4, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(appointment_actions, 5, 0, 1, 0, Qt.AlignCenter)
-
-        # Order Layout Management
-        action_list.layout().addWidget(order_note, 6, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(order_actions, 7, 0, 1, 0, Qt.AlignCenter)
-
-        # Event Layout Management
-        action_list.layout().addWidget(event_note, 8, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(event_actions, 9, 0, 1, 0, Qt.AlignCenter)
-
-        # Task Layout Management
-        action_list.layout().addWidget(task_note, 10, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(task_actions, 11, 0, 1, 0, Qt.AlignCenter)
-
-        # E-Mail Layout Management
-        action_list.layout().addWidget(email_note, 12, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(email_actions, 13, 0, 1, 0, Qt.AlignCenter)
-
-        # ToDo: Event Management
-
-        news_actions.clicked.connect(self.startNewsActions)
-        customer_actions.clicked.connect(self.startCustomerActions)
 
     # Setup tab widgets
 

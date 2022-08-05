@@ -3,54 +3,6 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from BackEnd.WydbidBackEnd import NewsLogic
 
-class GetNews(QWidget):
-    def __init__(self, *args, **kwargs):
-        super().__init__()
-
-        self.layout = QGridLayout()
-
-        self.setLayout(self.layout)
-        self.setWindowTitle('Wydbid - Get news for edit')
-        self.setGeometry(0, 0, 600, 600)
-
-        self.en = EditNews()
-
-        self.setupUI()
-
-    def setupUI(self):
-        self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
-
-        title = QLabel('Get news for edit')
-        title.setFont(QFont('Montserrat', 30))
-
-        self.news_list = QListWidget(parent=self)
-        self.news_list.setFixedWidth(500)
-        self.news_list.setFixedHeight(500)
-
-        submit = QPushButton(parent=self, text='Edit selected')
-        submit.clicked.connect(self.continueWithEdit)
-
-        self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
-
-        self.layout.addWidget(self.news_list, 2, 0, 1, 0, Qt.AlignCenter)
-
-        self.layout.addWidget(submit, 3, 0, 1, 0, Qt.AlignCenter)
-
-    def appendNews(self):
-        NewsLogic.appendNews(self.news_list)
-
-    def continueWithEdit(self):
-        if not self.news_list.selectedItems():
-            QMessageBox.warning(self, 'Warning',
-                                'No news selected!')
-            return
-
-        item = self.news_list.selectedItems()[0].data(Qt.UserRole)
-
-        self.en.show()
-        self.en.setNews(item)
-        self.hide()
-
 class EditNews(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
