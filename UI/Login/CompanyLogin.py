@@ -98,7 +98,6 @@ class CompanyLogin(QWidget):
         create_company = QAction('Create company', self)
         del_company = QAction('Delete company', self)
         change_company_password = QAction('Change company password', self)
-        reset = QAction('Reset Wydbid', self)
         close = QAction('Exit', self)
 
         contact = QAction('Contact', self)
@@ -107,7 +106,6 @@ class CompanyLogin(QWidget):
         create_company.triggered.connect(self.startCreateCompany)
         del_company.triggered.connect(self.startDelCompany)
         change_company_password.triggered.connect(self.startChangeCompanyPassword)
-        reset.triggered.connect(Wydbid.reset)
         close.triggered.connect(self.closeApp)
 
         contact.triggered.connect(WydbidUIMainLogic.contact)
@@ -116,8 +114,6 @@ class CompanyLogin(QWidget):
         file.addAction(create_company)
         file.addAction(del_company)
         file.addAction(change_company_password)
-        file.addSeparator()
-        file.addAction(reset)
         file.addSeparator()
         file.addAction(close)
         self.menubar.addMenu(file)
