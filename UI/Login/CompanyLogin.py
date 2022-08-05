@@ -20,6 +20,8 @@ class CompanyLogin(QWidget):
         height = screeninfo.get_monitors()[0].height
         self.setGeometry(0, 0, width, height)
 
+        self.use_close_event = True
+
         self.cf = CreateCompany.CreateCompany()
         self.del_company = DelCompany.DelCompany()
         self.cfp = ChangeCompanyPassword.ChangeCompanyPassword()
@@ -29,14 +31,17 @@ class CompanyLogin(QWidget):
         self.repaint()
 
     def closeEvent(self, event: QCloseEvent):
-        reply = QMessageBox.question(self, 'Are you sure?', 'Are you sure you want to quit Wydbid?',
-                                     QMessageBox.Yes, QMessageBox.No)
+        if self.use_close_event:
+            reply = QMessageBox.question(self, 'Are you sure?', 'Are you sure you want to quit Wydbid?',
+                                         QMessageBox.Yes, QMessageBox.No)
 
-        if reply == QMessageBox.Yes:
-            Wydbid.app.exit(0)
+            if reply == QMessageBox.Yes:
+                Wydbid.app.exit(0)
+            else:
+                event.ignore()
+                pass
         else:
-            event.ignore()
-            pass
+            event.accept()
 
     def addItemsToCompany(self):
         CompanyLoginLogic.addItems(self.company)

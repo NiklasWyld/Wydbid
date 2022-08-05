@@ -23,6 +23,8 @@ class WydbidUIMain(QWidget):
         self.setLayout(QGridLayout())
         self.layout().setContentsMargins(30, 30, 30, 30)
 
+        self.use_close_event = True
+
         self.vc = ViewCustomer.ViewCustomer()
         self.san = ShowAllNews.ShowAllNews()
 
@@ -37,14 +39,17 @@ class WydbidUIMain(QWidget):
         self.setupMenuBar()
 
     def closeEvent(self, event: QCloseEvent):
-        reply = QMessageBox.question(self, 'Are you sure?', 'Are you sure you want to quit Wydbid?',
-                                     QMessageBox.Yes, QMessageBox.No)
+        if self.use_close_event:
+            reply = QMessageBox.question(self, 'Are you sure?', 'Are you sure you want to quit Wydbid?',
+                                         QMessageBox.Yes, QMessageBox.No)
 
-        if reply == QMessageBox.Yes:
-            Wydbid.app.exit(0)
+            if reply == QMessageBox.Yes:
+                Wydbid.app.exit(0)
+            else:
+                event.ignore()
+                pass
         else:
-            event.ignore()
-            pass
+            event.accept()
 
     def setupUI(self):
         date_time = QGroupBox(parent=self, title='Date and time')
@@ -333,6 +338,9 @@ class WydbidUIMain(QWidget):
 
         self.news_title.setText(news.title)
         self.news_description.setText(news.description)
+
+    def quit(self):
+        self.use_close_event = False
 
     def closeApp(self):
         Wydbid.app.exit(0)
