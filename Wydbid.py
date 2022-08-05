@@ -1,15 +1,16 @@
 import shutil
+import subprocess
 import sys
 import os
-
 from PyQt5 import QtTest
 from PyQt5.QtCore import QTimer, Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 from CustomQt import MessageBox
 from UI.Login import CompanyLogin, LoadingScreen
+from sqlalchemy.orm import sessionmaker
 from UI.WydbidUI.Prefabs import Settings
-from BackEnd.WydbidBackEnd import SettingsLogic
+from BackEnd.WydbidBackEnd import SettingsLogic, WydbidUIMainLogic
 
 location = './WydbidData/'
 # Must be set at login
@@ -38,16 +39,28 @@ def reset():
         return
 
     elif m == QMessageBox.Yes:
-        p = MessageBox.MessageBox(parent=app.parent(
-        ), title='Info', text='Wydbid will now reset. Please confirm to continue!')
+        p = MessageBox.MessageBox(parent=app.parent(),
+                                  title='Info', text='Wydbid will now reset. Please confirm to continue!')
         p.setIcon(QMessageBox.Warning)
         p.setDefaultButton(QMessageBox.StandardButton.Ok)
         p.exec_()
 
+        company = None
+        company_location = ''
+
+        for i in app.allWidgets():
+            try:
+                i.use_close_event = False
+            except:
+                i.close()
+            i.close()
+
+        sessionmaker.close_all()
+
         shutil.rmtree(location, ignore_errors=True)
 
-        q = MessageBox.MessageBox(parent=app.parent(
-        ), title='Info', text='Wydbid has been successfully reset. The programme will now be terminated!')
+        q = MessageBox.MessageBox(parent=app.parent(),
+                                  title='Info', text='Wydbid has been successfully reset. The programme will now be terminated!')
         q.setIcon(QMessageBox.Warning)
         q.setDefaultButton(QMessageBox.StandardButton.Ok)
         q.exec_()
@@ -74,22 +87,19 @@ def buildLocation():
     # ...
 
 
-def updateLoadingScreen(loading_screen):
-    if company_login.isVisible():
-        loading_screen.hide()
+def handleLoadingScreen(loading_screen, company_login):
+    for procent in range(101):
+        loading_screen.progresss_bar.setValue(procent + 1)
+        QtTest.QTest.qWait(20)
 
-
-def handleLoadingScreen(loading_screen):
-    timer = QTimer(loading_screen)
-    timer.timeout.connect(lambda: updateLoadingScreen(loading_screen))
-    timer.start(3000)
+    loading_screen.hide()
+    company_login.showMaximized()
 
 
 if __name__ == '__main__':
+    # Make loading screen and show it
     loading_screen = LoadingScreen.LoadingScreen()
     loading_screen.show()
-    handleLoadingScreen(loading_screen)
-
 
     buildLocation()
 
@@ -101,11 +111,14 @@ if __name__ == '__main__':
 
     SettingsLogic.loadSettings()
 
+    # Make company login
     company_login = CompanyLogin.CompanyLogin()
-    QtTest.QTest.qWait(1500)
-    company_login.showMaximized()
+
+    # Start loading in loading screen
+    handleLoadingScreen(loading_screen, company_login)
+
+    # Set loading screen in foreground
     loading_screen.setWindowState(Qt.WindowActive)
     loading_screen.activateWindow()
-
 
     sys.exit(app.exec_())

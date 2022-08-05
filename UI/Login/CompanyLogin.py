@@ -20,6 +20,8 @@ class CompanyLogin(QWidget):
         height = screeninfo.get_monitors()[0].height
         self.setGeometry(0, 0, width, height)
 
+        self.use_close_event = True
+
         self.cf = CreateCompany.CreateCompany()
         self.del_company = DelCompany.DelCompany()
         self.cfp = ChangeCompanyPassword.ChangeCompanyPassword()
@@ -29,14 +31,17 @@ class CompanyLogin(QWidget):
         self.repaint()
 
     def closeEvent(self, event: QCloseEvent):
-        reply = QMessageBox.question(self, 'Are you sure?', 'Are you sure you want to quit Wydbid?',
-                                     QMessageBox.Yes, QMessageBox.No)
+        if self.use_close_event:
+            reply = QMessageBox.question(self, 'Are you sure?', 'Are you sure you want to quit Wydbid?',
+                                         QMessageBox.Yes, QMessageBox.No)
 
-        if reply == QMessageBox.Yes:
-            Wydbid.app.exit(0)
+            if reply == QMessageBox.Yes:
+                Wydbid.app.exit(0)
+            else:
+                event.ignore()
+                pass
         else:
-            event.ignore()
-            pass
+            event.accept()
 
     def addItemsToCompany(self):
         CompanyLoginLogic.addItems(self.company)
@@ -98,7 +103,6 @@ class CompanyLogin(QWidget):
         create_company = QAction('Create company', self)
         del_company = QAction('Delete company', self)
         change_company_password = QAction('Change company password', self)
-        reset = QAction('Reset Wydbid', self)
         close = QAction('Exit', self)
 
         contact = QAction('Contact', self)
@@ -107,7 +111,6 @@ class CompanyLogin(QWidget):
         create_company.triggered.connect(self.startCreateCompany)
         del_company.triggered.connect(self.startDelCompany)
         change_company_password.triggered.connect(self.startChangeCompanyPassword)
-        reset.triggered.connect(Wydbid.reset)
         close.triggered.connect(self.closeApp)
 
         contact.triggered.connect(WydbidUIMainLogic.contact)
@@ -116,8 +119,6 @@ class CompanyLogin(QWidget):
         file.addAction(create_company)
         file.addAction(del_company)
         file.addAction(change_company_password)
-        file.addSeparator()
-        file.addAction(reset)
         file.addSeparator()
         file.addAction(close)
         self.menubar.addMenu(file)

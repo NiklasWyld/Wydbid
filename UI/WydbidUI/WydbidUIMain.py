@@ -11,8 +11,6 @@ from UI.WydbidUI.Prefabs.News import ShowAllNews
 from UI.WydbidUI.ActionPrefabs import CustomerActions, NewsActions
 import screeninfo
 
-# ToDo: Update pictures in README.md
-
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -24,6 +22,8 @@ class WydbidUIMain(QWidget):
 
         self.setLayout(QGridLayout())
         self.layout().setContentsMargins(30, 30, 30, 30)
+
+        self.use_close_event = True
 
         self.vc = ViewCustomer.ViewCustomer()
         self.san = ShowAllNews.ShowAllNews()
@@ -39,14 +39,17 @@ class WydbidUIMain(QWidget):
         self.setupMenuBar()
 
     def closeEvent(self, event: QCloseEvent):
-        reply = QMessageBox.question(self, 'Are you sure?', 'Are you sure you want to quit Wydbid?',
-                                     QMessageBox.Yes, QMessageBox.No)
+        if self.use_close_event:
+            reply = QMessageBox.question(self, 'Are you sure?', 'Are you sure you want to quit Wydbid?',
+                                         QMessageBox.Yes, QMessageBox.No)
 
-        if reply == QMessageBox.Yes:
-            Wydbid.app.exit(0)
+            if reply == QMessageBox.Yes:
+                Wydbid.app.exit(0)
+            else:
+                event.ignore()
+                pass
         else:
-            event.ignore()
-            pass
+            event.accept()
 
     def setupUI(self):
         date_time = QGroupBox(parent=self, title='Date and time')
@@ -64,6 +67,7 @@ class WydbidUIMain(QWidget):
         self.setupCustomerList(customerlist=customer_widget)
 
         appointment_widget = QWidget()
+        self.setupAppointments(appointment_widget)
 
         order_widget = QWidget()
 
@@ -189,8 +193,8 @@ class WydbidUIMain(QWidget):
         action_list.layout().addWidget(event_actions, 9, 0, 1, 0, Qt.AlignCenter)
 
         # Task Layout Management
-        action_list.layout().addWidget(task_note, 8, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(task_actions, 9, 0, 1, 0, Qt.AlignCenter)
+        action_list.layout().addWidget(task_note, 10, 0, 1, 0, Qt.AlignLeft)
+        action_list.layout().addWidget(task_actions, 11, 0, 1, 0, Qt.AlignCenter)
 
         # E-Mail Layout Management
         action_list.layout().addWidget(email_note, 12, 0, 1, 0, Qt.AlignLeft)
@@ -296,6 +300,9 @@ class WydbidUIMain(QWidget):
         if item.data() == '🔎':
             WydbidUIMainLogic.viewCustomer(self.customerlist, self.vc, item)
 
+    def setupAppointments(self, appointments: QWidget):
+        pass
+
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)
         self.time_label.setText('00:00:00')
@@ -335,6 +342,9 @@ class WydbidUIMain(QWidget):
 
         self.news_title.setText(news.title)
         self.news_description.setText(news.description)
+
+    def quit(self):
+        self.use_close_event = False
 
     def closeApp(self):
         Wydbid.app.exit(0)
