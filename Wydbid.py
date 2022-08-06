@@ -88,8 +88,10 @@ def buildLocation():
 
 
 def handleLoadingScreen(loading_screen, company_login):
-    for procent in range(101):
-        loading_screen.progresss_bar.setValue(procent + 1)
+    i = 0
+    for procent in range(20):
+        i = i + 5
+        loading_screen.progresss_bar.setValue(i)
         QtTest.QTest.qWait(20)
 
     loading_screen.hide()

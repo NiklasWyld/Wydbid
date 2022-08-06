@@ -6,7 +6,7 @@ import Wydbid
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
-from UI.WydbidUI.Prefabs.Customer import ViewCustomer
+from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
 from UI.WydbidUI.Prefabs.News import ShowAllNews
 import screeninfo
 
@@ -32,6 +32,11 @@ class WydbidUIMain(QWidget):
 
         # Tabwidget
         self.tabwidget = QTabWidget(parent=self)
+
+        # Widgets
+        self.cc = CreateCustomer.CreateCustomer()
+        self.ec = EditCustomer.EditCustomer()
+        self.dc = DelCustomer.DelCustomer()
 
         self.setupUI()
         self.setupMenuBar()
@@ -170,6 +175,28 @@ class WydbidUIMain(QWidget):
         lyt = QVBoxLayout()
         hlyt = QHBoxLayout()
 
+        actions = QGroupBox(parent=self)
+        actions.setFixedHeight(40)
+        nlyt = QHBoxLayout()
+        nlyt.setContentsMargins(1, 1, 1, 1)
+
+        add = QPushButton(parent=self, text='Create')
+        add.setToolTip('Create customer')
+        add.clicked.connect(self.startCreateCustomer)
+
+        edit = QPushButton(parent=self, text='Edit')
+        edit.setToolTip('Edit customer')
+        edit.clicked.connect(self.startEditCustomer)
+
+        delete = QPushButton(parent=self, text='Delete')
+        delete.setToolTip('Delete customer')
+        delete.clicked.connect(self.startDelCustomer)
+
+        nlyt.addWidget(add)
+        nlyt.addWidget(edit)
+        nlyt.addWidget(delete)
+        actions.setLayout(nlyt)
+
         self.searchbar_first = QLineEdit(parent=customerlist)
         self.searchbar_first.setFixedHeight(40)
         self.searchbar_first.setPlaceholderText('Filter by first name')
@@ -209,6 +236,7 @@ class WydbidUIMain(QWidget):
         # Add customer list and search bar to main layout
         lyt.addWidget(self.searchbar_first, Qt.AlignCenter)
         lyt.addWidget(self.searchbar_last, Qt.AlignCenter)
+        lyt.addWidget(actions, Qt.AlignCenter)
         lyt.addWidget(self.customerlist, Qt.AlignCenter)
 
         reload = QPushButton('Reload')
@@ -279,8 +307,12 @@ class WydbidUIMain(QWidget):
 
     # Event Management Methods
 
-    def startNewsActions(self):
-        self.news_actions.show()
+    def startCreateCustomer(self):
+        self.cc.show()
 
-    def startCustomerActions(self):
-        self.customer_actions.show()
+    def startEditCustomer(self):
+        self.ec.show()
+        self.ec.setCustomer()
+
+    def startDelCustomer(self):
+        self.dc.show()
