@@ -257,7 +257,27 @@ class WydbidUIMain(QWidget):
             WydbidUIMainLogic.viewCustomer(self.customerlist, self.vc, item)
 
     def setupAppointments(self, appointments: QWidget):
-        pass
+        lyt = QHBoxLayout()
+        vl = QVBoxLayout()
+
+        self.calander = QCalendarWidget(parent=self)
+
+        self.appointment_list = QListWidget(parent=self)
+
+        action_box = QGroupBox(parent=appointments)
+        action_box.setFixedWidth(200)
+        alyt = QGridLayout()
+
+        goto_current_date = QPushButton(parent=action_box, text='Jump to current date')
+
+        alyt.addWidget(goto_current_date, 0, 0, 1, 0, Qt.AlignCenter)
+        action_box.setLayout(alyt)
+
+        lyt.addWidget(self.calander, Qt.AlignLeft)
+        lyt.addWidget(self.appointment_list, Qt.AlignCenter)
+        lyt.addWidget(action_box, Qt.AlignRight)
+
+        appointments.setLayout(lyt)
 
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)
