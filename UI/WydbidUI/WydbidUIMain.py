@@ -10,7 +10,6 @@ from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCusto
 from UI.WydbidUI.Prefabs.News import ShowAllNews
 import screeninfo
 
-# ToDo: Update Pictures in Readme
 # ToDo: New slogan: There is nothing, oh wait, there is, Wydbid!
 
 class WydbidUIMain(QWidget):
@@ -141,8 +140,6 @@ class WydbidUIMain(QWidget):
     # Setup tab widgets
 
     def setupNewsWidget(self, newswidget: QWidget):
-        # ToDo: Load newest News
-
         # Layout declarations
         lyt = QVBoxLayout()
         hlyt = QHBoxLayout()
