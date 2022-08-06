@@ -257,24 +257,53 @@ class WydbidUIMain(QWidget):
         lyt = QHBoxLayout()
         vl = QVBoxLayout()
 
-        self.calander = QCalendarWidget(parent=self)
-
-        self.appointment_list = QListWidget(parent=self)
-
         action_box = QGroupBox(parent=appointments)
-        action_box.setFixedWidth(200)
-        alyt = QGridLayout()
+        action_box.setFixedHeight(40)
+        alyt = QHBoxLayout()
 
         goto_current_date = QPushButton(parent=action_box, text='Jump to current date')
+        goto_current_date.clicked.connect(self.gotoCurrentDate)
 
-        alyt.addWidget(goto_current_date, 0, 0, 1, 0, Qt.AlignCenter)
+        add = QPushButton(parent=self, text='Create')
+        add.setToolTip('Create new appointment on selected date')
+        #add.clicked.connect(self.startCreateCustomer)
+
+        edit = QPushButton(parent=self, text='Edit')
+        edit.setToolTip('Edit selected appointment')
+        #edit.clicked.connect(self.startEditCustomer)
+
+        delete = QPushButton(parent=self, text='Delete')
+        delete.setToolTip('Delete selected appointment')
+        #delete.clicked.connect(self.startDelCustomer)
+
+        alyt.setContentsMargins(1, 1, 1, 1)
+        alyt.addWidget(goto_current_date)
+        alyt.addWidget(add)
+        alyt.addWidget(edit)
+        alyt.addWidget(delete)
         action_box.setLayout(alyt)
 
-        lyt.addWidget(self.calander, Qt.AlignLeft)
-        lyt.addWidget(self.appointment_list, Qt.AlignCenter)
-        lyt.addWidget(action_box, Qt.AlignRight)
+        # Widget content
 
-        appointments.setLayout(lyt)
+        self.calander = QCalendarWidget(parent=self)
+        self.calander.setStyleSheet('''
+        QAbstractItemView {
+            alternate-background-color: #2d3640;
+        }
+        ''')
+        self.calander.setGridVisible(True)
+
+        self.appointment_list = QListWidget(parent=self)
+        self.appointment_list.setMaximumWidth(600)
+
+
+        lyt.addWidget(self.calander, Qt.AlignLeft)
+        lyt.addWidget(self.appointment_list, Qt.AlignRight)
+
+        vl.addWidget(action_box)
+        vl.addLayout(lyt)
+
+        appointments.setLayout(vl)
 
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)
@@ -333,3 +362,7 @@ class WydbidUIMain(QWidget):
 
     def startDelCustomer(self):
         self.dc.show()
+
+    def gotoCurrentDate(self):
+        self.calander.showToday()
+        self.calander.setSelectedDate(QDate.currentDate())
