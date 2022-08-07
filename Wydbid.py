@@ -21,7 +21,7 @@ company_location = ''
 company = None
 employee = None
 wydbid_version = 'Beta 2.0'
-github_version_source = 'https://api.github.com/repos/FuchsBene/Wydbid/contents/version.txt'
+github_version_source = 'https://api.github.com/repos/NiklasWyld/Wydbid/contents/version.txt'
 download_source = ""
 
 app = QApplication(sys.argv)
