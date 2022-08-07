@@ -12,6 +12,10 @@ import screeninfo
 
 # ToDo: New slogan: There is nothing, oh wait, there is, Wydbid!
 
+def update():
+    Wydbid.Update().start()
+
+
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -94,6 +98,7 @@ class WydbidUIMain(QWidget):
         logout_employee = QAction('Deregister employee', self)
         logout_company = QAction('Log out from company', self)
         reset_programm = QAction('Reset Wydbid', self)
+        update_programm = QAction('Check for Updates', self)
         settings = QAction('Settings', self)
         close = QAction('Exit', self)
 
@@ -103,6 +108,7 @@ class WydbidUIMain(QWidget):
         logout_employee.triggered.connect(lambda: WydbidUIMainLogic.logoutEmployee(self))
         logout_company.triggered.connect(self.startCompanyLogout)
         reset_programm.triggered.connect(Wydbid.reset)
+        update_programm.triggered.connect(update)
         settings.triggered.connect(self.startSettings)
         close.triggered.connect(self.closeApp)
 
@@ -111,6 +117,8 @@ class WydbidUIMain(QWidget):
 
         file.addAction(logout_employee)
         file.addAction(logout_company)
+        file.addSeparator()
+        file.addAction(update_programm)
         file.addSeparator()
         file.addAction(reset_programm)
         file.addSeparator()

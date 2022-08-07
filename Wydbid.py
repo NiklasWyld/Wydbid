@@ -1,3 +1,5 @@
+import base64
+import requests
 import shutil
 import subprocess
 import sys
@@ -8,6 +10,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 from CustomQt import MessageBox
 from UI.Login import CompanyLogin, LoadingScreen
+from UI.WydbidUI import WydbidUIMain
 from sqlalchemy.orm import sessionmaker
 from UI.WydbidUI.Prefabs import Settings
 from BackEnd.WydbidBackEnd import SettingsLogic, WydbidUIMainLogic
@@ -17,7 +20,9 @@ location = './WydbidData/'
 company_location = ''
 company = None
 employee = None
-wydbid_version = 'Beta 1.0'
+wydbid_version = 'Beta 2.0'
+github_version_source = 'https://api.github.com/repos/NiklasWyld/Wydbid/contents/version.txt'
+download_source = ""
 
 app = QApplication(sys.argv)
 
@@ -25,6 +30,63 @@ app = QApplication(sys.argv)
 company_login = None
 employee_login = None
 wydbidui = None
+
+class Update():
+    def __init__(self):
+        super(Update, self).__init__()
+
+    def getVersion(self):
+        try:
+            req = requests.get(github_version_source)
+            if req.status_code == requests.codes.ok:
+                req = req.json()  # the response is a JSON
+                # req is now a dict with keys: name, encoding, url, size ...
+                # and content. But it is encoded with base64.
+                content = base64.b64decode(req['content'])
+                split = str(content).split("'")[1]
+                version = split.split("\\")[0]
+                return version
+
+            else:
+                return "Failed"
+
+        except:
+            return "Failed"
+
+    def check_version(self):
+        version = self.getVersion()
+
+        if version == "Failed":
+            return "Failed"
+
+        else:
+            if wydbid_version == version:
+                return "Uptodate"
+
+            else:
+                return "NotUptodate"
+
+
+
+
+    def start(self):
+        version_check = self.check_version()
+        if version_check == "Failed":
+            failed_info = QMessageBox.question(WydbidUIMain.WydbidUIMain(), "Update Failed!", "Something went wrong. Make sure you're connected to the internet and try again.", QMessageBox.Ok)
+
+
+        if version_check == "Uptodate":
+            info = QMessageBox.question(WydbidUIMain.WydbidUIMain(), "Up to date!", "Wydbid is up to date and no updates needed!", QMessageBox.Ok)
+
+
+        if version_check == "NotUptodate":
+            update_info = QMessageBox.question(WydbidUIMain.WydbidUIMain(), "Update available!", "An update for Wydbid is available. Do you want to install it?", QMessageBox.Yes, QMessageBox.No)
+
+            if update_info == QMessageBox.Yes:
+                pass
+
+            else:
+                pass
 
 
 def reset():
@@ -92,7 +154,7 @@ def handleLoadingScreen(loading_screen, company_login):
     for procent in range(20):
         i = i + 5
         loading_screen.progresss_bar.setValue(i)
-        QtTest.QTest.qWait(20)
+        QtTest.QTest.qWait(30)
 
     loading_screen.hide()
     company_login.showMaximized()
