@@ -81,6 +81,15 @@ def delNews(news_list: QListWidget, widget):
 
     news = session.query(News).filter(News.id == news_id).first()
 
+    reply = QMessageBox.question(widget, 'Are you sure?', f'Are you sure you want to delete {news.title}?',
+                                 QMessageBox.Yes, QMessageBox.No)
+
+    if reply == QMessageBox.No:
+        QMessageBox.about(Wydbid.app.parent(), 'Cancled',
+                          'The news has not been deleted!')
+        session.commit()
+        return
+
     session.delete(news)
     session.commit()
 

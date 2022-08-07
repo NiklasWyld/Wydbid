@@ -6,10 +6,11 @@ import Wydbid
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
-from UI.WydbidUI.Prefabs.Customer import ViewCustomer
+from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
 from UI.WydbidUI.Prefabs.News import ShowAllNews
-from UI.WydbidUI.ActionPrefabs import CustomerActions, NewsActions
 import screeninfo
+
+# ToDo: New slogan: There is nothing, oh wait, there is, Wydbid!
 
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
@@ -31,9 +32,10 @@ class WydbidUIMain(QWidget):
         # Tabwidget
         self.tabwidget = QTabWidget(parent=self)
 
-        # Action Widgets
-        self.news_actions = NewsActions.NewsActions()
-        self.customer_actions = CustomerActions.CustomerActions()
+        # Widgets
+        self.cc = CreateCustomer.CreateCustomer()
+        self.ec = EditCustomer.EditCustomer()
+        self.dc = DelCustomer.DelCustomer()
 
         self.setupUI()
         self.setupMenuBar()
@@ -55,10 +57,6 @@ class WydbidUIMain(QWidget):
         date_time = QGroupBox(parent=self, title='Date and time')
         date_time.setFixedHeight(150)
         self.setupDateTime(date_time)
-
-        action_list = QGroupBox(parent=self, title='Actions')
-        action_list.setFixedWidth(200)
-        self.setupActionBox(action_list)
 
         news_widget = QWidget()
         self.setupNewsWidget(newswidget=news_widget)
@@ -86,8 +84,7 @@ class WydbidUIMain(QWidget):
         self.tabwidget.addTab(email_widget, 'Emails')
 
         self.layout().addWidget(date_time, 0, 0, 1, 0)
-        self.layout().addWidget(action_list, 1, 0)
-        self.layout().addWidget(self.tabwidget, 1, 1)
+        self.layout().addWidget(self.tabwidget, 1, 0)
 
     def setupMenuBar(self):
         self.menubar = QMenuBar(parent=self)
@@ -140,76 +137,9 @@ class WydbidUIMain(QWidget):
 
         self.menubar.resize(self.width(), 20)
 
-    def setupActionBox(self, action_list: QGroupBox):
-        action_list.setLayout(QGridLayout())
-        action_list.layout().setAlignment(Qt.AlignTop| Qt.AlignHCenter)
-
-        # News
-        news_note = QLabel(parent=action_list, text='News 📰')
-        news_actions = ActionButton.ActionButton(parent=action_list, text='News Actions ➜', color='darkcyan', color_hover='teal')
-
-        # Customers
-        customer_note = QLabel(parent=action_list, text='Customers 👨')
-        customer_actions = ActionButton.ActionButton(parent=action_list, text='Customer Actions ➜', color='lightskyblue', color_hover='blue')
-
-        # Appointments
-        appointment_note = QLabel(parent=action_list, text='Appointments 📅')
-        appointment_actions = ActionButton.ActionButton(parent=action_list, text='Appointment Actions ➜', color='lightgreen', color_hover='green')
-
-        # Orders
-        order_note = QLabel(parent=action_list, text='Orders 📦')
-        order_actions = ActionButton.ActionButton(parent=action_list, text='Order Actions ➜', color='lightcoral', color_hover='red')
-
-        # Events
-        event_note = QLabel(parent=action_list, text='Events 📝')
-        event_actions = ActionButton.ActionButton(parent=action_list, text='Event Actions ➜', color='lightsalmon', color_hover='orange')
-
-        # Tasks
-        task_note = QLabel(parent=action_list, text='Tasks ✔️')
-        task_actions = ActionButton.ActionButton(parent=action_list, text='Task Actions ➜', color='violet', color_hover='mediumorchid')
-
-        # Emails
-        email_note = QLabel(parent=action_list, text='E-Mail ✉')
-        email_actions = ActionButton.ActionButton(parent=action_list, text='E-Mail Actions ➜', color='darkslateblue', color_hover='purple')
-
-        # News Layout Management
-        action_list.layout().addWidget(news_note, 0, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(news_actions, 1, 0, 1, 0, Qt.AlignCenter)
-
-        # Customer Layout Management
-        action_list.layout().addWidget(customer_note, 2, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(customer_actions, 3, 0, 1, 0, Qt.AlignCenter)
-
-        # Appointment Layout Management
-        action_list.layout().addWidget(appointment_note, 4, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(appointment_actions, 5, 0, 1, 0, Qt.AlignCenter)
-
-        # Order Layout Management
-        action_list.layout().addWidget(order_note, 6, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(order_actions, 7, 0, 1, 0, Qt.AlignCenter)
-
-        # Event Layout Management
-        action_list.layout().addWidget(event_note, 8, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(event_actions, 9, 0, 1, 0, Qt.AlignCenter)
-
-        # Task Layout Management
-        action_list.layout().addWidget(task_note, 10, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(task_actions, 11, 0, 1, 0, Qt.AlignCenter)
-
-        # E-Mail Layout Management
-        action_list.layout().addWidget(email_note, 12, 0, 1, 0, Qt.AlignLeft)
-        action_list.layout().addWidget(email_actions, 13, 0, 1, 0, Qt.AlignCenter)
-
-        # ToDo: Event Management
-
-        news_actions.clicked.connect(self.startNewsActions)
-        customer_actions.clicked.connect(self.startCustomerActions)
-
     # Setup tab widgets
 
     def setupNewsWidget(self, newswidget: QWidget):
-        # ToDo: Load newest News
-
         # Layout declarations
         lyt = QVBoxLayout()
         hlyt = QHBoxLayout()
@@ -241,6 +171,28 @@ class WydbidUIMain(QWidget):
         # Layout declarations
         lyt = QVBoxLayout()
         hlyt = QHBoxLayout()
+
+        actions = QGroupBox(parent=self)
+        actions.setFixedHeight(40)
+        nlyt = QHBoxLayout()
+        nlyt.setContentsMargins(1, 1, 1, 1)
+
+        add = QPushButton(parent=self, text='Create')
+        add.setToolTip('Create customer')
+        add.clicked.connect(self.startCreateCustomer)
+
+        edit = QPushButton(parent=self, text='Edit')
+        edit.setToolTip('Edit customer')
+        edit.clicked.connect(self.startEditCustomer)
+
+        delete = QPushButton(parent=self, text='Delete')
+        delete.setToolTip('Delete customer')
+        delete.clicked.connect(self.startDelCustomer)
+
+        nlyt.addWidget(add)
+        nlyt.addWidget(edit)
+        nlyt.addWidget(delete)
+        actions.setLayout(nlyt)
 
         self.searchbar_first = QLineEdit(parent=customerlist)
         self.searchbar_first.setFixedHeight(40)
@@ -281,6 +233,7 @@ class WydbidUIMain(QWidget):
         # Add customer list and search bar to main layout
         lyt.addWidget(self.searchbar_first, Qt.AlignCenter)
         lyt.addWidget(self.searchbar_last, Qt.AlignCenter)
+        lyt.addWidget(actions, Qt.AlignCenter)
         lyt.addWidget(self.customerlist, Qt.AlignCenter)
 
         reload = QPushButton('Reload')
@@ -301,7 +254,56 @@ class WydbidUIMain(QWidget):
             WydbidUIMainLogic.viewCustomer(self.customerlist, self.vc, item)
 
     def setupAppointments(self, appointments: QWidget):
-        pass
+        lyt = QHBoxLayout()
+        vl = QVBoxLayout()
+
+        action_box = QGroupBox(parent=appointments)
+        action_box.setFixedHeight(40)
+        alyt = QHBoxLayout()
+
+        goto_current_date = QPushButton(parent=action_box, text='Jump to current date')
+        goto_current_date.clicked.connect(self.gotoCurrentDate)
+
+        add = QPushButton(parent=self, text='Create')
+        add.setToolTip('Create new appointment on selected date')
+        #add.clicked.connect(self.startCreateCustomer)
+
+        edit = QPushButton(parent=self, text='Edit')
+        edit.setToolTip('Edit selected appointment')
+        #edit.clicked.connect(self.startEditCustomer)
+
+        delete = QPushButton(parent=self, text='Delete')
+        delete.setToolTip('Delete selected appointment')
+        #delete.clicked.connect(self.startDelCustomer)
+
+        alyt.setContentsMargins(1, 1, 1, 1)
+        alyt.addWidget(goto_current_date)
+        alyt.addWidget(add)
+        alyt.addWidget(edit)
+        alyt.addWidget(delete)
+        action_box.setLayout(alyt)
+
+        # Widget content
+
+        self.calander = QCalendarWidget(parent=self)
+        self.calander.setStyleSheet('''
+        QAbstractItemView {
+            alternate-background-color: #2d3640;
+        }
+        ''')
+        self.calander.setGridVisible(True)
+
+        self.appointment_list = QListWidget(parent=self)
+        self.appointment_list.setMaximumWidth(600)
+
+
+        lyt.addWidget(self.calander, Qt.AlignLeft)
+        lyt.addWidget(self.appointment_list, Qt.AlignRight)
+
+        vl.addWidget(action_box)
+        vl.addLayout(lyt)
+
+        appointments.setLayout(vl)
 
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)
@@ -351,8 +353,16 @@ class WydbidUIMain(QWidget):
 
     # Event Management Methods
 
-    def startNewsActions(self):
-        self.news_actions.show()
+    def startCreateCustomer(self):
+        self.cc.show()
 
-    def startCustomerActions(self):
-        self.customer_actions.show()
+    def startEditCustomer(self):
+        self.ec.show()
+        self.ec.setCustomer()
+
+    def startDelCustomer(self):
+        self.dc.show()
+
+    def gotoCurrentDate(self):
+        self.calander.showToday()
+        self.calander.setSelectedDate(QDate.currentDate())
