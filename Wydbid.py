@@ -1,7 +1,5 @@
-import base64
 import requests
 import shutil
-import subprocess
 import sys
 import os
 from PyQt5 import QtTest
@@ -20,9 +18,10 @@ location = './WydbidData/'
 company_location = ''
 company = None
 employee = None
-wydbid_version = 'Beta 2.0'
-github_version_source = 'https://api.github.com/repos/NiklasWyld/Wydbid/contents/version.txt'
-download_source = ""
+
+WYDBID_VERSION = 'V0.22'
+# ToDo: On merch in main branch dev -> main
+GITHUB_VERSION_SOURCE = 'https://raw.githubusercontent.com/NiklasWyld/Wydbid/dev/version.txt'
 
 app = QApplication(sys.argv)
 
@@ -34,59 +33,52 @@ wydbidui = None
 class Update():
     def __init__(self):
         super(Update, self).__init__()
+        self.show_if_uptodate = True
 
     def getVersion(self):
         try:
-            req = requests.get(github_version_source)
-            if req.status_code == requests.codes.ok:
-                req = req.json()  # the response is a JSON
-                # req is now a dict with keys: name, encoding, url, size ...
-                # and content. But it is encoded with base64.
-                content = base64.b64decode(req['content'])
-                split = str(content).split("'")[1]
-                version = split.split("\\")[0]
-                return version
+            respone = requests.get(GITHUB_VERSION_SOURCE)
+            r_codes = range(200, 299)
 
+            if respone.status_code in r_codes:
+                version = respone.text.strip()
+                print(version)
+
+                if version == WYDBID_VERSION:
+                    return False
+                else:
+                    return True
             else:
-                return "Failed"
-
+                return 0
         except:
-            return "Failed"
+            return 0
 
-    def check_version(self):
-        version = self.getVersion()
+    def checkVersion(self):
+        # True = Get answer and there is a never version
+        # False = Get answer and Wydbid is on the latest version
+        # 0 = Get no answer / No connection
 
-        if version == "Failed":
-            return "Failed"
+        answer = self.getVersion()
 
-        else:
-            if wydbid_version == version:
-                return "Uptodate"
+        if answer: # (answer = True)
+            update = QMessageBox.question(app.parent(),
+                                          'Update available!', 'An update for Wydbid is available. Do you want to install it?',
+                                           QMessageBox.Yes, QMessageBox.No)
 
+            if update == QMessageBox.Yes:
+                print('Not programmed yet')
             else:
-                return "NotUptodate"
+                QMessageBox.about(app.parent(), 'Cancled',
+                                  'Wydbid will not be updated, but you can update it at any time by checking for an update via the "Check for update" menu item.')
 
-
-
-
-    def start(self):
-        version_check = self.check_version()
-        if version_check == "Failed":
-            failed_info = QMessageBox.question(WydbidUIMain.WydbidUIMain(), "Update Failed!", "Something went wrong. Make sure you're connected to the internet and try again.", QMessageBox.Ok)
-
-
-        if version_check == "Uptodate":
-            info = QMessageBox.question(WydbidUIMain.WydbidUIMain(), "Up to date!", "Wydbid is up to date and no updates needed!", QMessageBox.Ok)
-
-
-        if version_check == "NotUptodate":
-            update_info = QMessageBox.question(WydbidUIMain.WydbidUIMain(), "Update available!", "An update for Wydbid is available. Do you want to install it?", QMessageBox.Yes, QMessageBox.No)
-
-            if update_info == QMessageBox.Yes:
-                pass
-
-            else:
-                pass
+        elif not answer: # (answer = False)
+            if self.show_if_uptodate:
+                QMessageBox.about(app.parent(), 'Up to date',
+                                  'Wydbid is up to date!')
+        elif answer == 0:
+            if self.show_if_uptodate:
+                QMessageBox.about(app.parent(), 'Update Failed',
+                                  'Something went wrong. Make sure you\'re connected to the internet and try again.')
 
 
 def reset():

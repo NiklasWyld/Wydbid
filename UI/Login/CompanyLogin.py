@@ -73,7 +73,7 @@ class CompanyLogin(QWidget):
         # Set distance between top and content
         self.layout.setContentsMargins(0, 30, 0, 0)
 
-        self.layout.addWidget(title, 1, 0, 1, 0,  Qt.AlignCenter)
+        self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 
         self.layout.addWidget(company_note, 2, 0, Qt.AlignLeft)
         self.layout.addWidget(self.company, 2, 1, Qt.AlignRight)

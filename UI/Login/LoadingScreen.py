@@ -35,7 +35,7 @@ class LoadingScreen(QWidget):
         self.title.setStyleSheet('font-weight: bold; color: white; background-color: transparent;')
 
         self.version_info = QLabel(self)
-        self.version_info.setText('Version ' + Wydbid.wydbid_version)
+        self.version_info.setText('Version ' + Wydbid.WYDBID_VERSION)
         self.version_info.setFixedWidth(250)
         self.version_info.setStyleSheet('font-weight: bold; color: white; background-color: transparent')
         self.version_info.setGeometry(150, 110, 140, 20)

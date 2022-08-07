@@ -12,10 +12,6 @@ import screeninfo
 
 # ToDo: New slogan: There is nothing, oh wait, there is, Wydbid!
 
-def update():
-    Wydbid.Update().start()
-
-
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -43,6 +39,7 @@ class WydbidUIMain(QWidget):
 
         self.setupUI()
         self.setupMenuBar()
+        self.startUpdate(p=False)
 
     def closeEvent(self, event: QCloseEvent):
         if self.use_close_event:
@@ -108,7 +105,7 @@ class WydbidUIMain(QWidget):
         logout_employee.triggered.connect(lambda: WydbidUIMainLogic.logoutEmployee(self))
         logout_company.triggered.connect(self.startCompanyLogout)
         reset_programm.triggered.connect(Wydbid.reset)
-        update_programm.triggered.connect(update)
+        update_programm.triggered.connect(lambda: self.startUpdate(p=True))
         settings.triggered.connect(self.startSettings)
         close.triggered.connect(self.closeApp)
 
@@ -355,6 +352,11 @@ class WydbidUIMain(QWidget):
 
     def quit(self):
         self.use_close_event = False
+
+    def startUpdate(self, p: bool):
+        updater = Wydbid.Update()
+        if not p: updater.show_if_uptodate = False
+        updater.checkVersion()
 
     def closeApp(self):
         Wydbid.app.exit(0)
