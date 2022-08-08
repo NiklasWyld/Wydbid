@@ -37,9 +37,6 @@ wydbidui = None
 def finalUpdate():
     c = git.cmd.Git(os.getcwd())
     c.pull()
-    QMessageBox.about(app.parent(), 'Updated',
-                      'Wydbid has been updated! Click to restart.')
-    app.exit(0)
 
 
 class Update():
@@ -80,6 +77,9 @@ class Update():
                 thread = threading.Thread(target=finalUpdate)
                 thread.setDaemon(True)
                 thread.start()
+                QMessageBox.about(app.parent(), 'Updated',
+                                  'Wydbid has been updated! Click to restart.')
+                app.exit(0)
             else:
                 QMessageBox.about(app.parent(), 'Cancled',
                                   'Wydbid will not be updated, but you can update it at any time by checking for an update via the "Check for update" menu item.')
