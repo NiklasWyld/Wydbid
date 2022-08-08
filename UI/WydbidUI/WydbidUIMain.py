@@ -39,7 +39,6 @@ class WydbidUIMain(QWidget):
 
         self.setupUI()
         self.setupMenuBar()
-        self.startUpdate(p=False)
 
     def closeEvent(self, event: QCloseEvent):
         if self.use_close_event:

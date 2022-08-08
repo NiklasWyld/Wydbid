@@ -1,3 +1,4 @@
+import subprocess
 import requests
 import shutil
 import sys
@@ -20,7 +21,7 @@ company_location = ''
 company = None
 employee = None
 
-WYDBID_VERSION = 'V0.22'
+WYDBID_VERSION = 'V0.21'
 # ToDo: On merch in main branch dev -> main
 GITHUB_VERSION_SOURCE = 'https://raw.githubusercontent.com/NiklasWyld/Wydbid/dev/version.txt'
 
@@ -67,8 +68,7 @@ class Update():
                                            QMessageBox.Yes, QMessageBox.No)
 
             if update == QMessageBox.Yes:
-                r = git.cmd.Git(os.getcwd())
-                r.pull()
+                subprocess.call('git pull')
                 QMessageBox.about(app.parent(), 'Updated',
                                   'Wydbid has been updated! Click to restart.')
                 app.exit(0)
