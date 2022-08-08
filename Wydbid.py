@@ -1,3 +1,4 @@
+import subprocess
 import requests
 import shutil
 import sys
@@ -67,8 +68,7 @@ class Update():
                                            QMessageBox.Yes, QMessageBox.No)
 
             if update == QMessageBox.Yes:
-                r = git.cmd.Git(os.getcwd())
-                r.pull()
+                subprocess.call('git pull')
                 QMessageBox.about(app.parent(), 'Updated',
                                   'Wydbid has been updated! Click to restart.')
                 app.exit(0)
