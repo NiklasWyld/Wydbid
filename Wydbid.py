@@ -2,6 +2,7 @@ import requests
 import shutil
 import sys
 import os
+import git
 from PyQt5 import QtTest
 from PyQt5.QtCore import QTimer, Qt
 from PyQt5.QtGui import QIcon
@@ -30,6 +31,7 @@ company_login = None
 employee_login = None
 wydbidui = None
 
+
 class Update():
     def __init__(self):
         super(Update, self).__init__()
@@ -42,7 +44,6 @@ class Update():
 
             if respone.status_code in r_codes:
                 version = respone.text.strip()
-                print(version)
 
                 if version == WYDBID_VERSION:
                     return False
@@ -66,7 +67,11 @@ class Update():
                                            QMessageBox.Yes, QMessageBox.No)
 
             if update == QMessageBox.Yes:
-                print('Not programmed yet')
+                r = git.cmd.Git(os.getcwd())
+                r.pull()
+                QMessageBox.about(app.parent(), 'Updated',
+                                  'Wydbid has been updated! Click to restart.')
+                app.exit(0)
             else:
                 QMessageBox.about(app.parent(), 'Cancled',
                                   'Wydbid will not be updated, but you can update it at any time by checking for an update via the "Check for update" menu item.')
