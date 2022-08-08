@@ -1,4 +1,5 @@
 import subprocess
+import threading
 import requests
 import shutil
 import sys
@@ -31,6 +32,14 @@ app = QApplication(sys.argv)
 company_login = None
 employee_login = None
 wydbidui = None
+
+
+def finalUpdate():
+    c = git.cmd.Git(os.getcwd())
+    c.pull()
+    QMessageBox.about(app.parent(), 'Updated',
+                      'Wydbid has been updated! Click to restart.')
+    app.exit(0)
 
 
 class Update():
@@ -68,10 +77,9 @@ class Update():
                                            QMessageBox.Yes, QMessageBox.No)
 
             if update == QMessageBox.Yes:
-                subprocess.call('git pull')
-                QMessageBox.about(app.parent(), 'Updated',
-                                  'Wydbid has been updated! Click to restart.')
-                app.exit(0)
+                thread = threading.Thread(target=finalUpdate)
+                thread.setDaemon(True)
+                thread.start()
             else:
                 QMessageBox.about(app.parent(), 'Cancled',
                                   'Wydbid will not be updated, but you can update it at any time by checking for an update via the "Check for update" menu item.')
