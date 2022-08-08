@@ -1,5 +1,5 @@
 from PyQt5.QtCore import QDate, QTime
-from sqlalchemy import create_engine, Column, String, Integer
+from sqlalchemy import create_engine, Column, String, Integer, Boolean
 from sqlalchemy.orm import declarative_base
 import Wydbid
 
@@ -62,11 +62,15 @@ class Appointment(base):
     description = Column(String(), nullable=False)
     date = Column(String(), nullable=False)
     time = Column(String(), nullable=False)
-    customer = Column(Integer)
+    customer_id = Column(Integer, nullable=False)
+    appeared = Column(Boolean)
+    closed = Column(Boolean)
 
-    def __init__(self, title: str, description: str, date: str, time: str, customer: Customer):
+    def __init__(self, title: str, description: str, date: str, time: str, customer_id: int):
         self.title = title
         self.description = description
         self.date = date
         self.time = time
-        self.customer = customer.id
+        self.customer_id = customer_id
+        self.appeared = bool(False)
+        self.closed = bool(False)

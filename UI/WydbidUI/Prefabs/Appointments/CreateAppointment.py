@@ -32,6 +32,11 @@ class CreateAppointment(QWidget):
         self.description.setText('')
         self.customer.clear()
 
+    def startCreateAppointment(self):
+        AppointmentLogic.createAppointment(date=self.dateedit.date(), time=self.timeedit.time(), title=self.title.text(),
+                                           description=self.description.toPlainText(),
+                                           customer_id=self.customer.currentData(), widget=self)
+
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
 
@@ -56,6 +61,7 @@ class CreateAppointment(QWidget):
         self.customer = QComboBox(parent=self)
 
         create = QPushButton(parent=self, text='Create')
+        create.clicked.connect(self.startCreateAppointment)
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 
