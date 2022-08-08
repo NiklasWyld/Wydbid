@@ -20,7 +20,7 @@ company_location = ''
 company = None
 employee = None
 
-WYDBID_VERSION = 'V0.23'
+WYDBID_VERSION = 'V0.22'
 # ToDo: On merch in main branch dev -> main
 GITHUB_VERSION_SOURCE = 'https://raw.githubusercontent.com/NiklasWyld/Wydbid/dev/version.txt'
 
