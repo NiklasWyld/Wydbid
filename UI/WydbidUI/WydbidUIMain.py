@@ -7,6 +7,7 @@ from BackEnd.WydbidBackEnd import WydbidUIMainLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
+from UI.WydbidUI.Prefabs.Appointments import CreateAppointment
 from UI.WydbidUI.Prefabs.News import ShowAllNews
 import screeninfo
 
@@ -36,6 +37,8 @@ class WydbidUIMain(QWidget):
         self.cc = CreateCustomer.CreateCustomer()
         self.ec = EditCustomer.EditCustomer()
         self.dc = DelCustomer.DelCustomer()
+
+        self.ca = CreateAppointment.CreateAppointment()
 
         self.setupUI()
         self.setupMenuBar()
@@ -270,7 +273,7 @@ class WydbidUIMain(QWidget):
 
         add = QPushButton(parent=self, text='Create')
         add.setToolTip('Create new appointment on selected date')
-        #add.clicked.connect(self.startCreateCustomer)
+        add.clicked.connect(self.startCreateAppointment)
 
         edit = QPushButton(parent=self, text='Edit')
         edit.setToolTip('Edit selected appointment')
@@ -375,3 +378,8 @@ class WydbidUIMain(QWidget):
     def gotoCurrentDate(self):
         self.calander.showToday()
         self.calander.setSelectedDate(QDate.currentDate())
+
+    def startCreateAppointment(self):
+        self.ca.show()
+        self.ca.clear()
+        self.ca.appendCustomers()
