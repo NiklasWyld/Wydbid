@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import Wydbid
-from BackEnd.WydbidBackEnd import WydbidUIMainLogic
+from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
@@ -300,7 +300,7 @@ class WydbidUIMain(QWidget):
         ''')
         self.calander.setGridVisible(True)
 
-        self.appointment_list = QListWidget(parent=self)
+        self.appointment_list = QTableWidget(parent=self)
         self.appointment_list.setMaximumWidth(600)
 
 
@@ -311,6 +311,8 @@ class WydbidUIMain(QWidget):
         vl.addLayout(lyt)
 
         appointments.setLayout(vl)
+        self.startAppendAppointments()
+        self.calander.selectionChanged.connect(self.startAppendAppointments)
 
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)
@@ -383,3 +385,17 @@ class WydbidUIMain(QWidget):
         self.ca.show()
         self.ca.clear()
         self.ca.appendCustomers()
+
+    def startAppendAppointments(self):
+        date = self.calander.selectedDate().toString('dd.MM.yyyy')
+        AppointmentLogic.appendAppointments(date, self.calander, self.appointment_list)
+
+'''
+Date/Time Formats:
+
+QDate -> 'dd.MM.yyyy'
+Day.Month.Year
+
+QTime -> 'hh:mm'
+Hour:Minute
+'''
