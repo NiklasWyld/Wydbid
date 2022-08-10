@@ -247,7 +247,7 @@ def getLatestNews(wydbidui):
 
     if not news:
         createFirstNews()
-        return None
+        return
 
     news.sort(key=lambda x: x.id, reverse=False)
     news = news[-1]

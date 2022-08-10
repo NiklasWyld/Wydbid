@@ -7,7 +7,7 @@ from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
-from UI.WydbidUI.Prefabs.Appointments import CreateAppointment
+from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment
 from UI.WydbidUI.Prefabs.News import ShowAllNews
 import screeninfo
 
@@ -39,6 +39,7 @@ class WydbidUIMain(QWidget):
         self.dc = DelCustomer.DelCustomer()
 
         self.ca = CreateAppointment.CreateAppointment()
+        self.gafe = EditAppointment.GetAppointment()
 
         self.setupUI()
         self.setupMenuBar()
@@ -276,11 +277,11 @@ class WydbidUIMain(QWidget):
         add.clicked.connect(self.startCreateAppointment)
 
         edit = QPushButton(parent=self, text='Edit')
-        edit.setToolTip('Edit selected appointment')
-        #edit.clicked.connect(self.startEditCustomer)
+        edit.setToolTip('Edit a appointment on selected date')
+        edit.clicked.connect(self.startEditAppointment)
 
         delete = QPushButton(parent=self, text='Delete')
-        delete.setToolTip('Delete selected appointment')
+        delete.setToolTip('Delete a appointment on selected date')
         #delete.clicked.connect(self.startDelCustomer)
 
         alyt.setContentsMargins(1, 1, 1, 1)
@@ -302,7 +303,6 @@ class WydbidUIMain(QWidget):
 
         self.appointment_list = QTableWidget(parent=self)
         self.appointment_list.setMaximumWidth(600)
-
 
         lyt.addWidget(self.calander, Qt.AlignLeft)
         lyt.addWidget(self.appointment_list, Qt.AlignRight)
@@ -385,6 +385,10 @@ class WydbidUIMain(QWidget):
         self.ca.show()
         self.ca.clear()
         self.ca.appendCustomers()
+
+    def startEditAppointment(self):
+        self.gafe.setDate(self.calander.selectedDate().toString('dd.MM.yyyy'))
+        self.gafe.show()
 
     def startAppendAppointments(self):
         date = self.calander.selectedDate().toString('dd.MM.yyyy')
