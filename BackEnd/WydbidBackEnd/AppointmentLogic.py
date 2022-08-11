@@ -87,21 +87,6 @@ def appendAppointments(date_: str, calendar: QCalendarWidget, list: QTableWidget
     list.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
     list.setEditTriggers(QAbstractItemView.NoEditTriggers)
     list.setSortingEnabled(True)
-            
-def appendCustomer(box):
-    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
-    _session = sessionmaker()
-    session = _session(bind=engine)
-
-    base.metadata.create_all(engine)
-
-    customers = session.query(Customer).all()
-
-    customers.sort(key=lambda x: x.id)
-
-    for customer in customers:
-        name = customer.firstname + ' ' + customer.lastname
-        box.addItem(name, customer.id)
 
 def createAppointment(date, time, title, description, customer_id, widget):
     if not title.strip() or not description.strip() or not customer_id.strip():
@@ -137,7 +122,7 @@ def createAppointment(date, time, title, description, customer_id, widget):
     Wydbid.wydbidui.startAppendAppointments()
 
 def editAppointment(id, date, time, title, description, customer_id, widget):
-    if not title.strip() or not description.strip() or not customer_id:
+    if not title.strip() or not description.strip() or not customer_id.strip():
         QMessageBox.warning(widget, 'Warning',
                             'All fields must be filled in!')
         return
@@ -148,6 +133,10 @@ def editAppointment(id, date, time, title, description, customer_id, widget):
 
     base.metadata.create_all(engine)
 
+    try: int(customer_id.strip())
+    except:
+        QMessageBox.warning(widget, 'Attention', 'Customer id must be an number.')
+
     date = date.toString('dd.MM.yyyy')
     time = time.toString('hh:mm')
 
@@ -157,7 +146,7 @@ def editAppointment(id, date, time, title, description, customer_id, widget):
             Appointment.time: time,
             Appointment.title: title,
             Appointment.description: description,
-            Appointment.customer_id: customer_id
+            Appointment.customer_id: int(customer_id.strip())
         }
     )
 
@@ -208,13 +197,7 @@ def setAppointmentForEdit(appointment_id, widget):
     widget.timeedit.setTime(QTime(hour, minute))
     widget.title.setText(appointment.title)
     widget.description.setText(appointment.description)
-    widget.customer.clear()
-    appendCustomer(widget.customer)
-
-    widget.customer.setCurrentIndex(appointment.customer_id - 1)
-
-    if not appointment.customer_id-1 < 0:
-        widget.customer.setCurrentIndex(appointment.customer_id)
+    widget.customer.setText(str(appointment.customer_id))
 
     session.commit()
 

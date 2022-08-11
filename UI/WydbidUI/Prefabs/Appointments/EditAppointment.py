@@ -100,10 +100,13 @@ class EditAppointment(QWidget):
         self.description.setMaximumHeight(300)
 
         customernote = QLabel(parent=self, text='Customer: ')
-        self.customer = QComboBox(parent=self)
+        self.customer = QLineEdit(parent=self)
+        self.customer.textChanged.connect(lambda: self.startGetCustomer(self.customer, self.customer_name))
+        self.customer_name = QLabel(parent=self, text='')
+        self.customer_name.font().setPixelSize(10)
 
-        create = QPushButton(parent=self, text='Edit')
-        create.clicked.connect(self.startEditAppointment)
+        edit = QPushButton(parent=self, text='Edit')
+        edit.clicked.connect(self.startEditAppointment)
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 
@@ -121,10 +124,14 @@ class EditAppointment(QWidget):
 
         self.layout.addWidget(customernote, 6, 0, Qt.AlignLeft)
         self.layout.addWidget(self.customer, 6, 1, Qt.AlignRight)
+        self.layout.addWidget(self.customer_name, 7, 1, Qt.AlignRight)
 
-        self.layout.addWidget(create, 7, 0, 1, 0, Qt.AlignCenter)
+        self.layout.addWidget(edit, 8, 0, 1, 0, Qt.AlignCenter)
+
+    def startGetCustomer(self, edit: QLineEdit, label: QLabel):
+        AppointmentLogic.getCustomerForLabel(edit, label)
 
     def startEditAppointment(self):
         AppointmentLogic.editAppointment(id=self.appointment_id, date=self.dateedit.date(), time=self.timeedit.time(), title=self.title.text(),
                                            description=self.description.toPlainText(),
-                                           customer_id=self.customer.currentData(), widget=self)
+                                           customer_id=self.customer.text(), widget=self)
