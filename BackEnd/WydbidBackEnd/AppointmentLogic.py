@@ -104,7 +104,7 @@ def appendCustomer(box):
         box.addItem(name, customer.id)
 
 def createAppointment(date, time, title, description, customer_id, widget):
-    if not title.strip() or not description.strip() or not customer_id:
+    if not title.strip() or not description.strip() or not customer_id.strip():
         QMessageBox.warning(widget, 'Warning',
                             'All fields must be filled in!')
         return
@@ -116,6 +116,12 @@ def createAppointment(date, time, title, description, customer_id, widget):
 
     date = date.toString('dd.MM.yyyy')
     time = time.toString('hh:mm')
+
+    try: int(customer_id.strip())
+    except:
+        QMessageBox.warning(widget, 'Warning',
+                            'Customer id must be an number.')
+        return
 
     appointment = Appointment(title=title, description=description, date=date, time=time,
                               customer_id=customer_id)
@@ -211,3 +217,30 @@ def setAppointmentForEdit(appointment_id, widget):
         widget.customer.setCurrentIndex(appointment.customer_id)
 
     session.commit()
+
+def getCustomerForLabel(edit: QLineEdit, label: QLabel):
+    id = edit.text().strip()
+
+    if not id:
+        label.setText('')
+        return
+
+    try: int(id)
+    except:
+        label.setText('The id must be an number.')
+        return
+
+    id = int(id)
+
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    customer = session.query(Customer).filter(Customer.id == id).first()
+
+    if customer:
+        label.setText(f'{customer.firstname} {customer.lastname}')
+    else:
+        label.setText('A customer with this id doesn\'n exists.')

@@ -21,21 +21,19 @@ class CreateAppointment(QWidget):
         self.date = date
         self.dateedit.setDate(self.date)
 
-    def appendCustomers(self):
-        AppointmentLogic.appendCustomer(self.customer)
-
     def clear(self):
         self.date = QDate.currentDate()
         self.dateedit.setDate(self.date)
         self.timeedit.setTime(QTime.currentTime())
         self.title.setText('')
         self.description.setText('')
-        self.customer.clear()
+        self.customer.setText('')
+        self.customer_name.setText('')
 
     def startCreateAppointment(self):
         AppointmentLogic.createAppointment(date=self.dateedit.date(), time=self.timeedit.time(), title=self.title.text(),
                                            description=self.description.toPlainText(),
-                                           customer_id=self.customer.currentData(), widget=self)
+                                           customer_id=self.customer.text(), widget=self)
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
@@ -57,8 +55,11 @@ class CreateAppointment(QWidget):
         self.description = QTextEdit(parent=self)
         self.description.setMaximumHeight(300)
 
-        customernote = QLabel(parent=self, text='Customer: ')
-        self.customer = QComboBox(parent=self)
+        customernote = QLabel(parent=self, text='Customer ID: ')
+        self.customer = QLineEdit(parent=self)
+        self.customer.textChanged.connect(lambda: self.startGetCustomer(self.customer, self.customer_name))
+        self.customer_name = QLabel(parent=self, text='')
+        self.customer_name.font().setPixelSize(10)
 
         create = QPushButton(parent=self, text='Create')
         create.clicked.connect(self.startCreateAppointment)
@@ -79,5 +80,9 @@ class CreateAppointment(QWidget):
 
         self.layout.addWidget(customernote, 6, 0, Qt.AlignLeft)
         self.layout.addWidget(self.customer, 6, 1, Qt.AlignRight)
+        self.layout.addWidget(self.customer_name, 7, 1, Qt.AlignRight)
 
-        self.layout.addWidget(create, 7, 0, 1, 0, Qt.AlignCenter)
+        self.layout.addWidget(create, 8, 0, 1, 0, Qt.AlignCenter)
+
+    def startGetCustomer(self, edit: QLineEdit, label: QLabel):
+        AppointmentLogic.getCustomerForLabel(edit, label)

@@ -136,6 +136,7 @@ def reset():
 
 
 def close():
+    sessionmaker.close_all()
     app.exit(0)
 
 

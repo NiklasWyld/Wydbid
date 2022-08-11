@@ -331,9 +331,9 @@ class WydbidUIMain(QWidget):
         date_time.setLayout(date_time_layout)
 
         # Loop to update the time
-        timer = QTimer(self)
-        timer.timeout.connect(self.updateClock)
-        timer.start(1000)
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.updateClock)
+        self.timer.start(1000)
 
     def updateClock(self):
         self.time_label.setText(datetime.now().strftime("%H:%M:%S"))
@@ -384,7 +384,6 @@ class WydbidUIMain(QWidget):
     def startCreateAppointment(self):
         self.ca.show()
         self.ca.clear()
-        self.ca.appendCustomers()
 
     def startEditAppointment(self):
         self.gafe.setDate(self.calander.selectedDate().toString('dd.MM.yyyy'))
