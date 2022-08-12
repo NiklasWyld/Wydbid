@@ -7,7 +7,7 @@ from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
-from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment
+from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment, DelAppointment
 from UI.WydbidUI.Prefabs.News import ShowAllNews
 import screeninfo
 
@@ -40,6 +40,7 @@ class WydbidUIMain(QWidget):
 
         self.ca = CreateAppointment.CreateAppointment()
         self.gafe = EditAppointment.GetAppointment()
+        self.da = DelAppointment.DelAppointment()
 
         self.setupUI()
         self.setupMenuBar()
@@ -282,7 +283,7 @@ class WydbidUIMain(QWidget):
 
         delete = QPushButton(parent=self, text='Delete')
         delete.setToolTip('Delete a appointment on selected date')
-        #delete.clicked.connect(self.startDelCustomer)
+        delete.clicked.connect(self.startDelAppointment)
 
         alyt.setContentsMargins(1, 1, 1, 1)
         alyt.addWidget(goto_current_date)
@@ -388,6 +389,10 @@ class WydbidUIMain(QWidget):
     def startEditAppointment(self):
         self.gafe.setDate(self.calander.selectedDate().toString('dd.MM.yyyy'))
         self.gafe.show()
+
+    def startDelAppointment(self):
+        self.da.setDate(self.calander.selectedDate().toString('dd.MM.yyyy'))
+        self.da.show()
 
     def startAppendAppointments(self):
         date = self.calander.selectedDate().toString('dd.MM.yyyy')

@@ -227,3 +227,37 @@ def getCustomerForLabel(edit: QLineEdit, label: QLabel):
         label.setText(f'{customer.firstname} {customer.lastname}')
     else:
         label.setText('A customer with this id doesn\'n exists.')
+
+def delAppointment(list: QListWidget, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    if not list.selectedItems():
+        QMessageBox.warning(widget, 'Warning',
+                            'No appointment selected!')
+        return
+
+    appointment_id = list.selectedItems()[0].data(Qt.UserRole)
+
+    appointment = session.query(Appointment).filter(Appointment.id == appointment_id).first()
+
+    reply = QMessageBox.question(widget, 'Are you sure?', f'Are you sure you want to delete {appointment.title}?',
+                                 QMessageBox.Yes, QMessageBox.No)
+
+    if reply == QMessageBox.No:
+        QMessageBox.about(Wydbid.app.parent(), 'Cancled',
+                          'The appointment has not been deleted!')
+        session.commit()
+        return
+
+    session.delete(appointment)
+    session.commit()
+
+    QMessageBox.about(Wydbid.app.parent(), 'Completed',
+                      'The appointment has been deleted!')
+
+    widget.hide()
+    Wydbid.wydbidui.startAppendAppointments()
