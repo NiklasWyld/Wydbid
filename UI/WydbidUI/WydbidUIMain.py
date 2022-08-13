@@ -303,12 +303,25 @@ class WydbidUIMain(QWidget):
         ''')
         self.calander.setGridVisible(True)
 
-        self.appointment_list = QTableWidget(parent=self)
-        self.appointment_list.setMaximumWidth(600)
+        ngroup = QGroupBox()
+        ngroup.setMaximumWidth(700)
+
+        self.appointment_search_bar = QLineEdit(parent=ngroup)
+        self.appointment_search_bar.setPlaceholderText('Filter by customer')
+        self.appointment_search_bar.setFixedHeight(40)
+        self.appointment_search_bar.textChanged.connect(self.filterForCustomerInAppointments)
+
+        self.appointment_list = QTableWidget(parent=ngroup)
         self.appointment_list.clicked.connect(self.startShowAppointment)
 
+        nlyt = QVBoxLayout()
+
         lyt.addWidget(self.calander, Qt.AlignLeft)
-        lyt.addWidget(self.appointment_list, Qt.AlignRight)
+        nlyt.addWidget(self.appointment_search_bar, Qt.AlignTop)
+        nlyt.addWidget(self.appointment_list, Qt.AlignBottom)
+        lyt.addWidget(ngroup, Qt.AlignRight)
+
+        ngroup.setLayout(nlyt)
 
         vl.addWidget(action_box)
         vl.addLayout(lyt)
@@ -407,6 +420,14 @@ class WydbidUIMain(QWidget):
     def startAppendAppointments(self):
         date = self.calander.selectedDate().toString('dd.MM.yyyy')
         AppointmentLogic.appendAppointments(date, self.calander, self.appointment_list)
+
+    def filterForCustomerInAppointments(self):
+        customer = self.appointment_search_bar.text().lower()
+        for row in range(self.appointment_list.rowCount()):
+            item = self.appointment_list.item(row, 3)
+
+            # if the search is not in the item's text do not hide the row
+            self.appointment_list.setRowHidden(row, customer not in item.text().lower())
 
 '''
 Date/Time Formats:
