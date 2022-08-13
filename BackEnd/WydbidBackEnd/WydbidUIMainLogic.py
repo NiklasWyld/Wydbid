@@ -216,6 +216,26 @@ def searchForLastName(searchfirst: QLineEdit, searchlast: QLineEdit, list: QTabl
         list.setRowHidden(row, name not in item.text().lower())
     searchfirst.setText('')
 
+def createFirstNews():
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    news = News(title='Welcome to Wydbid!',
+                description='''Welcome to Wydbid!
+
+Hello, we are glad you chose us, Wydbid! 
+
+You can now start using Wydbid completely free of charge with all its features.
+                ''')
+
+    session.add(news)
+    session.commit()
+
+    Wydbid.wydbidui.setLatestNews()
+
 def getLatestNews(wydbidui):
     engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
     _session = sessionmaker()
@@ -226,7 +246,8 @@ def getLatestNews(wydbidui):
     news = session.query(News).all()
 
     if not news:
-        return None
+        createFirstNews()
+        return
 
     news.sort(key=lambda x: x.id, reverse=False)
     news = news[-1]

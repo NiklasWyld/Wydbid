@@ -1,13 +1,17 @@
-import shutil
 import subprocess
+import threading
+import requests
+import shutil
 import sys
 import os
+import git
 from PyQt5 import QtTest
 from PyQt5.QtCore import QTimer, Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
 from CustomQt import MessageBox
 from UI.Login import CompanyLogin, LoadingScreen
+from UI.WydbidUI import WydbidUIMain
 from sqlalchemy.orm import sessionmaker
 from UI.WydbidUI.Prefabs import Settings
 from BackEnd.WydbidBackEnd import SettingsLogic, WydbidUIMainLogic
@@ -17,7 +21,10 @@ location = './WydbidData/'
 company_location = ''
 company = None
 employee = None
-wydbid_version = 'Beta 1.0'
+
+WYDBID_VERSION = 'V0.23'
+# ToDo: On merch in main branch dev -> main
+GITHUB_VERSION_SOURCE = 'https://raw.githubusercontent.com/NiklasWyld/Wydbid/dev/version.txt'
 
 app = QApplication(sys.argv)
 
@@ -25,6 +32,66 @@ app = QApplication(sys.argv)
 company_login = None
 employee_login = None
 wydbidui = None
+
+
+def finalUpdate():
+    c = git.cmd.Git(os.getcwd())
+    c.pull()
+
+
+class Update():
+    def __init__(self):
+        super(Update, self).__init__()
+        self.show_if_uptodate = True
+
+    def getVersion(self):
+        try:
+            respone = requests.get(GITHUB_VERSION_SOURCE)
+            r_codes = range(200, 299)
+
+            if respone.status_code in r_codes:
+                version = respone.text.strip()
+
+                if version == WYDBID_VERSION:
+                    return False
+                else:
+                    return True
+            else:
+                return 0
+        except:
+            return 0
+
+    def checkVersion(self):
+        # True = Get answer and there is a never version
+        # False = Get answer and Wydbid is on the latest version
+        # 0 = Get no answer / No connection
+
+        answer = self.getVersion()
+
+        if answer: # (answer = True)
+            update = QMessageBox.question(app.parent(),
+                                          'Update available!', 'An update for Wydbid is available. Do you want to install it?',
+                                           QMessageBox.Yes, QMessageBox.No)
+
+            if update == QMessageBox.Yes:
+                thread = threading.Thread(target=finalUpdate)
+                thread.setDaemon(True)
+                thread.start()
+                QMessageBox.about(app.parent(), 'Updated',
+                                  'Wydbid has been updated! Click to restart.')
+                app.exit(0)
+            else:
+                QMessageBox.about(app.parent(), 'Cancled',
+                                  'Wydbid will not be updated, but you can update it at any time by checking for an update via the "Check for update" menu item.')
+
+        elif not answer: # (answer = False)
+            if self.show_if_uptodate:
+                QMessageBox.about(app.parent(), 'Up to date',
+                                  'Wydbid is up to date!')
+        elif answer == 0:
+            if self.show_if_uptodate:
+                QMessageBox.about(app.parent(), 'Update Failed',
+                                  'Something went wrong. Make sure you\'re connected to the internet and try again.')
 
 
 def reset():
@@ -69,6 +136,7 @@ def reset():
 
 
 def close():
+    sessionmaker.close_all()
     app.exit(0)
 
 
@@ -88,9 +156,11 @@ def buildLocation():
 
 
 def handleLoadingScreen(loading_screen, company_login):
-    for procent in range(101):
-        loading_screen.progresss_bar.setValue(procent + 1)
-        QtTest.QTest.qWait(20)
+    i = 0
+    for procent in range(20):
+        i = i + 5
+        loading_screen.progresss_bar.setValue(i)
+        QtTest.QTest.qWait(30)
 
     loading_screen.hide()
     company_login.showMaximized()
