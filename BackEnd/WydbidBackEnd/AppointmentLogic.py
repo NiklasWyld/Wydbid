@@ -261,3 +261,56 @@ def delAppointment(list: QListWidget, widget):
 
     widget.hide()
     Wydbid.wydbidui.startAppendAppointments()
+
+def getAppointment(appointment_id: int):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    appointment = session.query(Appointment).filter(Appointment.id == appointment_id).first()
+
+    if not appointment:
+        QMessageBox.warning(Wydbid.app.parent(), 'Error occurred', 'Something went wrong')
+        return
+
+    return appointment
+
+def editAppointmentAppeared(appointment_id: int, appeared: QCheckBox, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    appeared = appeared.isChecked()
+
+    session.query(Appointment).filter(Appointment.id == appointment_id).update(
+        {
+            Appointment.appeared: appeared
+        }
+    )
+
+    session.commit()
+    QMessageBox.about(widget, 'Successfully changed', f'Appointment appeared -> {str(appeared)}')
+    Wydbid.wydbidui.startAppendAppointments()
+
+def editAppointmentClosed(appointment_id: int, closed: QCheckBox, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    closed = closed.isChecked()
+
+    session.query(Appointment).filter(Appointment.id == appointment_id).update(
+        {
+            Appointment.closed: closed
+        }
+    )
+
+    session.commit()
+    QMessageBox.about(widget, 'Successfully changed', f'Appointment closed -> {str(closed)}')
+    Wydbid.wydbidui.startAppendAppointments()

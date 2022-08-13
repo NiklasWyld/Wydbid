@@ -7,7 +7,7 @@ from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic
 from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
-from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment, DelAppointment
+from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment, DelAppointment, ShowAppointment
 from UI.WydbidUI.Prefabs.News import ShowAllNews
 import screeninfo
 
@@ -41,6 +41,7 @@ class WydbidUIMain(QWidget):
         self.ca = CreateAppointment.CreateAppointment()
         self.gafe = EditAppointment.GetAppointment()
         self.da = DelAppointment.DelAppointment()
+        self.sa = ShowAppointment.ShowAppointment()
 
         self.setupUI()
         self.setupMenuBar()
@@ -304,6 +305,7 @@ class WydbidUIMain(QWidget):
 
         self.appointment_list = QTableWidget(parent=self)
         self.appointment_list.setMaximumWidth(600)
+        self.appointment_list.clicked.connect(self.startShowAppointment)
 
         lyt.addWidget(self.calander, Qt.AlignLeft)
         lyt.addWidget(self.appointment_list, Qt.AlignRight)
@@ -393,6 +395,14 @@ class WydbidUIMain(QWidget):
     def startDelAppointment(self):
         self.da.setDate(self.calander.selectedDate().toString('dd.MM.yyyy'))
         self.da.show()
+
+    def startShowAppointment(self, item):
+        if item.data() == '🔎':
+            id = item.data(Qt.UserRole)
+            appointment = AppointmentLogic.getAppointment(id)
+            self.sa.clear()
+            self.sa.setAppointment(appointment)
+            self.sa.show()
 
     def startAppendAppointments(self):
         date = self.calander.selectedDate().toString('dd.MM.yyyy')
