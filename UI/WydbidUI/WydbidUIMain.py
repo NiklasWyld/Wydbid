@@ -8,7 +8,7 @@ from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
 from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment, DelAppointment, ShowAppointment
 from UI.WydbidUI.Prefabs.News import ShowAllNews
-from UI.WydbidUI.Prefabs.Orders import CreateOrder
+from UI.WydbidUI.Prefabs.Orders import CreateOrder, DelOrder
 import screeninfo
 import threading
 
@@ -348,11 +348,11 @@ class WydbidUIMain(QWidget):
 
         edit = QPushButton(parent=action_box, text='Edit')
         edit.setToolTip('Edit a order')
-        #edit.clicked.connect(self.startEditAppointment)
+        edit.clicked.connect(self.startEditOrder)
 
         delete = QPushButton(parent=action_box, text='Delete')
         delete.setToolTip('Delete a order')
-        #delete.clicked.connect(self.startDelAppointment)
+        delete.clicked.connect(self.startDelOrder)
 
         reload = QPushButton(parent=action_box, text='Reload')
         reload.setToolTip('Reload all orders')
@@ -481,7 +481,7 @@ class WydbidUIMain(QWidget):
     def filterForCustomerInOrders(self):
         customer = self.order_search_bar.text().lower()
         for row in range(self.order_list.rowCount()):
-            item = self.appointment_list.item(row, 3)
+            item = self.order_list.item(row, 2)
 
             # if the search is not in the item's text do not hide the row
             self.order_list.setRowHidden(row, customer not in item.text().lower())
@@ -492,6 +492,17 @@ class WydbidUIMain(QWidget):
     def startCreateOrder(self):
         self.co.clear()
         self.co.show()
+
+    def startEditOrder(self):
+        QMessageBox.about(self, 'Attention',
+                          'You can edit an order by pressing the '
+                          'Loupe symbol by the particular order and then pressing'
+                          ' the "Edit" button within the dialog.')
+
+    def startDelOrder(self):
+        QMessageBox.about(self, 'Attention',
+                          'You can delete an order by pressing the loupe symbol by the particular order and then '
+                          'pressing the "Delete" button within the dialog.')
 
 '''
 Date/Time Formats:

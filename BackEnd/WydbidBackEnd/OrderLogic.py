@@ -67,6 +67,9 @@ def appendOrders(list: QTableWidget):
         list.setItem(i, 4, view)
         i = i + 1
 
+    list.verticalHeader().setVisible(False)
+    list.setFocusPolicy(Qt.NoFocus)
+    list.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
     list.setEditTriggers(QAbstractItemView.NoEditTriggers)
     list.setSortingEnabled(True)
 
@@ -132,3 +135,13 @@ def createOrder(title: str, description: str, price: str, customer_id: str, widg
 
     widget.clear()
     widget.hide()
+
+def getCustomerForDel(widget):
+    id, ok_pressed = QInputDialog.getText(widget, 'Get customer', 'Enter the ID of the customer you entered in the order you want to delete.',
+                                          QLineEdit.Normal, '')
+
+    if id and ok_pressed != '':
+        return id
+    else:
+        widget.hide()
+        return 0
