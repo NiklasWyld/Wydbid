@@ -80,11 +80,11 @@ class Order(base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String(), nullable=False)
     description = Column(String(), nullable=False)
-    price = Column(Float)
+    price = Column(String(), nullable=False)
     customer_id = Column(Integer, nullable=False)
     closed = Column(Boolean)
 
-    def __init__(self, title: str, description: str, price: float, customer_id: int):
+    def __init__(self, title: str, description: str, price: str, customer_id: int):
         self.title = title
         self.description = description
         self.price = price

@@ -8,6 +8,7 @@ from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
 from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment, DelAppointment, ShowAppointment
 from UI.WydbidUI.Prefabs.News import ShowAllNews
+from UI.WydbidUI.Prefabs.Orders import CreateOrder
 import screeninfo
 import threading
 
@@ -42,6 +43,8 @@ class WydbidUIMain(QWidget):
         self.gafe = EditAppointment.GetAppointment()
         self.da = DelAppointment.DelAppointment()
         self.sa = ShowAppointment.ShowAppointment()
+
+        self.co = CreateOrder.CreateOrder()
 
         self.setupUI()
         self.setupMenuBar()
@@ -341,7 +344,7 @@ class WydbidUIMain(QWidget):
 
         add = QPushButton(parent=action_box, text='Create')
         add.setToolTip('Create new order')
-        #add.clicked.connect(self.startCreateAppointment)
+        add.clicked.connect(self.startCreateOrder)
 
         edit = QPushButton(parent=action_box, text='Edit')
         edit.setToolTip('Edit a order')
@@ -485,6 +488,10 @@ class WydbidUIMain(QWidget):
 
     def startAppendOrders(self):
         OrderLogic.appendOrders(self.order_list)
+
+    def startCreateOrder(self):
+        self.co.clear()
+        self.co.show()
 
 '''
 Date/Time Formats:

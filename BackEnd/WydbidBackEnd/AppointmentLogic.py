@@ -226,7 +226,7 @@ def getCustomerForLabel(edit: QLineEdit, label: QLabel):
     if customer:
         label.setText(f'{customer.firstname} {customer.lastname}')
     else:
-        label.setText('A customer with this id doesn\'n exists.')
+        label.setText('A customer with this id doesn\'t exist.')
 
 def delAppointment(list: QListWidget, widget):
     engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
