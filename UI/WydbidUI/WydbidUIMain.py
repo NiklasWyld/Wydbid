@@ -3,12 +3,13 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import Wydbid
-from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic
+from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic, OrderLogic
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
 from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment, DelAppointment, ShowAppointment
 from UI.WydbidUI.Prefabs.News import ShowAllNews
 import screeninfo
+import threading
 
 # ToDo: New slogan: There is nothing, oh wait, there is, Wydbid!
 
@@ -338,31 +339,36 @@ class WydbidUIMain(QWidget):
         action_box.setFixedHeight(40)
         alyt = QHBoxLayout()
 
-        add = QPushButton(parent=self, text='Create')
+        add = QPushButton(parent=action_box, text='Create')
         add.setToolTip('Create new order')
         #add.clicked.connect(self.startCreateAppointment)
 
-        edit = QPushButton(parent=self, text='Edit')
+        edit = QPushButton(parent=action_box, text='Edit')
         edit.setToolTip('Edit a order')
         #edit.clicked.connect(self.startEditAppointment)
 
-        delete = QPushButton(parent=self, text='Delete')
+        delete = QPushButton(parent=action_box, text='Delete')
         delete.setToolTip('Delete a order')
         #delete.clicked.connect(self.startDelAppointment)
+
+        reload = QPushButton(parent=action_box, text='Reload')
+        reload.setToolTip('Reload all orders')
+        reload.clicked.connect(self.startAppendOrders)
 
         alyt.setContentsMargins(1, 1, 1, 1)
         alyt.addWidget(add)
         alyt.addWidget(edit)
         alyt.addWidget(delete)
+        alyt.addWidget(reload)
         action_box.setLayout(alyt)
 
         self.order_search_bar = QLineEdit(parent=orders_widget)
         self.order_search_bar.setPlaceholderText('Filter by customer')
         self.order_search_bar.setFixedHeight(40)
-        self.order_search_bar.textChanged.connect(self.filterForCustomerInAppointments)
+        self.order_search_bar.textChanged.connect(self.filterForCustomerInOrders)
 
         self.order_list = QTableWidget(parent=orders_widget)
-
+        self.startAppendOrders()
 
         lyt.addWidget(action_box)
         lyt.addWidget(self.order_search_bar)
@@ -468,6 +474,17 @@ class WydbidUIMain(QWidget):
 
             # if the search is not in the item's text do not hide the row
             self.appointment_list.setRowHidden(row, customer not in item.text().lower())
+
+    def filterForCustomerInOrders(self):
+        customer = self.order_search_bar.text().lower()
+        for row in range(self.order_list.rowCount()):
+            item = self.appointment_list.item(row, 3)
+
+            # if the search is not in the item's text do not hide the row
+            self.order_list.setRowHidden(row, customer not in item.text().lower())
+
+    def startAppendOrders(self):
+        OrderLogic.appendOrders(self.order_list)
 
 '''
 Date/Time Formats:
