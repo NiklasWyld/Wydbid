@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import QComboBox, QMessageBox, QWidget
 from Data import Company
 import Wydbid
 
-
 def addItems(companylist: QComboBox):
     l = f'{Wydbid.location}Companies/'
     files = []

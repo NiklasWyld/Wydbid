@@ -74,3 +74,18 @@ class Appointment(base):
         self.customer_id = customer_id
         self.appeared = bool(False)
         self.closed = bool(False)
+
+class Order(base):
+    __tablename__ = 'orders'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    title = Column(String(), nullable=False)
+    description = Column(String(), nullable=False)
+    customer_id = Column(Integer, nullable=False)
+    closed = Column(Boolean)
+
+    def __init__(self, title: str, description: str, price: str, customer_id: int):
+        self.title = title
+        self.description = description
+        self.price = price
+        self.customer_id = customer_id
+        self.closed = bool(False)

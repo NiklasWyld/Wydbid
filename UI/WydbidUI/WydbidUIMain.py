@@ -4,7 +4,6 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import Wydbid
 from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic
-from CustomQt import ActionButton
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
 from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment, DelAppointment, ShowAppointment
@@ -74,6 +73,7 @@ class WydbidUIMain(QWidget):
         self.setupAppointments(appointment_widget)
 
         order_widget = QWidget()
+        self.setupOrders(order_widget)
 
         event_widget = QWidget()
 
@@ -296,11 +296,12 @@ class WydbidUIMain(QWidget):
         # Widget content
 
         self.calander = QCalendarWidget(parent=self)
-        self.calander.setStyleSheet('''
-        QAbstractItemView {
-            alternate-background-color: #2d3640;
-        }
-        ''')
+        if Wydbid.app.styleSheet().strip():
+            self.calander.setStyleSheet('''
+            QAbstractItemView {
+                alternate-background-color: #2d3640;
+            }
+            ''')
         self.calander.setGridVisible(True)
 
         ngroup = QGroupBox()
@@ -329,6 +330,45 @@ class WydbidUIMain(QWidget):
         appointments.setLayout(vl)
         self.startAppendAppointments()
         self.calander.selectionChanged.connect(self.startAppendAppointments)
+
+    def setupOrders(self, orders_widget: QWidget):
+        lyt = QVBoxLayout()
+
+        action_box = QGroupBox(parent=orders_widget)
+        action_box.setFixedHeight(40)
+        alyt = QHBoxLayout()
+
+        add = QPushButton(parent=self, text='Create')
+        add.setToolTip('Create new order')
+        #add.clicked.connect(self.startCreateAppointment)
+
+        edit = QPushButton(parent=self, text='Edit')
+        edit.setToolTip('Edit a order')
+        #edit.clicked.connect(self.startEditAppointment)
+
+        delete = QPushButton(parent=self, text='Delete')
+        delete.setToolTip('Delete a order')
+        #delete.clicked.connect(self.startDelAppointment)
+
+        alyt.setContentsMargins(1, 1, 1, 1)
+        alyt.addWidget(add)
+        alyt.addWidget(edit)
+        alyt.addWidget(delete)
+        action_box.setLayout(alyt)
+
+        self.order_search_bar = QLineEdit(parent=orders_widget)
+        self.order_search_bar.setPlaceholderText('Filter by customer')
+        self.order_search_bar.setFixedHeight(40)
+        self.order_search_bar.textChanged.connect(self.filterForCustomerInAppointments)
+
+        self.order_list = QTableWidget(parent=orders_widget)
+
+
+        lyt.addWidget(action_box)
+        lyt.addWidget(self.order_search_bar)
+        lyt.addWidget(self.order_list)
+
+        orders_widget.setLayout(lyt)
 
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)

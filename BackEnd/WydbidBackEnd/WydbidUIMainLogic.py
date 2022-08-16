@@ -1,5 +1,3 @@
-import os
-import pickle
 from PyQt5.QtCore import Qt, QModelIndex
 from sqlalchemy.orm import sessionmaker
 from Data.DataCombi import *

@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import QWidget, QMessageBox
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-import Wydbid
 from Data.DataCombi import *
+import Wydbid
 
 def delEmployeeFinal(username: str, password: str, widget):
     if username == '' or password == '':

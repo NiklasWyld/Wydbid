@@ -1,6 +1,5 @@
 import os
 import pickle
-import sys
 from PyQt5.QtWidgets import QComboBox, QMessageBox, QWidget
 from Data import Company
 import shutil
