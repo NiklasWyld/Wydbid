@@ -8,7 +8,7 @@ from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
 from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment, DelAppointment, ShowAppointment
 from UI.WydbidUI.Prefabs.News import ShowAllNews
-from UI.WydbidUI.Prefabs.Orders import CreateOrder, DelOrder
+from UI.WydbidUI.Prefabs.Orders import CreateOrder, ShowOrder
 import screeninfo
 import threading
 
@@ -45,6 +45,7 @@ class WydbidUIMain(QWidget):
         self.sa = ShowAppointment.ShowAppointment()
 
         self.co = CreateOrder.CreateOrder()
+        self.so = ShowOrder.ShowOrder()
 
         self.setupUI()
         self.setupMenuBar()
@@ -371,6 +372,7 @@ class WydbidUIMain(QWidget):
         self.order_search_bar.textChanged.connect(self.filterForCustomerInOrders)
 
         self.order_list = QTableWidget(parent=orders_widget)
+        self.order_list.clicked.connect(self.startShowOrder)
         self.startAppendOrders()
 
         lyt.addWidget(action_box)
@@ -503,6 +505,13 @@ class WydbidUIMain(QWidget):
         QMessageBox.about(self, 'Attention',
                           'You can delete an order by pressing the loupe symbol by the particular order and then '
                           'pressing the "Delete" button within the dialog.')
+
+    def startShowOrder(self, item):
+        if item.data() == '🔎':
+            id = item.data(Qt.UserRole)
+            self.so.clear()
+            self.so.setOrder(id)
+            self.so.show()
 
 '''
 Date/Time Formats:

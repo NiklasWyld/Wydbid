@@ -136,12 +136,47 @@ def createOrder(title: str, description: str, price: str, customer_id: str, widg
     widget.clear()
     widget.hide()
 
-def getCustomerForDel(widget):
-    id, ok_pressed = QInputDialog.getText(widget, 'Get customer', 'Enter the ID of the customer you entered in the order you want to delete.',
-                                          QLineEdit.Normal, '')
+def setOrderForShow(order_id: int, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
 
-    if id and ok_pressed != '':
-        return id
-    else:
-        widget.hide()
-        return 0
+    base.metadata.create_all(engine)
+
+    order = session.query(Order).filter(Order.id == order_id).first()
+
+    if not order:
+        QMessageBox.warning(widget, 'Error', 'An error has occurred')
+        return
+
+    widget.order = order
+    widget.title.setText(order.title)
+    widget.description.setText(order.description)
+    widget.price.setText(order.price)
+    widget.customer.setText(str(order.customer_id))
+    widget.closed.setChecked(bool(order.closed))
+
+def editClosed(order_id: int, check: QCheckBox, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    order = session.query(Order).filter(Order.id == order_id).first()
+
+    if not order:
+        QMessageBox.warning(widget, 'Error', 'An error has occurred')
+        return
+
+    if bool(order.closed) == check.isChecked():
+        return
+
+    session.query(Order).filter(Order.id == order_id).update(
+        {
+            Order.closed: check.isChecked()
+        }
+    )
+    session.commit()
+
+    QMessageBox.about(widget, 'Successfully changed', f'Order closed -> {str(check.isChecked())}')

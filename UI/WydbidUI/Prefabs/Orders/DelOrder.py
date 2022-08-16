@@ -24,7 +24,6 @@ class DelOrder(QWidget):
             self.hide()
             return
         self.customer_id = customer_id
-        print(self.customer_id)
 
     def setupUI(self):
         pass
