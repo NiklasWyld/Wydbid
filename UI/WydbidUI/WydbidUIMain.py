@@ -3,17 +3,19 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import Wydbid
-from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic, OrderLogic
+from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic, OrderLogic, EventLogic
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
 from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment, DelAppointment, ShowAppointment
 from UI.WydbidUI.Prefabs.News import ShowAllNews
 from UI.WydbidUI.Prefabs.Orders import CreateOrder, ShowOrder
+from UI.WydbidUI.Prefabs.Events import CreateEvent
 import screeninfo
 import threading
 
 # ToDo: New slogan: There is nothing, oh wait, there is, Wydbid!
 # ToDo: Mark mandatory fields and omit non-mandatory fields
+# ToDo: Fix show width fields
 
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
@@ -47,6 +49,8 @@ class WydbidUIMain(QWidget):
 
         self.co = CreateOrder.CreateOrder()
         self.so = ShowOrder.ShowOrder()
+
+        self.ce = CreateEvent.CreateEvent()
 
         self.setupUI()
         self.setupMenuBar()
@@ -390,23 +394,21 @@ class WydbidUIMain(QWidget):
         action_box.setFixedHeight(40)
         alyt = QHBoxLayout()
 
-        # ToDo: Add actions
-
         add = QPushButton(parent=action_box, text='Create')
         add.setToolTip('Create new event')
-        #add.clicked.connect(self.startCreateOrder)
+        add.clicked.connect(self.startCreateEvent)
 
         edit = QPushButton(parent=action_box, text='Edit')
         edit.setToolTip('Edit a event')
-        #edit.clicked.connect(self.startEditOrder)
+        edit.clicked.connect(self.startEditEvent)
 
         delete = QPushButton(parent=action_box, text='Delete')
         delete.setToolTip('Delete a event')
-        #delete.clicked.connect(self.startDelOrder)
+        delete.clicked.connect(self.startDelEvent)
 
         reload = QPushButton(parent=action_box, text='Reload')
         reload.setToolTip('Reload all events')
-        #reload.clicked.connect(self.startAppendOrders)
+        reload.clicked.connect(self.startAppendEvents)
 
         alyt.setContentsMargins(1, 1, 1, 1)
         alyt.addWidget(add)
@@ -419,14 +421,12 @@ class WydbidUIMain(QWidget):
         self.event_search_bar.setPlaceholderText('Filter by title')
         self.event_search_bar.setFixedHeight(40)
         self.event_search_bar.textChanged.connect(self.filterForTitleInEvents)
-        # ToDo: Make filter
 
         self.event_list = QTableWidget(parent=event_widget)
         #self.event_list.clicked.connect(self.startShowOrder)
         self.startAppendEvents()
 
         # ToDo: Make click event
-        # ToDo: Append Events
 
         lyt.addWidget(action_box)
         lyt.addWidget(self.event_search_bar)
@@ -553,7 +553,7 @@ class WydbidUIMain(QWidget):
         OrderLogic.appendOrders(self.order_list)
 
     def startAppendEvents(self):
-        pass
+        EventLogic.appendEvents(self.event_list)
 
     def startCreateOrder(self):
         self.co.clear()
@@ -576,6 +576,23 @@ class WydbidUIMain(QWidget):
             self.so.clear()
             self.so.setOrder(id)
             self.so.show()
+
+    ###
+
+    def startCreateEvent(self):
+        self.ce.clear()
+        self.ce.show()
+
+    def startEditEvent(self):
+        QMessageBox.about(self, 'Attention',
+                          'You can edit an event by pressing the '
+                          'Loupe symbol by the particular event and then pressing'
+                          ' the "Edit" button within the dialog.')
+
+    def startDelEvent(self):
+        QMessageBox.about(self, 'Attention',
+                          'You can delete an event by pressing the loupe symbol by the particular event and then '
+                          'pressing the "Delete" button within the dialog.')
 
 '''
 Date/Time Formats:
