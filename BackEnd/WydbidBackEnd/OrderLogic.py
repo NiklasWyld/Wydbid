@@ -213,3 +213,66 @@ def delOrder(order_id: int, widget):
 
     widget.clear()
     widget.hide()
+
+def setOrderForEdit(order_id: int, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    order = session.query(Order).filter(Order.id == order_id).first()
+
+    if not order:
+        QMessageBox.warning(widget, 'Error', 'An error has occurred')
+        return
+
+    widget.title.setText(order.title)
+    widget.description.setText(order.description)
+    widget.price.setText(order.price)
+    widget.customer.setText(str(order.customer_id))
+
+def editOrder(order_id: int, title: str, description: str, price: str, customer_id: str, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    order = session.query(Order).filter(Order.id == order_id).first()
+
+    if not order:
+        QMessageBox.warning(widget, 'Error', 'An error has occurred')
+        return
+
+    if not title.strip() or not price.strip() or not customer_id.strip():
+        QMessageBox.warning(Wydbid.app.parent(), 'Warning',
+                            'All fields must be filled in!')
+        return
+
+    try: int(customer_id.strip())
+    except:
+        QMessageBox.warning(widget, 'Warning',
+                            'Customer ID must be an number!')
+        return
+
+    customer = session.query(Customer).filter(Customer.id == int(customer_id.strip())).first()
+    if not customer:
+        QMessageBox.warning(Wydbid.app.parent(), 'Attention',
+                            'Attention, the customer you entered does not exist.')
+
+    session.query(Order).filter(Order.id == order_id).update(
+        {
+            Order.title: title,
+            Order.description: description,
+            Order.price: price,
+            Order.customer_id: int(customer_id.strip()),
+        }
+    )
+
+    session.commit()
+
+    QMessageBox.about(widget, 'Updated order', f'Updated {order.title} successfully.')
+
+    widget.clear()
+    widget.hide()

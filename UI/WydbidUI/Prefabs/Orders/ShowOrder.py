@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from BackEnd.WydbidBackEnd import OrderLogic
+from UI.WydbidUI.Prefabs.Orders import EditOrder
 
 class ShowOrder(QWidget):
     def __init__(self, *args, **kwargs):
@@ -12,6 +13,8 @@ class ShowOrder(QWidget):
         self.setLayout(self.layout)
         self.setWindowTitle('Wydbid - Show order')
         self.setGeometry(0, 0, 600, 450)
+
+        self.eo = EditOrder.EditOrder()
 
         self.order = None
         self.order_id = 0
@@ -44,7 +47,7 @@ class ShowOrder(QWidget):
 
         edit = QPushButton(parent=action_box, text='Edit')
         edit.setToolTip('Edit this order')
-        #edit.clicked.connect(self.startEditOrder)
+        edit.clicked.connect(self.startEditOrder)
 
         delete = QPushButton(parent=action_box, text='Delete')
         delete.setToolTip('Delete this order')
@@ -105,6 +108,11 @@ class ShowOrder(QWidget):
 
     def startGetCustomer(self, edit: QLineEdit, label: QLabel):
         OrderLogic.getCustomerForLabel(edit, label)
+
+    def startEditOrder(self):
+        self.eo.clear()
+        self.eo.setOrder(self.order_id)
+        self.eo.show()
 
     def startDelOrder(self):
         OrderLogic.delOrder(self.order_id, self)
