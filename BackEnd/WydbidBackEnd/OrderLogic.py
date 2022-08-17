@@ -180,3 +180,36 @@ def editClosed(order_id: int, check: QCheckBox, widget):
     session.commit()
 
     QMessageBox.about(widget, 'Successfully changed', f'Order closed -> {str(check.isChecked())}')
+
+def delOrder(order_id: int, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    order = session.query(Order).filter(Order.id == order_id).first()
+
+    if not order:
+        QMessageBox.warning(widget, 'Error', 'An error has occurred')
+        return
+
+    m = QMessageBox.question(widget,
+                             'Confirm deletion',
+                             f'Attention, do you really want to delete {order.title}?',
+                             QMessageBox.Yes,
+                             QMessageBox.No)
+
+    if m == QMessageBox.No:
+        QMessageBox.about(widget, 'Cancelled',
+                          'The order has not been deleted.')
+        return
+
+    session.delete(order)
+    session.commit()
+
+    QMessageBox.about(widget, 'Completed',
+                      'The order has been deleted!')
+
+    widget.clear()
+    widget.hide()

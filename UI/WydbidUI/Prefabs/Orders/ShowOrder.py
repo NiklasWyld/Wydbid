@@ -48,7 +48,7 @@ class ShowOrder(QWidget):
 
         delete = QPushButton(parent=action_box, text='Delete')
         delete.setToolTip('Delete this order')
-        #delete.clicked.connect(self.startDelOrder)
+        delete.clicked.connect(self.startDelOrder)
 
         alyt.setContentsMargins(1, 1, 1, 1)
         alyt.addWidget(edit)
@@ -105,3 +105,6 @@ class ShowOrder(QWidget):
 
     def startGetCustomer(self, edit: QLineEdit, label: QLabel):
         OrderLogic.getCustomerForLabel(edit, label)
+
+    def startDelOrder(self):
+        OrderLogic.delOrder(self.order_id, self)
