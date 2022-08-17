@@ -144,3 +144,40 @@ def delEvent(event_id: int, widget):
 
     widget.clear()
     widget.hide()
+
+def editEvent(event_id: int, title: str, description: str, date, time, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    event = session.query(Event).filter(Event.id == event_id).first()
+
+    if not event:
+        QMessageBox.warning(widget, 'Error', 'An error has occurred')
+        return
+
+    if not title.strip():
+        QMessageBox.warning(Wydbid.app.parent(), 'Warning',
+                            'All fields must be filled in!')
+        return
+
+    date = date.toString('dd.MM.yyyy')
+    time = time.toString('hh:mm')
+
+    session.query(Event).filter(Event.id == event_id).update(
+        {
+            Event.title: title,
+            Event.description: description,
+            Event.date: date,
+            Event.time: time
+        }
+    )
+
+    session.commit()
+
+    QMessageBox.about(widget, 'Updated Event', f'Updated {event.title} successfully.')
+
+    widget.clear()
+    widget.hide()

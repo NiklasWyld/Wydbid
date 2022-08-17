@@ -14,6 +14,8 @@ class ShowEvent(QWidget):
         self.setWindowTitle('Wydbid - Show event')
         self.setGeometry(0, 0, 600, 450)
 
+        self.ee = EditEvent.EditEvent()
+
         self.event_id = 0
 
         self.setupUI()
@@ -42,7 +44,7 @@ class ShowEvent(QWidget):
 
         edit = QPushButton(parent=action_box, text='Edit')
         edit.setToolTip('Edit this event')
-        #edit.clicked.connect(self.startEditOrder)
+        edit.clicked.connect(self.startEditEvent)
 
         delete = QPushButton(parent=action_box, text='Delete')
         delete.setToolTip('Delete this event')
@@ -89,3 +91,8 @@ class ShowEvent(QWidget):
 
     def startDelEvent(self):
         EventLogic.delEvent(self.event_id, self)
+
+    def startEditEvent(self):
+        self.ee.clear()
+        self.ee.setEvent(self.event_id)
+        self.ee.show()
