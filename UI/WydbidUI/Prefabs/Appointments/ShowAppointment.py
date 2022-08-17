@@ -59,6 +59,7 @@ class ShowAppointment(QWidget):
 
         titlenote = QLabel(parent=self, text='Title: ')
         self.title = QLineEdit(parent=self)
+        self.title.setMinimumWidth(255)
 
         descriptionnote = QLabel(parent=self, text='Description: ')
         self.description = QTextEdit(parent=self)
