@@ -10,7 +10,7 @@ def createNewsFinal(widget):
 
     if title == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
-                            'At least the title field must be filled in.')
+                            'All mandatory fields (*) must be filled in.')
         return
 
     engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
@@ -121,7 +121,7 @@ def editNews(news_id, title, description, widget):
 
     if not title.strip():
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
-                            'All fields must be filled in!')
+                            'All mandatory fields (*) must be filled in.')
         return
 
     session.query(News).filter(News.id == news_id).update(

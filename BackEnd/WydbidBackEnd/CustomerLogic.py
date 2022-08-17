@@ -77,7 +77,7 @@ def editCustomer(customer_id, edit_customer):
 
     if not edit_customer.firstname.text().strip() or not edit_customer.lastname.text().strip():
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
-                            'All fields must be filled in!')
+                            'All mandatory fields (*) must be filled in.')
         return
 
     session.query(Customer).filter(Customer.id == customer_id).update(

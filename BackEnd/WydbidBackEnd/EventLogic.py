@@ -70,7 +70,7 @@ def createEvent(title: str, description: str, date, time, widget):
 
     if not title.strip():
         QMessageBox.warning(widget, 'Warning',
-                            'All fields must be filled in!')
+                            'All mandatory fields (*) must be filled in.')
         return
 
     date = date.toString('dd.MM.yyyy')
@@ -160,7 +160,7 @@ def editEvent(event_id: int, title: str, description: str, date, time, widget):
 
     if not title.strip():
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
-                            'All fields must be filled in!')
+                            'All mandatory fields (*) must be filled in.')
         return
 
     date = date.toString('dd.MM.yyyy')

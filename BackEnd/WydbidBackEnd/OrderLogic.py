@@ -109,7 +109,7 @@ def createOrder(title: str, description: str, price: str, customer_id: str, widg
 
     if not title.strip() or not customer_id.strip():
         QMessageBox.warning(widget, 'Warning',
-                            'All fields must be filled in!')
+                            'All mandatory fields (*) must be filled in.')
         return
 
     try: int(customer_id.strip())
@@ -247,7 +247,7 @@ def editOrder(order_id: int, title: str, description: str, price: str, customer_
 
     if not title.strip() or not customer_id.strip():
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
-                            'All fields must be filled in!')
+                            'All mandatory fields (*) must be filled in.')
         return
 
     try: int(customer_id.strip())

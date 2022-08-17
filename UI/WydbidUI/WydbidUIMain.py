@@ -14,7 +14,6 @@ import screeninfo
 import threading
 
 # ToDo: New slogan: There is nothing, oh wait, there is, Wydbid!
-# ToDo: Mark mandatory fields and omit non-mandatory fields
 
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
