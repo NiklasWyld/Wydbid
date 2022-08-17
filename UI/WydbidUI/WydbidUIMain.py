@@ -9,7 +9,7 @@ from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCusto
 from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment, DelAppointment, ShowAppointment
 from UI.WydbidUI.Prefabs.News import ShowAllNews
 from UI.WydbidUI.Prefabs.Orders import CreateOrder, ShowOrder
-from UI.WydbidUI.Prefabs.Events import CreateEvent
+from UI.WydbidUI.Prefabs.Events import CreateEvent, ShowEvent
 import screeninfo
 import threading
 
@@ -51,6 +51,7 @@ class WydbidUIMain(QWidget):
         self.so = ShowOrder.ShowOrder()
 
         self.ce = CreateEvent.CreateEvent()
+        self.se = ShowEvent.ShowEvent()
 
         self.setupUI()
         self.setupMenuBar()
@@ -423,10 +424,8 @@ class WydbidUIMain(QWidget):
         self.event_search_bar.textChanged.connect(self.filterForTitleInEvents)
 
         self.event_list = QTableWidget(parent=event_widget)
-        #self.event_list.clicked.connect(self.startShowOrder)
+        self.event_list.clicked.connect(self.startShowEvent)
         self.startAppendEvents()
-
-        # ToDo: Make click event
 
         lyt.addWidget(action_box)
         lyt.addWidget(self.event_search_bar)
@@ -593,6 +592,13 @@ class WydbidUIMain(QWidget):
         QMessageBox.about(self, 'Attention',
                           'You can delete an event by pressing the loupe symbol by the particular event and then '
                           'pressing the "Delete" button within the dialog.')
+
+    def startShowEvent(self, item):
+        if item.data() == '🔎':
+            id = item.data(Qt.UserRole)
+            self.se.clear()
+            self.se.setEvent(id)
+            self.se.show()
 
 '''
 Date/Time Formats:

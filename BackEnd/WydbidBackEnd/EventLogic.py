@@ -86,3 +86,61 @@ def createEvent(title: str, description: str, date, time, widget):
 
     widget.clear()
     widget.hide()
+
+def setEventForShow(event_id: int, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    event = session.query(Event).filter(Event.id == event_id).first()
+
+    if not event:
+        QMessageBox.warning(widget, 'Error', 'An error has occurred')
+        return
+
+    year = int(event.date.split('.')[2])
+    month = int(event.date.split('.')[1])
+    day = int(event.date.split('.')[0])
+
+    hour = int(event.time.split(':')[0])
+    minute = int(event.time.split(':')[1])
+
+    widget.title.setText(event.title)
+    widget.description.setText(event.description)
+    widget.dateedit.setDate(QDate(year, month, day))
+    widget.timeedit.setTime(QTime(hour, minute))
+
+def delEvent(event_id: int, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    event = session.query(Event).filter(Event.id == event_id).first()
+
+    if not event:
+        QMessageBox.warning(widget, 'Error', 'An error has occurred')
+        return
+
+    m = QMessageBox.question(widget,
+                             'Confirm deletion',
+                             f'Attention, do you really want to delete {event.title}?',
+                             QMessageBox.Yes,
+                             QMessageBox.No)
+
+    if m == QMessageBox.No:
+        QMessageBox.about(widget, 'Cancelled',
+                          'The event has not been deleted.')
+        return
+
+    session.delete(event)
+    session.commit()
+
+    QMessageBox.about(widget, 'Completed',
+                      'The event has been deleted!')
+
+    widget.clear()
+    widget.hide()
