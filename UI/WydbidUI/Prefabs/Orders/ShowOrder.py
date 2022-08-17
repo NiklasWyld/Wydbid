@@ -37,6 +37,24 @@ class ShowOrder(QWidget):
         title = QLabel('Show order')
         title.setFont(QFont('Montserrat', 30))
 
+        action_box = QGroupBox(parent=self)
+        action_box.setFixedHeight(40)
+        action_box.setMinimumWidth(500)
+        alyt = QHBoxLayout()
+
+        edit = QPushButton(parent=action_box, text='Edit')
+        edit.setToolTip('Edit this order')
+        #edit.clicked.connect(self.startEditOrder)
+
+        delete = QPushButton(parent=action_box, text='Delete')
+        delete.setToolTip('Delete this order')
+        #delete.clicked.connect(self.startDelOrder)
+
+        alyt.setContentsMargins(1, 1, 1, 1)
+        alyt.addWidget(edit)
+        alyt.addWidget(delete)
+        action_box.setLayout(alyt)
+
         titlenote = QLabel(parent=self, text='Title: ')
         self.title = QLineEdit(parent=self)
 
@@ -63,22 +81,22 @@ class ShowOrder(QWidget):
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 
-        # add action bar
+        self.layout.addWidget(action_box, 2, 0, 1, 0, Qt.AlignCenter)
 
-        self.layout.addWidget(titlenote, 2, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.title, 2, 1, Qt.AlignRight)
+        self.layout.addWidget(titlenote, 3, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.title, 3, 1, Qt.AlignRight)
 
-        self.layout.addWidget(descriptionnote, 3, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.description, 3, 1, Qt.AlignRight)
+        self.layout.addWidget(descriptionnote, 4, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.description, 4, 1, Qt.AlignRight)
 
-        self.layout.addWidget(pricenote, 4, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.price, 4, 1, Qt.AlignRight)
+        self.layout.addWidget(pricenote, 5, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.price, 5, 1, Qt.AlignRight)
 
-        self.layout.addWidget(customernote, 5, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.customer, 5, 1, Qt.AlignRight)
-        self.layout.addWidget(self.customer_name, 6, 1, Qt.AlignRight)
+        self.layout.addWidget(customernote, 6, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.customer, 6, 1, Qt.AlignRight)
+        self.layout.addWidget(self.customer_name, 7, 1, Qt.AlignRight)
 
-        self.layout.addWidget(self.closed, 7, 1, Qt.AlignRight)
+        self.layout.addWidget(self.closed, 8, 1, Qt.AlignRight)
 
     def editClosed(self):
         if not self.order_id == 0:
