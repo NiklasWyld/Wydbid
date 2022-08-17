@@ -5,7 +5,6 @@ import os
 from UI.Login import EmployeeLogin
 import Wydbid
 
-
 def login(companylogin: QWidget, company: QComboBox, password: str):
     if company.currentData() == None or password == '':
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',

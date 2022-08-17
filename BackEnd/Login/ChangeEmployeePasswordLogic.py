@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMessageBox, QWidget
+from PyQt5.QtWidgets import QMessageBox
 from sqlalchemy.orm import sessionmaker
 from Data.DataCombi import *
 import Wydbid

@@ -6,7 +6,6 @@ from Data import Company
 import os
 import Wydbid
 
-
 def writeCompany(id: int, name: str, password: str, widget: QWidget):
     location = Wydbid.location
 

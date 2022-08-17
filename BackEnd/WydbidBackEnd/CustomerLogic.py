@@ -121,10 +121,11 @@ def delCustomer(widget, id):
         return
 
     reply = QMessageBox.question(Wydbid.app.parent(), 'Are you sure?',
-                                 f'Are you sure you want to delete {customer.firstname} {customer.lastname}?',
+                                 f'Are you sure you want to delete {customer.firstname} {customer.lastname} and and all his links, such as appointments and orders?',
                                  QMessageBox.Yes, QMessageBox.No)
 
     if reply == QMessageBox.Yes:
+        delCustomerLinks(int(id))
         session.delete(customer)
         session.commit()
 
@@ -137,3 +138,23 @@ def delCustomer(widget, id):
 
     widget.clear()
     widget.hide()
+
+def delCustomerLinks(customer_id):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    # ToDo: Add all links
+
+    appointments = session.query(Appointment).filter(Appointment.customer_id == customer_id).all()
+    orders = session.query(Order).filter(Order.customer_id == customer_id).all()
+
+    for appointment in appointments:
+        session.delete(appointment)
+
+    for order in orders:
+        session.delete(order)
+
+    session.commit()

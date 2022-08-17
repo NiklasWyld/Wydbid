@@ -82,6 +82,8 @@ class ShowAppointment(QWidget):
         self.description.setEnabled(False)
         self.customer.setEnabled(False)
 
+        self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
+
         self.layout.addWidget(dateeditnote, 2, 0, Qt.AlignLeft)
         self.layout.addWidget(self.dateedit, 2, 1, Qt.AlignRight)
 
