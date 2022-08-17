@@ -33,17 +33,17 @@ class EditEvent(QWidget):
         title = QLabel('Edit event')
         title.setFont(QFont('Montserrat', 30))
 
-        titlenote = QLabel(parent=self, text='Title: ')
+        titlenote = QLabel(parent=self, text='Title (*): ')
         self.title = QLineEdit(parent=self)
 
         descriptionnote = QLabel(parent=self, text='Description: ')
         self.description = QTextEdit(parent=self)
         self.description.setMaximumHeight(300)
 
-        datenote = QLabel(parent=self, text='Date: ')
+        datenote = QLabel(parent=self, text='Date (*): ')
         self.dateedit = QDateEdit(parent=self)
 
-        timenote = QLabel(parent=self, text='Time: ')
+        timenote = QLabel(parent=self, text='Time (*): ')
         self.timeedit = QTimeEdit(parent=self)
 
         edit = QPushButton(parent=self, text='Edit')

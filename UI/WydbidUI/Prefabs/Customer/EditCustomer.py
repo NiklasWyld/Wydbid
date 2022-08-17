@@ -50,10 +50,10 @@ class EditCustomer(QWidget):
         title = QLabel('Edit customer')
         title.setFont(QFont('Montserrat', 30))
 
-        firstname_note = QLabel(parent=self, text='First name: ')
+        firstname_note = QLabel(parent=self, text='First name (*): ')
         self.firstname = QLineEdit(parent=self)
 
-        lastname_note = QLabel(parent=self, text='Last name: ')
+        lastname_note = QLabel(parent=self, text='Last name (*): ')
         self.lastname = QLineEdit(parent=self)
 
         email_note = QLabel(parent=self, text='E-mail address: ')

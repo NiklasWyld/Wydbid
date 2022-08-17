@@ -34,7 +34,7 @@ class EditOrder(QWidget):
         title = QLabel('Edit order')
         title.setFont(QFont('Montserrat', 30))
 
-        titlenote = QLabel(parent=self, text='Title: ')
+        titlenote = QLabel(parent=self, text='Title (*): ')
         self.title = QLineEdit(parent=self)
 
         descriptionnote = QLabel(parent=self, text='Description: ')
@@ -44,7 +44,7 @@ class EditOrder(QWidget):
         pricenote = QLabel(parent=self, text='Price: ')
         self.price = QLineEdit(parent=self)
 
-        customernote = QLabel(parent=self, text='Customer ID: ')
+        customernote = QLabel(parent=self, text='Customer ID (*): ')
         self.customer = QLineEdit(parent=self)
         self.customer_name = QLabel(parent=self, text='')
         self.customer_name.font().setPixelSize(10)

@@ -119,6 +119,11 @@ def editNews(news_id, title, description, widget):
 
     base.metadata.create_all(engine)
 
+    if not title.strip():
+        QMessageBox.warning(Wydbid.app.parent(), 'Warning',
+                            'All fields must be filled in!')
+        return
+
     session.query(News).filter(News.id == news_id).update(
         {
             News.title: title,

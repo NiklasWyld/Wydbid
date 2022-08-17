@@ -28,7 +28,7 @@ class CreateOrder(QWidget):
         title = QLabel('Create order')
         title.setFont(QFont('Montserrat', 30))
 
-        titlenote = QLabel(parent=self, text='Title: ')
+        titlenote = QLabel(parent=self, text='Title (*): ')
         self.title = QLineEdit(parent=self)
 
         descriptionnote = QLabel(parent=self, text='Description: ')
@@ -38,7 +38,7 @@ class CreateOrder(QWidget):
         pricenote = QLabel(parent=self, text='Price: ')
         self.price = QLineEdit(parent=self)
 
-        customernote = QLabel(parent=self, text='Customer ID: ')
+        customernote = QLabel(parent=self, text='Customer ID (*): ')
         self.customer = QLineEdit(parent=self)
         self.customer.textChanged.connect(lambda: self.startGetCustomer(self.customer, self.customer_name))
         self.customer_name = QLabel(parent=self, text='')

@@ -107,7 +107,7 @@ def createOrder(title: str, description: str, price: str, customer_id: str, widg
 
     base.metadata.create_all(engine)
 
-    if not title.strip() or not price.strip() or not customer_id.strip():
+    if not title.strip() or not customer_id.strip():
         QMessageBox.warning(widget, 'Warning',
                             'All fields must be filled in!')
         return
@@ -245,7 +245,7 @@ def editOrder(order_id: int, title: str, description: str, price: str, customer_
         QMessageBox.warning(widget, 'Error', 'An error has occurred')
         return
 
-    if not title.strip() or not price.strip() or not customer_id.strip():
+    if not title.strip() or not customer_id.strip():
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
                             'All fields must be filled in!')
         return
