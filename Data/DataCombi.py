@@ -3,8 +3,6 @@ from sqlalchemy import create_engine, Column, String, Integer, Boolean, Float
 from sqlalchemy.orm import declarative_base
 import Wydbid
 
-# ToDo: Add all classes
-
 base = declarative_base()
 
 class Customer(base):
@@ -90,3 +88,17 @@ class Order(base):
         self.price = price
         self.customer_id = customer_id
         self.closed = bool(False)
+
+class Event(base):
+    __tablename__ = 'events'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    title = Column(String(), nullable=False)
+    description = Column(String(), nullable=False)
+    date = Column(String(), nullable=False)
+    time = Column(String(), nullable=False)
+
+    def __init__(self, title: str, description: str, date: str, time: str):
+        self.title = title
+        self.description = description
+        self.date = date
+        self.time = time

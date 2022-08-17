@@ -60,6 +60,7 @@ class ShowOrder(QWidget):
 
         titlenote = QLabel(parent=self, text='Title: ')
         self.title = QLineEdit(parent=self)
+        self.title.setMinimumWidth(255)
 
         descriptionnote = QLabel(parent=self, text='Description: ')
         self.description = QTextEdit(parent=self)
@@ -67,9 +68,11 @@ class ShowOrder(QWidget):
 
         pricenote = QLabel(parent=self, text='Price: ')
         self.price = QLineEdit(parent=self)
+        self.price.setMinimumWidth(255)
 
         customernote = QLabel(parent=self, text='Customer ID: ')
         self.customer = QLineEdit(parent=self)
+        self.customer.setMinimumWidth(300)
         self.customer_name = QLabel(parent=self, text='')
         self.customer_name.font().setPixelSize(10)
         self.customer.textChanged.connect(lambda: self.startGetCustomer(self.customer, self.customer_name))

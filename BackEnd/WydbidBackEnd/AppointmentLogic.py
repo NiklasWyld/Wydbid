@@ -89,9 +89,9 @@ def appendAppointments(date_: str, calendar: QCalendarWidget, list: QTableWidget
     list.setSortingEnabled(True)
 
 def createAppointment(date, time, title, description, customer_id, widget):
-    if not title.strip() or not description.strip() or not customer_id.strip():
+    if not title.strip() or not customer_id.strip():
         QMessageBox.warning(widget, 'Warning',
-                            'All fields must be filled in!')
+                            'All mandatory fields (*) must be filled in.')
         return
 
     engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
@@ -122,9 +122,9 @@ def createAppointment(date, time, title, description, customer_id, widget):
     Wydbid.wydbidui.startAppendAppointments()
 
 def editAppointment(id, date, time, title, description, customer_id, widget):
-    if not title.strip() or not description.strip() or not customer_id.strip():
+    if not title.strip() or not customer_id.strip():
         QMessageBox.warning(widget, 'Warning',
-                            'All fields must be filled in!')
+                            'All mandatory fields (*) must be filled in.')
         return
 
     engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')

@@ -3,12 +3,13 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import Wydbid
-from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic, OrderLogic
+from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic, OrderLogic, EventLogic
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
 from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment, DelAppointment, ShowAppointment
 from UI.WydbidUI.Prefabs.News import ShowAllNews
 from UI.WydbidUI.Prefabs.Orders import CreateOrder, ShowOrder
+from UI.WydbidUI.Prefabs.Events import CreateEvent, ShowEvent
 import screeninfo
 import threading
 
@@ -47,6 +48,9 @@ class WydbidUIMain(QWidget):
         self.co = CreateOrder.CreateOrder()
         self.so = ShowOrder.ShowOrder()
 
+        self.ce = CreateEvent.CreateEvent()
+        self.se = ShowEvent.ShowEvent()
+
         self.setupUI()
         self.setupMenuBar()
 
@@ -81,6 +85,7 @@ class WydbidUIMain(QWidget):
         self.setupOrders(order_widget)
 
         event_widget = QWidget()
+        self.setupEvents(event_widget)
 
         task_widget = QWidget()
 
@@ -381,6 +386,51 @@ class WydbidUIMain(QWidget):
 
         orders_widget.setLayout(lyt)
 
+    def setupEvents(self, event_widget: QWidget):
+        lyt = QVBoxLayout()
+
+        action_box = QGroupBox(parent=event_widget)
+        action_box.setFixedHeight(40)
+        alyt = QHBoxLayout()
+
+        add = QPushButton(parent=action_box, text='Create')
+        add.setToolTip('Create new event')
+        add.clicked.connect(self.startCreateEvent)
+
+        edit = QPushButton(parent=action_box, text='Edit')
+        edit.setToolTip('Edit a event')
+        edit.clicked.connect(self.startEditEvent)
+
+        delete = QPushButton(parent=action_box, text='Delete')
+        delete.setToolTip('Delete a event')
+        delete.clicked.connect(self.startDelEvent)
+
+        reload = QPushButton(parent=action_box, text='Reload')
+        reload.setToolTip('Reload all events')
+        reload.clicked.connect(self.startAppendEvents)
+
+        alyt.setContentsMargins(1, 1, 1, 1)
+        alyt.addWidget(add)
+        alyt.addWidget(edit)
+        alyt.addWidget(delete)
+        alyt.addWidget(reload)
+        action_box.setLayout(alyt)
+
+        self.event_search_bar = QLineEdit(parent=event_widget)
+        self.event_search_bar.setPlaceholderText('Filter by title')
+        self.event_search_bar.setFixedHeight(40)
+        self.event_search_bar.textChanged.connect(self.filterForTitleInEvents)
+
+        self.event_list = QTableWidget(parent=event_widget)
+        self.event_list.clicked.connect(self.startShowEvent)
+        self.startAppendEvents()
+
+        lyt.addWidget(action_box)
+        lyt.addWidget(self.event_search_bar)
+        lyt.addWidget(self.event_list)
+
+        event_widget.setLayout(lyt)
+
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)
         self.time_label.setText('00:00:00')
@@ -488,8 +538,19 @@ class WydbidUIMain(QWidget):
             # if the search is not in the item's text do not hide the row
             self.order_list.setRowHidden(row, customer not in item.text().lower())
 
+    def filterForTitleInEvents(self):
+        title = self.event_search_bar.text().lower()
+        for row in range(self.event_list.rowCount()):
+            item = self.event_list.item(row, 0)
+
+            # if the search is not in the item's text do not hide the row
+            self.event_list.setRowHidden(row, title not in item.text().lower())
+
     def startAppendOrders(self):
         OrderLogic.appendOrders(self.order_list)
+
+    def startAppendEvents(self):
+        EventLogic.appendEvents(self.event_list)
 
     def startCreateOrder(self):
         self.co.clear()
@@ -512,6 +573,30 @@ class WydbidUIMain(QWidget):
             self.so.clear()
             self.so.setOrder(id)
             self.so.show()
+
+    ###
+
+    def startCreateEvent(self):
+        self.ce.clear()
+        self.ce.show()
+
+    def startEditEvent(self):
+        QMessageBox.about(self, 'Attention',
+                          'You can edit an event by pressing the '
+                          'Loupe symbol by the particular event and then pressing'
+                          ' the "Edit" button within the dialog.')
+
+    def startDelEvent(self):
+        QMessageBox.about(self, 'Attention',
+                          'You can delete an event by pressing the loupe symbol by the particular event and then '
+                          'pressing the "Delete" button within the dialog.')
+
+    def startShowEvent(self, item):
+        if item.data() == '🔎':
+            id = item.data(Qt.UserRole)
+            self.se.clear()
+            self.se.setEvent(id)
+            self.se.show()
 
 '''
 Date/Time Formats:

@@ -3,8 +3,6 @@ from sqlalchemy.orm import sessionmaker
 from Data.DataCombi import *
 import Wydbid
 
-# ToDo: Add if not / .strip() to prove strings
-
 def createCustomer(create_customer):
     if not create_customer.firstname.text().strip() or not create_customer.lastname.text().strip():
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',
@@ -76,6 +74,11 @@ def editCustomer(customer_id, edit_customer):
     session = _session(bind=engine)
 
     base.metadata.create_all(engine)
+
+    if not edit_customer.firstname.text().strip() or not edit_customer.lastname.text().strip():
+        QMessageBox.warning(Wydbid.app.parent(), 'Warning',
+                            'All mandatory fields (*) must be filled in.')
+        return
 
     session.query(Customer).filter(Customer.id == customer_id).update(
         {

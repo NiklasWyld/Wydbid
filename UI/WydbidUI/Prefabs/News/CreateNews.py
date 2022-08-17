@@ -25,7 +25,7 @@ class CreateNews(QWidget):
         title = QLabel('Create news')
         title.setFont(QFont('Montserrat', 30))
 
-        title_note = QLabel(parent=self, text='Title: ')
+        title_note = QLabel(parent=self, text='Title (*): ')
         self.title = QLineEdit(parent=self)
 
         description_note = QLabel(parent=self, text='Description: ')

@@ -85,21 +85,21 @@ class EditAppointment(QWidget):
         title = QLabel('Edit Appointment')
         title.setFont(QFont('Montserrat', 30))
 
-        dateeditnote = QLabel(parent=self, text='Date: ')
+        dateeditnote = QLabel(parent=self, text='Date (*): ')
         self.dateedit = QDateEdit(parent=self)
 
-        timeeditnote = QLabel(parent=self, text='Time: ')
+        timeeditnote = QLabel(parent=self, text='Time (*): ')
         self.timeedit = QTimeEdit(parent=self)
         self.timeedit.setTime(QTime.currentTime())
 
-        titlenote = QLabel(parent=self, text='Title: ')
+        titlenote = QLabel(parent=self, text='Title (*): ')
         self.title = QLineEdit(parent=self)
 
         descriptionnote = QLabel(parent=self, text='Description: ')
         self.description = QTextEdit(parent=self)
         self.description.setMaximumHeight(300)
 
-        customernote = QLabel(parent=self, text='Customer: ')
+        customernote = QLabel(parent=self, text='Customer (*): ')
         self.customer = QLineEdit(parent=self)
         self.customer.textChanged.connect(lambda: self.startGetCustomer(self.customer, self.customer_name))
         self.customer_name = QLabel(parent=self, text='')
