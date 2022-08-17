@@ -3,8 +3,6 @@ from sqlalchemy.orm import sessionmaker
 from Data.DataCombi import *
 import Wydbid
 
-# ToDo: Add if not / .strip() to prove strings
-
 def createCustomer(create_customer):
     if not create_customer.firstname.text().strip() or not create_customer.lastname.text().strip():
         QMessageBox.warning(Wydbid.app.parent(), 'Warning',

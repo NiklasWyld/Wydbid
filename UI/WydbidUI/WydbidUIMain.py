@@ -13,6 +13,7 @@ import screeninfo
 import threading
 
 # ToDo: New slogan: There is nothing, oh wait, there is, Wydbid!
+# ToDo: Mark mandatory fields and omit non-mandatory fields
 
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
@@ -81,6 +82,7 @@ class WydbidUIMain(QWidget):
         self.setupOrders(order_widget)
 
         event_widget = QWidget()
+        self.setupEvents(event_widget)
 
         task_widget = QWidget()
 
@@ -381,6 +383,57 @@ class WydbidUIMain(QWidget):
 
         orders_widget.setLayout(lyt)
 
+    def setupEvents(self, event_widget: QWidget):
+        lyt = QVBoxLayout()
+
+        action_box = QGroupBox(parent=event_widget)
+        action_box.setFixedHeight(40)
+        alyt = QHBoxLayout()
+
+        # ToDo: Add actions
+
+        add = QPushButton(parent=action_box, text='Create')
+        add.setToolTip('Create new event')
+        #add.clicked.connect(self.startCreateOrder)
+
+        edit = QPushButton(parent=action_box, text='Edit')
+        edit.setToolTip('Edit a event')
+        #edit.clicked.connect(self.startEditOrder)
+
+        delete = QPushButton(parent=action_box, text='Delete')
+        delete.setToolTip('Delete a event')
+        #delete.clicked.connect(self.startDelOrder)
+
+        reload = QPushButton(parent=action_box, text='Reload')
+        reload.setToolTip('Reload all events')
+        #reload.clicked.connect(self.startAppendOrders)
+
+        alyt.setContentsMargins(1, 1, 1, 1)
+        alyt.addWidget(add)
+        alyt.addWidget(edit)
+        alyt.addWidget(delete)
+        alyt.addWidget(reload)
+        action_box.setLayout(alyt)
+
+        self.event_search_bar = QLineEdit(parent=event_widget)
+        self.event_search_bar.setPlaceholderText('Filter by title')
+        self.event_search_bar.setFixedHeight(40)
+        self.event_search_bar.textChanged.connect(self.filterForTitleInEvents)
+        # ToDo: Make filter
+
+        self.event_list = QTableWidget(parent=event_widget)
+        #self.event_list.clicked.connect(self.startShowOrder)
+        self.startAppendEvents()
+
+        # ToDo: Make click event
+        # ToDo: Append Events
+
+        lyt.addWidget(action_box)
+        lyt.addWidget(self.event_search_bar)
+        lyt.addWidget(self.event_list)
+
+        event_widget.setLayout(lyt)
+
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)
         self.time_label.setText('00:00:00')
@@ -488,8 +541,19 @@ class WydbidUIMain(QWidget):
             # if the search is not in the item's text do not hide the row
             self.order_list.setRowHidden(row, customer not in item.text().lower())
 
+    def filterForTitleInEvents(self):
+        title = self.event_search_bar.text().lower()
+        for row in range(self.event_list.rowCount()):
+            item = self.event_list.item(row, 0)
+
+            # if the search is not in the item's text do not hide the row
+            self.event_list.setRowHidden(row, title not in item.text().lower())
+
     def startAppendOrders(self):
         OrderLogic.appendOrders(self.order_list)
+
+    def startAppendEvents(self):
+        pass
 
     def startCreateOrder(self):
         self.co.clear()
