@@ -173,6 +173,11 @@ if __name__ == '__main__':
 
     buildLocation()
 
+    app.setApplicationName('Wydbid')
+    app.setObjectName('Wydbid')
+    app.setApplicationDisplayName('Wydbid')
+    app.setApplicationVersion(WYDBID_VERSION)
+
     # Set icon for all widgets
     app.setWindowIcon(QIcon('./Assets/Icon.jpeg'))
 
