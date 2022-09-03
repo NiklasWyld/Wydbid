@@ -5,6 +5,7 @@ from BackEnd.WydbidBackEnd import TaskLogic
 from UI.WydbidUI.Prefabs.Tasks import EditTask
 
 # ToDo: Make all shows more width (qlineedits)
+# ToDo: Make auto reload after action in all shows, creates, ...
 
 class ShowTask(QWidget):
     def __init__(self, *args, **kwargs):
@@ -56,7 +57,7 @@ class ShowTask(QWidget):
 
         delete = QPushButton(parent=action_box, text='Delete')
         delete.setToolTip('Delete this task')
-        #delete.clicked.connect(self.startDelOrder)
+        delete.clicked.connect(self.startDelTask)
 
         alyt.setContentsMargins(1, 1, 1, 1)
         alyt.addWidget(edit)
@@ -118,3 +119,6 @@ class ShowTask(QWidget):
         if not self.task_id == 0:
             if not self.task.done == self.done.isChecked():
                 TaskLogic.editTaskDone(self.task.id, self.done, self)
+
+    def startDelTask(self):
+        TaskLogic.delTask(self.task_id, self)

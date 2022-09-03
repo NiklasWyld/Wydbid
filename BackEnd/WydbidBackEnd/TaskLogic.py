@@ -177,3 +177,36 @@ def editTaskDone(task_id: int, done: QCheckBox, widget):
 
     session.commit()
     QMessageBox.about(widget, 'Successfully changed', f'Task done -> {str(done)}')
+
+def delTask(task_id: int, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    task = session.query(Task).filter(Task.id == task_id).first()
+
+    if not task:
+        QMessageBox.warning(widget, 'Error', 'An error has occurred')
+        return
+
+    m = QMessageBox.question(widget,
+                             'Confirm deletion',
+                             f'Attention, do you really want to delete {task.title}?',
+                             QMessageBox.Yes,
+                             QMessageBox.No)
+
+    if m == QMessageBox.No:
+        QMessageBox.about(widget, 'Cancelled',
+                          'The order has not been deleted.')
+        return
+
+    session.delete(task)
+    session.commit()
+
+    QMessageBox.about(widget, 'Completed',
+                      'The task has been deleted!')
+
+    widget.clear()
+    widget.hide()
