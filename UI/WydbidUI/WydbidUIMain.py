@@ -10,6 +10,7 @@ from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment,
 from UI.WydbidUI.Prefabs.News import ShowAllNews
 from UI.WydbidUI.Prefabs.Orders import CreateOrder, ShowOrder
 from UI.WydbidUI.Prefabs.Events import CreateEvent, ShowEvent
+from UI.WydbidUI.Prefabs.Tasks import CreateTask, ShowTask
 import screeninfo
 import threading
 
@@ -50,6 +51,8 @@ class WydbidUIMain(QWidget):
 
         self.ce = CreateEvent.CreateEvent()
         self.se = ShowEvent.ShowEvent()
+
+        self.ct = CreateTask.CreateTask()
 
         self.setupUI()
         self.setupMenuBar()
@@ -441,7 +444,7 @@ class WydbidUIMain(QWidget):
 
         add = QPushButton(parent=action_box, text='Create')
         add.setToolTip('Create new task')
-        #add.clicked.connect(self.startCreateEvent)
+        add.clicked.connect(self.startCreateTask)
 
         edit = QPushButton(parent=action_box, text='Edit')
         edit.setToolTip('Edit a task')
@@ -641,6 +644,10 @@ class WydbidUIMain(QWidget):
             self.se.clear()
             self.se.setEvent(id)
             self.se.show()
+
+    def startCreateTask(self):
+        self.ct.clear()
+        self.ct.show()
 
     def startEditTask(self):
         QMessageBox.about(self, 'Attention',
