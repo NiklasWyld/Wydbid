@@ -88,6 +88,7 @@ class WydbidUIMain(QWidget):
         self.setupEvents(event_widget)
 
         task_widget = QWidget()
+        self.setupTasks(task_widget)
 
         email_widget = QWidget()
 
@@ -431,6 +432,51 @@ class WydbidUIMain(QWidget):
 
         event_widget.setLayout(lyt)
 
+    def setupTasks(self, task_widget: QWidget):
+        lyt = QVBoxLayout()
+
+        action_box = QGroupBox(parent=task_widget)
+        action_box.setFixedHeight(40)
+        alyt = QHBoxLayout()
+
+        add = QPushButton(parent=action_box, text='Create')
+        add.setToolTip('Create new task')
+        #add.clicked.connect(self.startCreateEvent)
+
+        edit = QPushButton(parent=action_box, text='Edit')
+        edit.setToolTip('Edit a task')
+        edit.clicked.connect(self.startEditTask)
+
+        delete = QPushButton(parent=action_box, text='Delete')
+        delete.setToolTip('Delete a task')
+        delete.clicked.connect(self.startDelTask)
+
+        reload = QPushButton(parent=action_box, text='Reload')
+        reload.setToolTip('Reload all tasks')
+        #reload.clicked.connect(self.startAppendEvents)
+
+        alyt.setContentsMargins(1, 1, 1, 1)
+        alyt.addWidget(add)
+        alyt.addWidget(edit)
+        alyt.addWidget(delete)
+        alyt.addWidget(reload)
+        action_box.setLayout(alyt)
+
+        self.task_search_bar = QLineEdit(parent=task_widget)
+        self.task_search_bar.setPlaceholderText('Filter by employee')
+        self.task_search_bar.setFixedHeight(40)
+        #self.task_search_bar.textChanged.connect(self.filterForTitleInEvents)
+
+        self.task_list = QTableWidget(parent=task_widget)
+        #self.task_list.clicked.connect(self.startShowEvent)
+        self.startAppendEvents()
+
+        lyt.addWidget(action_box)
+        lyt.addWidget(self.task_search_bar)
+        lyt.addWidget(self.task_list)
+
+        task_widget.setLayout(lyt)
+
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)
         self.time_label.setText('00:00:00')
@@ -574,8 +620,6 @@ class WydbidUIMain(QWidget):
             self.so.setOrder(id)
             self.so.show()
 
-    ###
-
     def startCreateEvent(self):
         self.ce.clear()
         self.ce.show()
@@ -597,6 +641,17 @@ class WydbidUIMain(QWidget):
             self.se.clear()
             self.se.setEvent(id)
             self.se.show()
+
+    def startEditTask(self):
+        QMessageBox.about(self, 'Attention',
+                          'You can edit an task by pressing the '
+                          'Loupe symbol by the particular task and then pressing'
+                          ' the "Edit" button within the dialog.')
+
+    def startDelTask(self):
+        QMessageBox.about(self, 'Attention',
+                          'You can delete an task by pressing the loupe symbol by the particular task and then '
+                          'pressing the "Delete" button within the dialog.')
 
 '''
 Date/Time Formats:

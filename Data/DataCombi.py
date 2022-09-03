@@ -102,3 +102,21 @@ class Event(base):
         self.description = description
         self.date = date
         self.time = time
+
+class Task(base):
+    __tablename__ = 'tasks'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    author_id = Column(Integer, nullable=False)
+    receiver_id = Column(Integer, nullable=False)
+    title = Column(String(), nullable=False)
+    description = Column(String(), nullable=False)
+    deadline = Column(String(), nullable=False)
+    done = Column(Boolean, nullable=False)
+
+    def __init__(self, author_id: int, receiver_id: int, title: str, description: str, deadline: str):
+        self.author_id = author_id
+        self.receiver_id = receiver_id
+        self.title = title
+        self.description = description
+        self.deadline = deadline
+        self.done = False
