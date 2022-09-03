@@ -152,9 +152,28 @@ def setTaskForShow(task_id: int, widget):
     month = int(task.deadline.split('.')[1])
     day = int(task.deadline.split('.')[0])
 
+    widget.task = task
     widget.author.setText(task.author_username)
     widget.receiver.setText(task.receiver_username)
     widget.title.setText(task.title)
     widget.description.setText(task.description)
     widget.deadline.setDate(QDate(year, month, day))
     widget.done.setChecked(bool(task.done))
+
+def editTaskDone(task_id: int, done: QCheckBox, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    done = done.isChecked()
+
+    session.query(Task).filter(Task.id == task_id).update(
+        {
+            Task.done: done
+        }
+    )
+
+    session.commit()
+    QMessageBox.about(widget, 'Successfully changed', f'Task done -> {str(done)}')

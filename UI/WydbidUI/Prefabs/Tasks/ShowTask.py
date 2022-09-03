@@ -85,8 +85,7 @@ class ShowTask(QWidget):
         self.deadline.setMinimumWidth(450)
 
         self.done = QCheckBox(parent=self, text='Done')
-        # ToDo: add change event
-        #self.done.stateChanged.connect(self.editClosed)
+        self.done.stateChanged.connect(self.editClosed)
 
         self.author.setEnabled(False)
         self.receiver.setEnabled(False)
@@ -114,3 +113,8 @@ class ShowTask(QWidget):
         self.layout.addWidget(self.deadline, 7, 1, Qt.AlignRight)
 
         self.layout.addWidget(self.done, 8, 1, Qt.AlignRight)
+
+    def editClosed(self):
+        if not self.task_id == 0:
+            if not self.task.done == self.done.isChecked():
+                TaskLogic.editTaskDone(self.task.id, self.done, self)
