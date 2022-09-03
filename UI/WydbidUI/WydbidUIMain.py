@@ -676,7 +676,7 @@ class WydbidUIMain(QWidget):
         if item.data() == '🔎':
             id = item.data(Qt.UserRole)
             self.st.clear()
-            #self.se.setTask(id)
+            self.st.setTask(id)
             self.st.show()
 
 '''

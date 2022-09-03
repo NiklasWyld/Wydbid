@@ -25,13 +25,17 @@ class ShowTask(QWidget):
 
     def setTask(self, task_id: int):
         self.task_id = task_id
-        # ToDo: set task for show
-        # TaskLogic.setTaskForShow(self.task_id, self)
+        TaskLogic.setTaskForShow(self.task_id, self)
 
     def clear(self):
         self.task = None
         self.task_id = 0
-        # ToDo: Finish clear
+        self.author.setText('')
+        self.receiver.setText('')
+        self.title.setText('')
+        self.description.setText('')
+        self.deadline.setDate(QDate.currentDate())
+        self.done.setChecked(False)
 
     def setupUI(self):
         self.layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
@@ -59,6 +63,10 @@ class ShowTask(QWidget):
         alyt.addWidget(delete)
         action_box.setLayout(alyt)
 
+        authornote = QLabel(parent=self, text='Author Username')
+        self.author = QLineEdit(parent=self)
+        self.author.setMinimumWidth(450)
+
         receivernote = QLabel(parent=self, text='Receiver Username:')
         self.receiver = QLineEdit(parent=self)
         self.receiver.setMinimumWidth(450)
@@ -80,6 +88,7 @@ class ShowTask(QWidget):
         # ToDo: add change event
         #self.done.stateChanged.connect(self.editClosed)
 
+        self.author.setEnabled(False)
         self.receiver.setEnabled(False)
         self.title.setEnabled(False)
         self.description.setEnabled(False)
@@ -89,16 +98,19 @@ class ShowTask(QWidget):
 
         self.layout.addWidget(action_box, 2, 0, 1, 0, Qt.AlignCenter)
 
-        self.layout.addWidget(receivernote, 3, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.receiver, 3, 1, Qt.AlignRight)
+        self.layout.addWidget(authornote, 3, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.author, 3, 1, Qt.AlignRight)
 
-        self.layout.addWidget(titlenote, 4, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.title, 4, 1, Qt.AlignRight)
+        self.layout.addWidget(receivernote, 4, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.receiver, 4, 1, Qt.AlignRight)
 
-        self.layout.addWidget(descriptionnote, 5, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.description, 5, 1, Qt.AlignRight)
+        self.layout.addWidget(titlenote, 5, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.title, 5, 1, Qt.AlignRight)
 
-        self.layout.addWidget(deadlinenote, 6, 0, Qt.AlignLeft)
-        self.layout.addWidget(self.deadline, 6, 1, Qt.AlignRight)
+        self.layout.addWidget(descriptionnote, 6, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.description, 6, 1, Qt.AlignRight)
 
-        self.layout.addWidget(self.done, 7, 1, Qt.AlignRight)
+        self.layout.addWidget(deadlinenote, 7, 0, Qt.AlignLeft)
+        self.layout.addWidget(self.deadline, 7, 1, Qt.AlignRight)
+
+        self.layout.addWidget(self.done, 8, 1, Qt.AlignRight)
