@@ -49,3 +49,88 @@ def createTask(author_username: str, receiver_username: str, title: str, descrip
 
     widget.clear()
     widget.hide()
+
+def getNameOfEmployee(username: str):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    employee = session.query(Employee).filter(Employee.username == username).first()
+    name = employee.name
+
+    return name
+
+def appendTasks(list: QTableWidget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    tasks = session.query(Task).all()
+
+    list.setSortingEnabled(False)
+    list.clear()
+    list.clearContents()
+    list.setColumnCount(0)
+    list.setRowCount(0)
+
+    list.setColumnCount(6)
+    list.setHorizontalHeaderLabels(
+        ['Title', 'Author', 'Receiver', 'Deadline', 'Done', '']
+    )
+    list.setColumnWidth(0, 200)
+    list.setColumnWidth(1, 200)
+    list.setColumnWidth(2, 200)
+    list.setColumnWidth(3, 200)
+    list.setColumnWidth(4, 100)
+    list.setColumnWidth(5, 40)
+
+    tasks.sort(key=lambda x: x.deadline, reverse=False)
+
+    list.setRowCount(len(tasks))
+
+    i = 0
+
+    for task in tasks:
+        title = QTableWidgetItem()
+        title.setText(task.title)
+
+        author = QTableWidgetItem()
+        author_name = getNameOfEmployee(task.author_username)
+        author.setText(author_name)
+
+        receiver = QTableWidgetItem()
+        receiver_name = getNameOfEmployee(task.receiver_username)
+        receiver.setText(receiver_name)
+
+        deadline = QTableWidgetItem()
+        deadline.setText(task.deadline)
+
+        done = QTableWidgetItem()
+
+        if task.done == 0 or False:
+            done.setText('No')
+        else:
+            done.setText('Yes')
+
+        view = QTableWidgetItem()
+        view.setData(Qt.UserRole, task.id)
+        view.setText('🔎')
+        view.setTextAlignment(Qt.AlignCenter)
+
+        list.setItem(i, 0, title)
+        list.setItem(i, 1, author)
+        list.setItem(i, 2, receiver)
+        list.setItem(i, 3, deadline)
+        list.setItem(i, 4, done)
+        list.setItem(i, 5, view)
+        i = i + 1
+
+    list.verticalHeader().setVisible(False)
+    list.setFocusPolicy(Qt.NoFocus)
+    list.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
+    list.setEditTriggers(QAbstractItemView.NoEditTriggers)
+    list.setSortingEnabled(True)

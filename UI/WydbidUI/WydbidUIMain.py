@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import Wydbid
-from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic, OrderLogic, EventLogic
+from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic, OrderLogic, EventLogic, TaskLogic
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
 from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment, DelAppointment, ShowAppointment
@@ -456,7 +456,7 @@ class WydbidUIMain(QWidget):
 
         reload = QPushButton(parent=action_box, text='Reload')
         reload.setToolTip('Reload all tasks')
-        #reload.clicked.connect(self.startAppendEvents)
+        reload.clicked.connect(self.startAppendTasks)
 
         alyt.setContentsMargins(1, 1, 1, 1)
         alyt.addWidget(add)
@@ -466,13 +466,13 @@ class WydbidUIMain(QWidget):
         action_box.setLayout(alyt)
 
         self.task_search_bar = QLineEdit(parent=task_widget)
-        self.task_search_bar.setPlaceholderText('Filter by employee')
+        self.task_search_bar.setPlaceholderText('Filter by receiver')
         self.task_search_bar.setFixedHeight(40)
-        #self.task_search_bar.textChanged.connect(self.filterForTitleInEvents)
+        self.task_search_bar.textChanged.connect(self.filterForReceiverInTasks)
 
         self.task_list = QTableWidget(parent=task_widget)
         #self.task_list.clicked.connect(self.startShowEvent)
-        self.startAppendEvents()
+        self.startAppendTasks()
 
         lyt.addWidget(action_box)
         lyt.addWidget(self.task_search_bar)
@@ -595,11 +595,22 @@ class WydbidUIMain(QWidget):
             # if the search is not in the item's text do not hide the row
             self.event_list.setRowHidden(row, title not in item.text().lower())
 
+    def filterForReceiverInTasks(self):
+        receiver = self.task_search_bar.text().lower()
+        for row in range(self.task_list.rowCount()):
+            item = self.task_list.item(row, 2)
+
+            # if the search is not in the item's text do not hide the row
+            self.task_list.setRowHidden(row, receiver not in item.text().lower())
+
     def startAppendOrders(self):
         OrderLogic.appendOrders(self.order_list)
 
     def startAppendEvents(self):
         EventLogic.appendEvents(self.event_list)
+
+    def startAppendTasks(self):
+        TaskLogic.appendTasks(self.task_list)
 
     def startCreateOrder(self):
         self.co.clear()
