@@ -42,7 +42,10 @@ class CreateTask(QWidget):
         self.deadline = QDateEdit(parent=self)
 
         submit = QPushButton(parent=self, text='Create')
-        # ToDo: add logic to create button
+        submit.clicked.connect(
+            lambda: TaskLogic.createTask(Wydbid.employee.username, self.receiver.text(), self.title.text(),
+                                         self.description.toPlainText(), self.deadline, self)
+        )
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 
