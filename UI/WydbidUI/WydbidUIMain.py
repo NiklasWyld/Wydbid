@@ -53,6 +53,7 @@ class WydbidUIMain(QWidget):
         self.se = ShowEvent.ShowEvent()
 
         self.ct = CreateTask.CreateTask()
+        self.st = ShowTask.ShowTask()
 
         self.setupUI()
         self.setupMenuBar()
@@ -471,7 +472,7 @@ class WydbidUIMain(QWidget):
         self.task_search_bar.textChanged.connect(self.filterForReceiverInTasks)
 
         self.task_list = QTableWidget(parent=task_widget)
-        #self.task_list.clicked.connect(self.startShowEvent)
+        self.task_list.clicked.connect(self.startShowTask)
         self.startAppendTasks()
 
         lyt.addWidget(action_box)
@@ -670,6 +671,13 @@ class WydbidUIMain(QWidget):
         QMessageBox.about(self, 'Attention',
                           'You can delete an task by pressing the loupe symbol by the particular task and then '
                           'pressing the "Delete" button within the dialog.')
+
+    def startShowTask(self, item):
+        if item.data() == '🔎':
+            id = item.data(Qt.UserRole)
+            self.st.clear()
+            #self.se.setTask(id)
+            self.st.show()
 
 '''
 Date/Time Formats:
