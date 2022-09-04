@@ -49,11 +49,9 @@ class ShowTask(QWidget):
         action_box.setMinimumWidth(500)
         alyt = QHBoxLayout()
 
-        # ToDo: Add logic for edit and del task
-
         edit = QPushButton(parent=action_box, text='Edit')
         edit.setToolTip('Edit this task')
-        #edit.clicked.connect(self.startEditOrder)
+        edit.clicked.connect(self.startEditTask)
 
         delete = QPushButton(parent=action_box, text='Delete')
         delete.setToolTip('Delete this task')
@@ -64,11 +62,11 @@ class ShowTask(QWidget):
         alyt.addWidget(delete)
         action_box.setLayout(alyt)
 
-        authornote = QLabel(parent=self, text='Author Username')
+        authornote = QLabel(parent=self, text='Author Username: ')
         self.author = QLineEdit(parent=self)
         self.author.setMinimumWidth(450)
 
-        receivernote = QLabel(parent=self, text='Receiver Username:')
+        receivernote = QLabel(parent=self, text='Receiver Username: ')
         self.receiver = QLineEdit(parent=self)
         self.receiver.setMinimumWidth(450)
 
@@ -119,6 +117,11 @@ class ShowTask(QWidget):
         if not self.task_id == 0:
             if not self.task.done == self.done.isChecked():
                 TaskLogic.editTaskDone(self.task.id, self.done, self)
+
+    def startEditTask(self):
+        self.et.clear()
+        self.et.setTask(self.task_id)
+        self.et.show()
 
     def startDelTask(self):
         TaskLogic.delTask(self.task_id, self)

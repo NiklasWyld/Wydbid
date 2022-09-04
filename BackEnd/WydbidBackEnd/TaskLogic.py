@@ -210,3 +210,26 @@ def delTask(task_id: int, widget):
 
     widget.clear()
     widget.hide()
+
+def setTaskForEdit(task_id: int, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    task = session.query(Task).filter(Task.id == task_id).first()
+
+    if not task:
+        QMessageBox.warning(widget, 'Error', 'An error has occurred')
+        return
+
+    year = int(task.deadline.split('.')[2])
+    month = int(task.deadline.split('.')[1])
+    day = int(task.deadline.split('.')[0])
+
+    widget.author.setText(task.author_username)
+    widget.receiver.setText(task.receiver_username)
+    widget.title.setText(task.title)
+    widget.description.setText(task.description)
+    widget.deadline.setDate(QDate(year, month, day))
