@@ -5,8 +5,6 @@ from sqlalchemy.orm import sessionmaker
 from Data.DataCombi import *
 import Wydbid
 
-# ToDo: Del task too, when del employee (receiver, author)
-
 def createTask(author_username: str, receiver_username: str, title: str, description: str, deadline, widget):
     engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
     _session = sessionmaker()

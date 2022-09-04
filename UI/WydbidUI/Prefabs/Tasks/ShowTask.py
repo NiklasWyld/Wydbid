@@ -4,7 +4,6 @@ from PyQt5.QtGui import *
 from BackEnd.WydbidBackEnd import TaskLogic
 from UI.WydbidUI.Prefabs.Tasks import EditTask
 
-# ToDo: Make all shows more width (qlineedits)
 # ToDo: Make auto reload after action in all shows, creates, ...
 
 class ShowTask(QWidget):
