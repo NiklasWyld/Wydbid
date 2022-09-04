@@ -149,8 +149,6 @@ def delCustomerLinks(customer_id):
 
     base.metadata.create_all(engine)
 
-    # ToDo: Add all links
-
     appointments = session.query(Appointment).filter(Appointment.customer_id == customer_id).all()
     orders = session.query(Order).filter(Order.customer_id == customer_id).all()
 
