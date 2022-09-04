@@ -233,3 +233,52 @@ def setTaskForEdit(task_id: int, widget):
     widget.title.setText(task.title)
     widget.description.setText(task.description)
     widget.deadline.setDate(QDate(year, month, day))
+
+def editTask(task_id: int, author_username: str, receiver_username: str, title: str, description: str,
+             deadline, widget):
+    engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
+    _session = sessionmaker()
+    session = _session(bind=engine)
+
+    base.metadata.create_all(engine)
+
+    task = session.query(Task).filter(Task.id == task_id).first()
+
+    if not task:
+        QMessageBox.warning(widget, 'Error', 'An error has occurred')
+        return
+
+    if not author_username.strip() or not receiver_username.strip() or not title.strip():
+        QMessageBox.warning(Wydbid.app.parent(), 'Warning',
+                            'All mandatory fields (*) must be filled in.')
+        return
+
+    author = session.query(Employee).filter(Employee.username == author_username).first()
+    receiver = session.query(Employee).filter(Employee.username == receiver_username).first()
+
+    if not author:
+        QMessageBox.warning(widget, 'Error', 'An employee (author) with this username does not exist.')
+        return
+
+    if not receiver:
+        QMessageBox.warning(widget, 'Error', 'An employee (receiver) with this username does not exist.')
+        return
+
+    deadline = deadline.date().toString('dd.MM.yyyy')
+
+    session.query(Task).filter(Task.id == task_id).update(
+        {
+            Task.author_username: author_username,
+            Task.receiver_username: receiver_username,
+            Task.title: title,
+            Task.description: description,
+            Task.deadline: deadline
+        }
+    )
+
+    session.commit()
+
+    QMessageBox.about(widget, 'Updated task', f'Updated {task.title} successfully.')
+
+    widget.clear()
+    widget.hide()

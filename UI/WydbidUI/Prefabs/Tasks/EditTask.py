@@ -57,7 +57,9 @@ class EditTask(QWidget):
         self.deadline.setMinimumWidth(450)
 
         edit = QPushButton(parent=self, text='Edit')
-        # ToDo: Add edit logic
+        edit.clicked.connect(lambda: TaskLogic.editTask(self.task_id, self.author.text(), self.receiver.text(),
+                                                        self.title.text(), self.description.toPlainText(),
+                                                        self.deadline, self))
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
 
