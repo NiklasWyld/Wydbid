@@ -3,13 +3,14 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import Wydbid
-from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic, OrderLogic, EventLogic
+from BackEnd.WydbidBackEnd import WydbidUIMainLogic, AppointmentLogic, OrderLogic, EventLogic, TaskLogic
 from UI.WydbidUI.Prefabs import Settings
 from UI.WydbidUI.Prefabs.Customer import ViewCustomer, CreateCustomer, EditCustomer, DelCustomer
 from UI.WydbidUI.Prefabs.Appointments import CreateAppointment, EditAppointment, DelAppointment, ShowAppointment
 from UI.WydbidUI.Prefabs.News import ShowAllNews
 from UI.WydbidUI.Prefabs.Orders import CreateOrder, ShowOrder
 from UI.WydbidUI.Prefabs.Events import CreateEvent, ShowEvent
+from UI.WydbidUI.Prefabs.Tasks import CreateTask, ShowTask
 import screeninfo
 import threading
 
@@ -51,6 +52,9 @@ class WydbidUIMain(QWidget):
         self.ce = CreateEvent.CreateEvent()
         self.se = ShowEvent.ShowEvent()
 
+        self.ct = CreateTask.CreateTask()
+        self.st = ShowTask.ShowTask()
+
         self.setupUI()
         self.setupMenuBar()
 
@@ -88,6 +92,7 @@ class WydbidUIMain(QWidget):
         self.setupEvents(event_widget)
 
         task_widget = QWidget()
+        self.setupTasks(task_widget)
 
         email_widget = QWidget()
 
@@ -258,7 +263,7 @@ class WydbidUIMain(QWidget):
 
         reload = QPushButton('Reload')
         reload.setFixedWidth(120)
-        reload.clicked.connect(lambda: WydbidUIMainLogic.reloadCustomers(customerlist=self.customerlist))
+        reload.clicked.connect(self.startReloadCustomers)
 
         # Add reload button to bottom layout
         hlyt.addWidget(reload)
@@ -431,6 +436,51 @@ class WydbidUIMain(QWidget):
 
         event_widget.setLayout(lyt)
 
+    def setupTasks(self, task_widget: QWidget):
+        lyt = QVBoxLayout()
+
+        action_box = QGroupBox(parent=task_widget)
+        action_box.setFixedHeight(40)
+        alyt = QHBoxLayout()
+
+        add = QPushButton(parent=action_box, text='Create')
+        add.setToolTip('Create new task')
+        add.clicked.connect(self.startCreateTask)
+
+        edit = QPushButton(parent=action_box, text='Edit')
+        edit.setToolTip('Edit a task')
+        edit.clicked.connect(self.startEditTask)
+
+        delete = QPushButton(parent=action_box, text='Delete')
+        delete.setToolTip('Delete a task')
+        delete.clicked.connect(self.startDelTask)
+
+        reload = QPushButton(parent=action_box, text='Reload')
+        reload.setToolTip('Reload all tasks')
+        reload.clicked.connect(self.startAppendTasks)
+
+        alyt.setContentsMargins(1, 1, 1, 1)
+        alyt.addWidget(add)
+        alyt.addWidget(edit)
+        alyt.addWidget(delete)
+        alyt.addWidget(reload)
+        action_box.setLayout(alyt)
+
+        self.task_search_bar = QLineEdit(parent=task_widget)
+        self.task_search_bar.setPlaceholderText('Filter by receiver')
+        self.task_search_bar.setFixedHeight(40)
+        self.task_search_bar.textChanged.connect(self.filterForReceiverInTasks)
+
+        self.task_list = QTableWidget(parent=task_widget)
+        self.task_list.clicked.connect(self.startShowTask)
+        self.startAppendTasks()
+
+        lyt.addWidget(action_box)
+        lyt.addWidget(self.task_search_bar)
+        lyt.addWidget(self.task_list)
+
+        task_widget.setLayout(lyt)
+
     def setupDateTime(self, date_time: QGroupBox):
         self.time_label = QLabel(parent=date_time)
         self.time_label.setText('00:00:00')
@@ -483,6 +533,9 @@ class WydbidUIMain(QWidget):
         Wydbid.app.exit(0)
 
     # Event Management Methods
+
+    def startReloadCustomers(self):
+        WydbidUIMainLogic.reloadCustomers(customerlist=self.customerlist)
 
     def startCreateCustomer(self):
         self.cc.show()
@@ -546,11 +599,22 @@ class WydbidUIMain(QWidget):
             # if the search is not in the item's text do not hide the row
             self.event_list.setRowHidden(row, title not in item.text().lower())
 
+    def filterForReceiverInTasks(self):
+        receiver = self.task_search_bar.text().lower()
+        for row in range(self.task_list.rowCount()):
+            item = self.task_list.item(row, 2)
+
+            # if the search is not in the item's text do not hide the row
+            self.task_list.setRowHidden(row, receiver not in item.text().lower())
+
     def startAppendOrders(self):
         OrderLogic.appendOrders(self.order_list)
 
     def startAppendEvents(self):
         EventLogic.appendEvents(self.event_list)
+
+    def startAppendTasks(self):
+        TaskLogic.appendTasks(self.task_list)
 
     def startCreateOrder(self):
         self.co.clear()
@@ -574,8 +638,6 @@ class WydbidUIMain(QWidget):
             self.so.setOrder(id)
             self.so.show()
 
-    ###
-
     def startCreateEvent(self):
         self.ce.clear()
         self.ce.show()
@@ -597,6 +659,28 @@ class WydbidUIMain(QWidget):
             self.se.clear()
             self.se.setEvent(id)
             self.se.show()
+
+    def startCreateTask(self):
+        self.ct.clear()
+        self.ct.show()
+
+    def startEditTask(self):
+        QMessageBox.about(self, 'Attention',
+                          'You can edit an task by pressing the '
+                          'Loupe symbol by the particular task and then pressing'
+                          ' the "Edit" button within the dialog.')
+
+    def startDelTask(self):
+        QMessageBox.about(self, 'Attention',
+                          'You can delete an task by pressing the loupe symbol by the particular task and then '
+                          'pressing the "Delete" button within the dialog.')
+
+    def startShowTask(self, item):
+        if item.data() == '🔎':
+            id = item.data(Qt.UserRole)
+            self.st.clear()
+            self.st.setTask(id)
+            self.st.show()
 
 '''
 Date/Time Formats:

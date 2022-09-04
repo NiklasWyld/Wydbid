@@ -60,11 +60,12 @@ class ShowOrder(QWidget):
 
         titlenote = QLabel(parent=self, text='Title: ')
         self.title = QLineEdit(parent=self)
-        self.title.setMinimumWidth(255)
+        self.title.setMinimumWidth(450)
 
         descriptionnote = QLabel(parent=self, text='Description: ')
         self.description = QTextEdit(parent=self)
         self.description.setMaximumHeight(300)
+        self.title.setMinimumWidth(450)
 
         pricenote = QLabel(parent=self, text='Price: ')
         self.price = QLineEdit(parent=self)

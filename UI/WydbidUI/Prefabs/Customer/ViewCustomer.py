@@ -22,39 +22,39 @@ class ViewCustomer(QWidget):
 
         id_note = QLabel(parent=self, text='ID: ')
         self.id = QLineEdit(parent=self)
-        self.id.setFixedWidth(300)
+        self.id.setMinimumWidth(450)
 
         firstname_note = QLabel(parent=self, text='First name: ')
         self.firstname = QLineEdit(parent=self)
-        self.firstname.setFixedWidth(300)
+        self.firstname.setMinimumWidth(450)
 
         lastname_note = QLabel(parent=self, text='Last name: ')
         self.lastname = QLineEdit(parent=self)
-        self.lastname.setFixedWidth(300)
+        self.lastname.setMinimumWidth(450)
 
         email_note = QLabel(parent=self, text='E-mail address: ')
         self.email = QLineEdit(parent=self)
-        self.email.setFixedWidth(300)
+        self.email.setMinimumWidth(450)
 
         adress_note = QLabel(parent=self, text='Address: ')
         self.adress = QLineEdit(parent=self)
-        self.adress.setFixedWidth(300)
+        self.adress.setMinimumWidth(450)
 
         number_note = QLabel(parent=self, text='Telephone number: ')
         self.number = QLineEdit(parent=self)
-        self.number.setFixedWidth(300)
+        self.number.setMinimumWidth(450)
 
         gender_note = QLabel(parent=self, text='Gender: ')
         self.gender = QLineEdit(parent=self)
-        self.gender.setFixedWidth(300)
+        self.gender.setMinimumWidth(450)
 
         birthdate_note = QLabel(parent=self, text='Birth date: ')
         self.birthdate = QLineEdit(parent=self)
-        self.birthdate.setFixedWidth(300)
+        self.birthdate.setMinimumWidth(450)
 
         information_note = QLabel(parent=self, text='Information: ')
         self.information = QTextEdit(parent=self)
-        self.information.setFixedWidth(300)
+        self.information.setMinimumWidth(450)
 
         self.layout.addWidget(title, 0, 0, 1, 0, Qt.AlignCenter)
 

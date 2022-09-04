@@ -22,7 +22,7 @@ company_location = ''
 company = None
 employee = None
 
-WYDBID_VERSION = 'V0.25'
+WYDBID_VERSION = 'V0.26'
 # ToDo: On merch in main branch dev -> main
 GITHUB_VERSION_SOURCE = 'https://raw.githubusercontent.com/NiklasWyld/Wydbid/main/version.txt'
 
@@ -172,6 +172,11 @@ if __name__ == '__main__':
     loading_screen.show()
 
     buildLocation()
+
+    app.setApplicationName('Wydbid')
+    app.setObjectName('Wydbid')
+    app.setApplicationDisplayName('Wydbid')
+    app.setApplicationVersion(WYDBID_VERSION)
 
     # Set icon for all widgets
     app.setWindowIcon(QIcon('./Assets/Icon.jpeg'))

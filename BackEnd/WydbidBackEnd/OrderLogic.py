@@ -133,6 +133,8 @@ def createOrder(title: str, description: str, price: str, customer_id: str, widg
     QMessageBox.about(widget, 'Completed',
                       f'{title} was created.')
 
+    Wydbid.wydbidui.startAppendOrders()
+
     widget.clear()
     widget.hide()
 
@@ -178,6 +180,7 @@ def editClosed(order_id: int, check: QCheckBox, widget):
         }
     )
     session.commit()
+    Wydbid.wydbidui.startAppendOrders()
 
     QMessageBox.about(widget, 'Successfully changed', f'Order closed -> {str(check.isChecked())}')
 
@@ -210,6 +213,8 @@ def delOrder(order_id: int, widget):
 
     QMessageBox.about(widget, 'Completed',
                       'The order has been deleted!')
+
+    Wydbid.wydbidui.startAppendOrders()
 
     widget.clear()
     widget.hide()
@@ -273,6 +278,8 @@ def editOrder(order_id: int, title: str, description: str, price: str, customer_
     session.commit()
 
     QMessageBox.about(widget, 'Updated order', f'Updated {order.title} successfully.')
+
+    Wydbid.wydbidui.startAppendOrders()
 
     widget.clear()
     widget.hide()

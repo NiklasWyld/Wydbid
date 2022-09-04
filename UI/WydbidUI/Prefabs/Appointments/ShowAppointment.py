@@ -52,21 +52,25 @@ class ShowAppointment(QWidget):
 
         dateeditnote = QLabel(parent=self, text='Date: ')
         self.dateedit = QDateEdit(parent=self)
+        self.dateedit.setMinimumWidth(450)
 
         timeeditnote = QLabel(parent=self, text='Time: ')
         self.timeedit = QTimeEdit(parent=self)
+        self.timeedit.setMinimumWidth(450)
         self.timeedit.setTime(QTime.currentTime())
 
         titlenote = QLabel(parent=self, text='Title: ')
         self.title = QLineEdit(parent=self)
-        self.title.setMinimumWidth(255)
+        self.title.setMinimumWidth(450)
 
         descriptionnote = QLabel(parent=self, text='Description: ')
         self.description = QTextEdit(parent=self)
         self.description.setMaximumHeight(300)
+        self.description.setMinimumWidth(450)
 
         customernote = QLabel(parent=self, text='Customer: ')
         self.customer = QLineEdit(parent=self)
+        self.customer.setMinimumWidth(450)
         self.customer.textChanged.connect(lambda: self.startGetCustomer(self.customer, self.customer_name))
         self.customer_name = QLabel(parent=self, text='')
         self.customer_name.font().setPixelSize(10)

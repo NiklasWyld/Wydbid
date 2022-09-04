@@ -60,7 +60,7 @@ class ShowAllNews(QWidget):
 
         reload = QPushButton(parent=self, text='Reload')
         reload.clicked.connect(
-            lambda: NewsLogic.appendNews(self.news_list)
+            self.reloadNews
         )
 
         self.layout.addWidget(title, 1, 0, 1, 0, Qt.AlignCenter)
@@ -110,3 +110,6 @@ class ShowAllNews(QWidget):
             return
 
         NewsLogic.delNews(self.news_list, self)
+
+    def reloadNews(self):
+        NewsLogic.appendNews(self.news_list)

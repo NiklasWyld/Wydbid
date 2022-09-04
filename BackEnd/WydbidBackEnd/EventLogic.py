@@ -84,6 +84,8 @@ def createEvent(title: str, description: str, date, time, widget):
     QMessageBox.about(widget, 'Completed',
                       f'{title} was created.')
 
+    Wydbid.wydbidui.startAppendEvents()
+
     widget.clear()
     widget.hide()
 
@@ -142,6 +144,8 @@ def delEvent(event_id: int, widget):
     QMessageBox.about(widget, 'Completed',
                       'The event has been deleted!')
 
+    Wydbid.wydbidui.startAppendEvents()
+
     widget.clear()
     widget.hide()
 
@@ -178,6 +182,8 @@ def editEvent(event_id: int, title: str, description: str, date, time, widget):
     session.commit()
 
     QMessageBox.about(widget, 'Updated Event', f'Updated {event.title} successfully.')
+
+    Wydbid.wydbidui.startAppendEvents()
 
     widget.clear()
     widget.hide()
