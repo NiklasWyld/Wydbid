@@ -45,6 +45,8 @@ def createTask(author_username: str, receiver_username: str, title: str, descrip
     QMessageBox.about(widget, 'Completed',
                       f'{title} was created.')
 
+    Wydbid.wydbidui.startAppendTasks()
+
     widget.clear()
     widget.hide()
 
@@ -176,6 +178,8 @@ def editTaskDone(task_id: int, done: QCheckBox, widget):
     session.commit()
     QMessageBox.about(widget, 'Successfully changed', f'Task done -> {str(done)}')
 
+    Wydbid.wydbidui.startAppendTasks()
+
 def delTask(task_id: int, widget):
     engine = create_engine(f'sqlite:///{Wydbid.company_location}database.db')
     _session = sessionmaker()
@@ -205,6 +209,8 @@ def delTask(task_id: int, widget):
 
     QMessageBox.about(widget, 'Completed',
                       'The task has been deleted!')
+
+    Wydbid.wydbidui.startAppendTasks()
 
     widget.clear()
     widget.hide()
@@ -277,6 +283,8 @@ def editTask(task_id: int, author_username: str, receiver_username: str, title: 
     session.commit()
 
     QMessageBox.about(widget, 'Updated task', f'Updated {task.title} successfully.')
+
+    Wydbid.wydbidui.startAppendTasks()
 
     widget.clear()
     widget.hide()

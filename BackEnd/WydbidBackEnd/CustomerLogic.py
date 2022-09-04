@@ -27,6 +27,8 @@ def createCustomer(create_customer):
     QMessageBox.about(Wydbid.app.parent(), 'Completed',
                       f'{customer_new.firstname} {customer_new.lastname} was created under the id {str(customer_new.id)}.')
 
+    Wydbid.wydbidui.startReloadCustomers()
+
     create_customer.clear()
     create_customer.hide()
 
@@ -98,6 +100,8 @@ def editCustomer(customer_id, edit_customer):
     QMessageBox.about(Wydbid.app.parent(), 'Process completed',
                       f'{edit_customer.firstname.text()} {edit_customer.lastname.text()} has been successfully updated.')
 
+    Wydbid.wydbidui.startReloadCustomers()
+
     edit_customer.clear()
     edit_customer.hide()
 
@@ -138,6 +142,8 @@ def delCustomer(widget, id):
         QMessageBox.about(Wydbid.app.parent(), 'Completed',
                           'The customer has not been deleted!')
         session.commit()
+
+    Wydbid.wydbidui.startReloadCustomers()
 
     widget.clear()
     widget.hide()

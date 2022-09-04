@@ -263,7 +263,7 @@ class WydbidUIMain(QWidget):
 
         reload = QPushButton('Reload')
         reload.setFixedWidth(120)
-        reload.clicked.connect(lambda: WydbidUIMainLogic.reloadCustomers(customerlist=self.customerlist))
+        reload.clicked.connect(self.startReloadCustomers)
 
         # Add reload button to bottom layout
         hlyt.addWidget(reload)
@@ -533,6 +533,9 @@ class WydbidUIMain(QWidget):
         Wydbid.app.exit(0)
 
     # Event Management Methods
+
+    def startReloadCustomers(self):
+        WydbidUIMainLogic.reloadCustomers(customerlist=self.customerlist)
 
     def startCreateCustomer(self):
         self.cc.show()

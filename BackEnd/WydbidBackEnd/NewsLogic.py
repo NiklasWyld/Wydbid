@@ -30,6 +30,7 @@ def createNewsFinal(widget):
     widget.clear()
     widget.hide()
 
+    Wydbid.wydbidui.san.reloadNews()
     Wydbid.wydbidui.setLatestNews()
 
 def appendNews(newslist: QListWidget):
@@ -96,6 +97,8 @@ def delNews(news_list: QListWidget, widget):
     QMessageBox.about(Wydbid.app.parent(), 'Completed',
                       'The news has been deleted!')
 
+    Wydbid.wydbidui.san.reloadNews()
+
     widget.hide()
     Wydbid.wydbidui.setLatestNews()
 
@@ -135,6 +138,8 @@ def editNews(news_id, title, description, widget):
 
     QMessageBox.about(Wydbid.app.parent(), 'Process completed',
                       f'{title} has been successfully updated.')
+
+    Wydbid.wydbidui.san.reloadNews()
 
     widget.clear()
     widget.hide()

@@ -4,8 +4,6 @@ from PyQt5.QtGui import *
 from BackEnd.WydbidBackEnd import TaskLogic
 from UI.WydbidUI.Prefabs.Tasks import EditTask
 
-# ToDo: Make auto reload after action in all shows, creates, ...
-
 class ShowTask(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__()
