@@ -15,6 +15,7 @@ import screeninfo
 import threading
 
 # ToDo: New slogan: There is nothing, oh wait, there is, Wydbid!
+# ToDo: Fix news bug on first start
 
 class WydbidUIMain(QWidget):
     def __init__(self, *args, **kwargs):
@@ -94,15 +95,12 @@ class WydbidUIMain(QWidget):
         task_widget = QWidget()
         self.setupTasks(task_widget)
 
-        email_widget = QWidget()
-
         self.tabwidget.addTab(news_widget, 'News')
         self.tabwidget.addTab(customer_widget, 'Customer list')
         self.tabwidget.addTab(appointment_widget, 'Appointments')
         self.tabwidget.addTab(order_widget, 'Orders')
         self.tabwidget.addTab(event_widget, 'Events')
         self.tabwidget.addTab(task_widget, 'Tasks')
-        self.tabwidget.addTab(email_widget, 'Emails')
 
         self.layout().addWidget(date_time, 0, 0, 1, 0)
         self.layout().addWidget(self.tabwidget, 1, 0)
